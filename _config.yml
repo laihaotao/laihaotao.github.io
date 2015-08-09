@@ -1,7 +1,7 @@
 markdown: redcarpet
 redcarpet:
     extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
-highligter:       pygments
+highlighter:       pygments
 paginate:         4
 
 title:            Eric_Lai's blog
