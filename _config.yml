@@ -1,0 +1,33 @@
+markdown:         rdiscount
+pygments:         true
+paginate:         4
+
+title:            Eric_Lai's blog
+url:              http://laihaotao.github.io
+feed:             /atom.xml
+author:
+    name:         Eric
+    email:        qq584863350@gmail.com
+    description:  "Hello World"
+
+about:            "I am Eric who is interested in android java and web."
+follow:
+    email:        qq584863350@gmail.com
+    github:       https://github.com/LAIHAOTAO
+    wechat:       Eric-LLL
+description:      
+
+indexContent:     true
+imageLink:        http://www.pizn.net/static/images/20121109Monutain.jpg
+
+
+style:            /css/style.css
+blogName:         Eric
+blogDesc:         Be better than yesterday
+favicon:          /favicon.ico
+theme:            default
+
+disqus:           Ericblog
+
+copyright:        Copyright © 2015 Eric All rights reserved.
+test:             ok
