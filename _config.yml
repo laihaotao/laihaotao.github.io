@@ -1,6 +1,6 @@
 markdown: redcarpet
 redcarpet:
-    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough", "highlight"]
 highlighter:       pygments
 paginate:         4
 
