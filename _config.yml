@@ -1,6 +1,7 @@
-markdown: redcarpet
+markdown: Redcarpet
+markdown_ext:  markdown,mkd,mkdn,md
 redcarpet:
-    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough", "highlight"]
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data", "footnotes","space_after_headers","highlight","underline","quote","lax_spacing"]
 highlighter:       pygments
 paginate:         4
 
