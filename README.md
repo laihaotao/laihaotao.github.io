@@ -1,17 +1,5 @@
-###Jekyll 博客主题实践/About
+### about
+这是我的个人博客，这个博客的主题是由<a href="http://www.pizn.me" target="_blank">PIZn</a>编写，在此特别感谢。
 
-随着 GitHub 的发展和 Jekyll 建站的方便，越来越多人使用 Jekyll 构件博客。blogTheme 是 <a href="http://www.pizn.me" target="_blank">PIZn</a> 的一个设计和开发的实践，在于提供更多的 Jekyll 主题，方便大家快速建立自己的博客。
+在他的基础上，我稍作了一些增减。本人正在申请国外的硕士，这阶段主要是为这个目标服务（提供一些关于我的资料，这部分都会用英语来书写，造成不便还请见谅）。当然，其中的博客还是自己写来看，为自己服务的。当中有任何不对的地方，还请不吝指正。谢谢。
 
-###主题列表/Theme
-
-* Violet Theme 1.0
-* Black Cube Theme 1.0
-* <a href="http://www.pizn.net/14-11-2012/theone-blog-theme/">theOne Theme 1.0</a>
-
-###LICENSE
-
-由 <a href="http://www.pizn.me" target="_blank">PIZn</a> 设计的这些主题列表，均是开源。只要您在使用的时候，注明由 <a href="http://www.pizn.me" target="_blank">PIZn</a> 设计和编写既可。代码均采用 <a href="http://zh.wikipedia.org/wiki/MIT_License" target="_blank">MIT LICENSE</a> 许可.
-
-###联系作者/Contact
-
-Email: pizner#gmail.com
