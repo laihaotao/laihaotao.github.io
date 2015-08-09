@@ -18,8 +18,6 @@ follow:
 description:      
 
 indexContent:     false
-imageLink:        http://github.com/LAIHAOTAO/laihaotao.github.io/images/aboutme.jpg
-
 
 style:            /css/style.css
 blogName:         Eric
@@ -29,5 +27,5 @@ theme:            default
 
 disqus:           Ericblog
 
-copyright:        Copyright © 2015 Eric All rights reserved.
+copyright:        Copyright © 2015 Eric_Lai All rights reserved.
 test:             ok
