@@ -17,8 +17,8 @@ follow:
     wechat:       Eric-LLL
 description:      
 
-indexContent:     true
-imageLink:        http://www.pizn.net/static/images/20121109Monutain.jpg
+indexContent:     false
+imageLink:        http://github.com/LAIHAOTAO/laihaotao.github.io/images/aboutme.jpg
 
 
 style:            /css/style.css
