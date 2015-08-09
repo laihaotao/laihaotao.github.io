@@ -1,5 +1,5 @@
-markdown:         rdiscount
-pygments:         true
+markdown:         redcarpet
+highligter:       pygments
 paginate:         4
 
 title:            Eric_Lai's blog
