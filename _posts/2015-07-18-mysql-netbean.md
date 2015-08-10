@@ -1,6 +1,7 @@
 ---
 layout: post
 title: netbean下部署tomcat服务器连接mysql数据库
+description:  详细介绍了怎么在netbean下部署tomcat服务器并且将其连接到mysql数据库
 keyword: netbean, tomcat, database, mysql
 ---
 

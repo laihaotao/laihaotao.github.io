@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Android的SQLite数据库存储
-decrisption: 介绍了怎么使用android的Android的SQLite数据库存储数据库存储技术
+description: 介绍了怎么使用android的Android的SQLite数据库存储数据库存储技术
 Keyword: android, Android, SQLite
 ---
 
