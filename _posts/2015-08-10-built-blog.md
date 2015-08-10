@@ -76,7 +76,7 @@ redcarpet:
 我使用的markdown解释器是redcarpet，可能其他也可以但是我没有测试过。以上添加的是关于解释器部分，现在Jekyll引擎还不知道我们要调用pygments，所以为了告知它我们还需要添加下面这句：
 
 ```sh
-highlighter: cygments
+highlighter: pygments
 ```
 有了上面这些，我们已经可以使用pygments来高亮我们的代码了，但是这个css文件还没有加入到我们的模版当中，这个时候我们需要找一下一个default.html的文件，这是默认的模版，一般放在_layout这个文件夹当中。打开这个文件，在`<head>`和`</head>`的标签之间添加一行代码：
 
@@ -84,6 +84,7 @@ highlighter: cygments
 <link rel="stylesheet" href="/css/pygments.css" type="text/css">
 ```
 **注意了，这里的路径很重要。我的repository下laihaotao.github.css文件夹是专门用来放置css文件的，所以我的路径如上所示。这里没有添加正确的路径的话是没有办法调用该css，也就是你的代码还是没办法高亮。**
+
 到了这里，保存config.yml文件和default.css文件，把这些更改commit之后，再push到master分支上，过个几分钟就可以去访问你的文章看看了。果然，代码已经有高亮了。
 # 后记
 这一切做完，回顾下来好像又不是很复杂。但是时间也的确用了不少。做完，感觉萌萌嗒。第一篇真正搭完这个blog的文章就先这样，去研究下怎么把以前在csdn上写的文章转移过来。有空post上过程。
