@@ -20,7 +20,7 @@ follow:
     wechat:       Eric-LLL
 description:      
 
-indexContent:     true
+indexContent:     false
 
 style:            /css/style.css
 blogName:         Eric
