@@ -357,15 +357,16 @@ li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
  *************************/
 #head-line { width: 100%; height: 5px; background: black; position: fixed; top: 0; left: 0; z-index: 101; }
 #foot-line { width: 100%; height: 5px; background: black; position: fixed; bottom: 0; left: 0; z-index: 101;}
-#content { width: 100%;}
-#head { width: 320px; min-height: 400px; height: auto;  position: fixed; left: 0; top: 5px; font-weight: 700; text-align: center; }
+#content { width: 85%;}
+#head { width: 320px; min-height: 400px; height: 100%;  position: fixed; left: 0; top: 5px; font-weight: 700; text-align: center; background-color: black}
 #logo { margin: .8em auto 1.8em auto; width: 200px; height: 200px; border-radius: 100px 100px; background: #f8f8f8; }
 #logo h1 { font-family: 'JennaSue'; font-size: 80px; width: 200px; overflow: hidden;  line-height: 200px; text-align: center; text-shadow: -1px 2px 3px #a0a0a0; }
 #logo h2 { font-weight: 400; font-family:'JennaSue'; font-size:  30px; color: #898989; line-height: 50px; padding-bottom: .3em; border-bottom: 1px dotted #d8d8d8; }
-#nav { margin: 6em auto 2em auto; }
-#nav li { padding: .5em 0; display: block; width: 79.9%; height: 30px; margin: 0 auto; text-align: left;}
-#nav a { color: #d8d8d8;border: 3px solid #fff;font-weight: 400;font-size: 16px;border-radius: 20px 20px; padding: 5px 20px; }
-#nav a:hover, #nav a.action { text-decoration: none;color: #000; border-color: #000;}
+#nav { margin: 6em auto 2em auto;}
+#nav li { padding: .5em 0; display: block; width: 79.9%; height: 30px; margin: 0 auto;}
+#nav .fn-clear{text-align: left; margin-left: 30%;}
+#nav a { color: #d8d8d8;border: 3px solid #000;font-weight: 400;font-size: 16px;border-radius: 20px 20px; padding: 5px 20px;}
+#nav a:hover, #nav a.action { text-decoration: none;color: #fff; border-color: #fff;}
 #nav a:hover { -moz-transition:  border-color .3s linear, color .3s linear; -webkit-transition: border-color .3s linear, color .3s linear; transition: border-color .3s linear, color .3s linear; }
 #contain { margin-left: 320px; border-left: 1px solid #d8d8d8; min-height: 900px; position: relative; min-width: 658px; z-index: 100;}
 #begin { font-weight: 700;  padding: 40px 0 40px 40px; display: block; border-bottom: 1px solid #ccc; font-size: 18px;text-shadow: -1px 1px 1px #d8d8d8; font-style: italic; }
