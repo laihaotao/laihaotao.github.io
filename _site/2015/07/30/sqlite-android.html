@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    **
+    * 此文档的原作者是PIZn，邮箱pizner@gmail.com
+    *
+    * 在他的基础上由我做了二次做了修改
+    * 本人Eric_Lai,邮箱qq584863350@gmail.com
+    * 
+    **
+    -->
+    <meta charset="utf-8" />
+    <title>Android的SQLite数据库存储 | Eric_Lai's blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="Eric" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://laihaotao.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/pygments.css" type="text/css">
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://laihaotao.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://laihaotao.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <h1>Eric</h1>
+            <h2>Be better than yesterday</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://laihaotao.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/about.html"><i class="icon-info-sign"></i> About</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li><img src="http://laihaotao.github.io/images/aboutme.jpg"></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>2015-07-30 00:00:00 +0800</span>
+        </header>
+		<article class="post">
+    <h1 class="post-title">Android的SQLite数据库存储</h1>
+    <p><strong><em>以下内容是学习android的过程的记录，部分是自己的理解，部分来自与网络，部分来自于书籍《第一行代码》。欢迎转载，请注明出处。</em></strong></p>
+
+<h1 id="创建数据库">创建数据库</h1>
+
+<p>为了帮助我们管理数据库，提供了一个SQLiteOpenHelper帮助类，借助这个类，可以非常简单的对数据库进行创建和升级。</p>
+
+<p>该类是一个抽象类。我们如果想要使用需要创建一个自己的帮助类去继承它，然后在类中重写它的两个<strong>抽象方法onCreate()和onUpgrade()</strong>，分别用于实现创建和升级的逻辑。此外，该类中还有两个非常重要的实例方法，getReadableDatabase()和getWriteableDatabase()。这两个方法都可以用于创建或者打开一个现有的数据库（如果已经存在就直接打开，否则创建一个新的），并返回一个读写操作的对象。不同的是，当数据库不可写入时，getReadableDatabase()返回对象以只读的形式打开数据库，而getWriteableDatabase()则会出现异常。</p>
+
+<p>SQLiteOpenHelper中有两个构造方法可供重写，一般使用参数少的那个即可，这个构造方法接受四个参数：</p>
+
+<ul>
+<li>第一个是Context</li>
+<li>第二个是数据库名</li>
+<li>第三个允许我们查询数据时返回的一个i额自定义的Cursor，一般传入null</li>
+<li>第四个是表示当前数据库的版本号</li>
+<li>具体签名：MyDatabaseHelper(Context context, String name, SursorFactory factory, int version)</li>
+</ul>
+
+<p>下面给出一个具体的使用例子：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyDatabaseHelper</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span><span class="o">{</span>
+    <span class="c1">//构建建表语句</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATE_BOOK</span> <span class="o">=</span> <span class="s">&quot;create table Book (&quot;</span>
+           <span class="o">+</span> <span class="s">&quot;id integer primary key autoincrement, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;author text, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;price real, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;pages integer, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;name text)&quot;</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Context</span> <span class="n">mContext</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">){</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
+        <span class="n">mContext</span><span class="o">=</span><span class="n">context</span><span class="o">;</span><span class="c1">//获取当前的context</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">){</span>
+        <span class="c1">//调用SQLiteOpenHelper的execSQL()方法执行建表</span>
+        <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">CREATE_BOOK</span><span class="o">);</span>
+        <span class="c1">//mContext用在这里了</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">mContext</span><span class="o">,</span><span class="s">&quot;Create succeeded&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldversion</span><span class="o">,</span> <span class="kt">int</span> <span class="k">new</span> <span class="n">version</span><span class="o">){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>下面给出对应的MainActivity的相关代码，活动界面的布局代码就不给出了，只是一个按钮而已。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">MyDatabaseHelper</span> <span class="n">dbHelper</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">){</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">conCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;数据库名称.db&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="n">Button</span> <span class="n">createDatabase</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">create_database</span><span class="o">);</span><span class="c1">//id要看你自己起的</span>
+        <span class="n">createDatabase</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">(){</span>
+            <span class="nd">@override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">){</span>
+                <span class="n">dbHelper</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p><strong><em>注意：怎么查看数据库和表是否建立成功不在我们的讨论范围，相关详情可以搜索“如何运用Android SDK的adb调试工具”</em></strong></p>
+
+<hr>
+
+<h1 id="数据库的升级">数据库的升级</h1>
+
+<h2 id="初级">初级</h2>
+
+<p>大家都可以看到，上面的程序有一个空着的方法还没有使用，从它的名字我们也可以看到这是一个用于数据库升级的程序。下面我们来研究一下怎么使用这个方法。比如，现在我想要在上面的数据库的基础上再建多一张表。我们用以下的代码：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">//请注意，这是一个错误的例子！</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyDatabaseHelper</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span><span class="o">{</span>
+    <span class="c1">//构建建表语句</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATE_BOOK</span> <span class="o">=</span> <span class="s">&quot;create table Book (&quot;</span>
+           <span class="o">+</span> <span class="s">&quot;id integer primary key autoincrement, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;author text, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;price real, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;pages integer, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;name text)&quot;</span> <span class="o">;</span>
+    <span class="c1">//构建多一个建表语句</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATE_BOOK_ANOTHER</span> <span class="o">=</span> <span class="s">&quot;create table Book_Another (&quot;</span>
+           <span class="o">+</span> <span class="s">&quot;id integer primary key autoincrement, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;author text, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;price real, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;pages integer, &quot;</span>
+           <span class="o">+</span> <span class="s">&quot;name text)&quot;</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Context</span> <span class="n">mContext</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">){</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
+        <span class="n">mContext</span><span class="o">=</span><span class="n">context</span><span class="o">;</span><span class="c1">//获取当前的context</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">){</span>
+        <span class="c1">//调用SQLiteOpenHelper的execSQL()方法执行建表</span>
+        <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">CREATE_BOOK</span><span class="o">);</span>
+        <span class="c1">//执行另一个表的建表语句</span>
+        <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">CREATE_BOOK_ANOTHER</span><span class="o">);</span>
+        <span class="c1">//mContext用在这里了</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">mContext</span><span class="o">,</span><span class="s">&quot;Create succeeded&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldversion</span><span class="o">,</span> <span class="kt">int</span> <span class="k">new</span> <span class="n">version</span><span class="o">){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">//请注意，这是一个错误的例子！</span>
+</code></pre></div>
+<p>你会发现上面的代码并没有起到什么作用。原因很简单，自从我们点击了上面的按钮之后，数据库就已经建立完成了。无论我们再怎么按那个按钮，MyDatabaseHelper当中的onCreate()方法都不会再执行。当然，一个有效的方法是把这个应用卸载之后再重新安装。但是为了更新数据库而去卸载应用的代价比较大，这个方法比较极端。下面提供一个比较温和的方法来实现，通过SQLiteOpenHelper的升级功能。修改上面的代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyDatabaseHelper</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span><span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldversion</span><span class="o">,</span> <span class="kt">int</span> <span class="k">new</span> <span class="n">version</span><span class="o">){</span>
+    <span class="c1">//通过以上例子可以总结出，这个的用法----&gt; db.execSQL(&quot;SQL语句&quot;);</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="s">&quot;drop table if exists Book&quot;</span><span class="o">);</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="s">&quot;drop table if exists Book_Another&quot;</span><span class="o">);</span>
+    <span class="n">onCreate</span><span class="o">(</span><span class="n">db</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>通过以上代码，可以看到我们把原来的表drop掉了。然后在调用onCreate方法创建了两个新的表。但是我们需要怎么做才可以让这个onUpgrade(）方法执行呢？其实很简单，只要我们在MainActivity当中MyDatabaseHelper 的构造将version参数改为比原来的大就好了（一开始是1的话现在可以改成2），如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;数据库名称.db&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+</code></pre></div>
+<p>改为：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;数据库名称.db&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+</code></pre></div>
+<h2 id="进阶">进阶</h2>
+
+<p>利用上面的方法，我们不需要每次都卸载app了。但是要把整个数据表直接删除再新建一个的代价也是挺大的。还有没有别的方法可以用来实现呢，而且只要把新的加进去就可以了。答案当然是有的！请看：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">...</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldversion</span><span class="o">,</span> <span class="kt">int</span> <span class="k">new</span> <span class="n">version</span><span class="o">){</span>
+    <span class="k">switch</span><span class="o">(</span><span class="n">oldversion</span><span class="o">){</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">BOOK_ANOTHER</span><span class="o">);</span>
+        <span class="k">default</span><span class="o">:</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="o">...</span>
+</code></pre></div>
+<p>这样，通过判断就的版本号，我们可以知道当前的版本，然后仅仅执行添加的操作就可以了。如果以后还有什么操作可以就这用case用下面接。<strong>注意，这里的case后面没有接break语句。</strong>因为当前用户的版本可能离现在的版本不止差一个。所以需要它一直更新下去，直到最新的版本。</p>
+
+<hr>
+
+<p>#四种数据的操作CRUD</p>
+
+<p>对于数据库的操作，通常情况下有一下四种：</p>
+
+<ul>
+<li>添加Create</li>
+<li>查询Retrieve</li>
+<li>更新Updata</li>
+<li>删除Delete</li>
+</ul>
+
+<p>Android提供了两种操作数据库的方法，一种是使用传统的SQL语句（<em>推荐熟悉SQL的使用这种方法更加简便</em>），通过调用db.execSQL()方法来实现。还有一种就是利用getReadableDatabase()和getWriteableDatabase()这两个方法返回的SQLiteDatabase对象。利用这个对象的一系列方法，可以完成对数据库的一系列操作。该对象提供的方法如下：</p>
+
+<blockquote>
+<ul>
+<li><strong>insert(table, null, vaules)</strong></li>
+<li><strong>updata(table, values, selection, selectionArgs)</strong>
+eg :    db.updata(<q>Book</q>, values, <q>name=?</q>, new String[] {<q>The Dacinci Code</q>});
+<q>?</q>代表占位符，后面字符串数组的每一个元素就代表着一个占位符的内容，代表SQL当中的where</li>
+<li><strong>delete((table, selection, selectionArgs)</strong>
+eg:   db.delete((<q>Book</q>, <q>page>?</q>, new String[] {<q>500</q>});
+<q>?</q>代表占位符，后面字符串数组的每一个元素就代表着一个占位符的内容，代表SQL当中的where
+上面的eg的意思是删除Book表当中page大于500的所有行的数据<br></li>
+<li><strong>query(table, columns, selection, selectionArgs, groupBy, having, orderBy)</strong>
+这个函数比较复杂,因为参数比较多。使用的时候不必全部参数都传入，多数情况下只要传入几个参数，其他保持默认即可。这个方法调用后会返回一个Cursor对象，保存有查询出来的全部数据。使用get方法取出需要的数据即可。<strong>注意，使用完Cursor后要调用Cursor.close()来关闭这个对象！</strong></li>
+</ul>
+</blockquote>
+
+<p>以上有关values的使用会在下面的小节里面的代码当中展示出来。</p>
+
+<hr>
+
+<p>#使用事务
+我们什么时候需要使用事务：</p>
+
+<blockquote>
+<p>事务的特性可以让一系列的操作要么全部完成要都不完成。
+eg：转账的过程当中需要将钱用一个账户中取出来再放到另一个账户当中。如果钱取出来了，但是发生异常，这个资金没有去到应该去的账户当中，那钱不就凭空的消失了？使用事务可以有效的避免这种情况的发生。</p>
+</blockquote>
+
+<p>下面是一个使用数据库事务的<strong>代码片段</strong>不能直接作为demo使用：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">...</span>
+<span class="kd">private</span> <span class="n">MyDatabaseHelper</span> <span class="n">dbHelper</span><span class="o">;</span>
+<span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">MyDatabaseHelper</span><span class="o">(</span><span class="s">&quot;数据表名&quot;</span><span class="o">,</span><span class="s">&quot;数据库名&quot;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="n">version</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">dbHelper</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+<span class="n">db</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">();</span><span class="c1">//启用事务的方法</span>
+<span class="k">try</span><span class="o">{</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="s">&quot;表名&quot;</span><span class="err">，</span><span class="kc">null</span><span class="err">，</span><span class="kc">null</span><span class="o">)</span><span class="err">；</span><span class="c1">//企图删除整个表</span>
+    <span class="k">if</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+        <span class="c1">//抛出一个异常</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NullPointerException</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">//这里是values的使用，将要添加的数据放到这个对象里面在加入到数据库当中</span>
+    <span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">ContentValues</span> <span class="o">();</span>
+    <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span><span class="s">&quot;第一行代码&quot;</span><span class="o">);</span>
+    <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;author&quot;</span><span class="o">,</span><span class="s">&quot;郭霖&quot;</span><span class="o">);</span>
+    <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;pages&quot;</span><span class="o">,</span><span class="mi">552</span><span class="o">);</span>
+    <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;price&quot;</span><span class="o">,</span><span class="mi">79</span><span class="o">);</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="s">&quot;表名&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">endTransaction</span><span class="o">();</span><span class="c1">//终止事务</span>
+<span class="o">}</span>
+<span class="o">...</span>
+</code></pre></div>
+<hr>
+
+<p>好了，Android的SQLite数据库就基本到这里。水平有限，若有错漏，还请指正。</p>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://laihaotao.github.io/2015/07/19/jstl.html" rel="bookmark">&laquo;&nbsp;使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互</a>
+        
+        
+        <a class="next" href="http://laihaotao.github.io/2015/08/07/listview.html" rel="bookmark">ListView 用法解释&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+        <center><footer id="foot">
+            <p>Copyright © 2015 Eric_Lai All rights reserved.</p>
+            <P>This theme template was designed by <a href="http://www.pizn.net" target="_blank" title="the One theme author">PIZn</a>, thanks!</P>
+        </footer></center>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://laihaotao.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/theOne.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /**
+     * disqus
+     */
+    var disqusId = $("#disqus_thread");
+    if(disqusId && typeof disqusId != "undefined" && disqusId.length != 0) {
+        var disqusName = "Ericblog";
+        var disqus_shortname = disqusName != "" ? disqusName : "piznblog";
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+});
+</script>
+</body>
+</html>

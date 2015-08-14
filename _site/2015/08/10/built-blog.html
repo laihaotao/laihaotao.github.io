@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    **
+    * 此文档的原作者是PIZn，邮箱pizner@gmail.com
+    *
+    * 在他的基础上由我做了二次做了修改
+    * 本人Eric_Lai,邮箱qq584863350@gmail.com
+    * 
+    **
+    -->
+    <meta charset="utf-8" />
+    <title>Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题 | Eric_Lai's blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="Eric" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://laihaotao.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/pygments.css" type="text/css">
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://laihaotao.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://laihaotao.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <h1>Eric</h1>
+            <h2>Be better than yesterday</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://laihaotao.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/about.html"><i class="icon-info-sign"></i> About</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li><img src="http://laihaotao.github.io/images/aboutme.jpg"></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>2015-08-10 00:00:00 +0800</span>
+        </header>
+		<article class="post">
+    <h1 class="post-title">Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题</h1>
+    <p><strong><em>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</em></strong></p>
+
+<h1 id="前言">前言</h1>
+
+<p>折腾了好几天，到昨天终于弄出了一个所谓的“静态博客”大概框架，利用现下灰常流行的jekyll和github page。打算写下一些东西记录下这个过程，或许还能帮到其他的人。您现在看到的这个blog就是这样搭出来的，在这里特别感谢<a href="http://www.pizn.net">PIZn</a>，这个blog的主题是由他设计，我在他的基础上增减并添加了自己的元素。废话不多说，进入正题了。</p>
+
+<h1 id="搭建过程">搭建过程</h1>
+
+<h2 id="github-page">github page</h2>
+
+<p>既然是一个网页，那当然要有网络上的空间来进行存储。现在github当然是主流了，而且它还可以提供我们一个<strong>二级域名</strong>，我们只需要建立一个很你用户名一样的代码仓库即可。什么？不会建代码仓库，那你先按后面的链接访问<a href="http://www.github.com">Github</a>主页，注册一下即可获得你的账号，然后点击右上角的＋new repository。后面的步骤都比较容易了，注意repository的名字一定要是<strong>/你的用户名.github.io</strong>。这里做好之后，你就已经有了存放网页的空间了，这里有两种选择，一是直接使用github提供的自动生成网页功能，二是使用自定义的Jekyll来搭建，前者不在今天我们的研究范围。</p>
+
+<p>这里需要解释一下，github page本身是支持Jekyll的，也就是说只要我们把文章post上去之后，github的Jekyll就会帮我们自动的解析。那我们为什么要在本地装Jekyll呢？当然是为了我们的调试，但是这并不是必要因素。想了解更多关于Jekyll的资料，请访问它的<a href="http://jekyllrb.com">官网</a>，如果英文水平有限，可以访问它的<a href="http://jekyllcn.com">中文翻译网站</a>。</p>
+
+<h2 id="安装一些软件">安装一些软件</h2>
+
+<p>为了方便我们在本地调试，我们还是有必要安装一些东西：</p>
+
+<ul>
+<li><a href="https://www.ruby-lang.org/en/downloads/">ruby</a></li>
+<li><a href="https://rubygems.org/pages/download">rubygems</a></li>
+<li><a href="https://nodejs.org">nodejs</a>或者其他js的运行环境</li>
+<li>linux, mac os x, unix (不推荐在window下使用，当然使用也是可以的，你可以参看<a href="http://jekyllcn.com/docs/windows/">这里</a>)</li>
+</ul>
+
+<p>说了这么多，竟然都还没有说到Jekyll。当你<strong>成功</strong>安装上面的东西之后，最简便的安装方法就是用命令行模式了，打开终端输入以下命令：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>gem install jekyll
+</code></pre></div>
+<p>等一段时间，就可以看到完成安装了。这里不打算介绍怎么使用Jekyll的命令了，想了解的可以参看上面列出的相关网站。</p>
+
+<h2 id="配置文件夹">配置文件夹</h2>
+
+<p>你可以使用以下命令来获得一个符合要求的目录结构</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">cd</span> 你希望的目录地址
+<span class="nv">$ </span>jekyll new username.github.io
+</code></pre></div>
+<p>这样你就获得了相关的目录，<strong>但是这样使用的将会是Jekyll的默认主题</strong>。我个人觉得不太好看，如果想要更好的主题，最好的方法就是clone一个别人的，然后做自己的修改。当然，别忘了标注原创者的贡献。例如我的这个blog就是在<a href="http://www.pizn.net">PIZn</a>创作的the one主题的基础上搭建成的。
+我们来看看一个基本的blog的目录架构：</p>
+
+<ul>
+<li>config.yml //重要的配置文件</li>
+<li>_layout
+------&gt;default.html
+------&gt;post.html</li>
+<li>_post
+------&gt;你的文章放在这里</li>
+<li>css
+------&gt;样式文件放在这里</li>
+<li>index.html //blog的主页</li>
+</ul>
+
+<p>以上是基本的必须东西，每个人都有一些不同也是正常，还有一些是为了做的能好而添加的这里不详细的列举出来了。如果有兴趣可以参看我的blog的目录，请点击<a href="https://github.com/LAIHAOTAO/laihaotao.github.io">这里</a>。</p>
+
+<h2 id="config-yml说明">config.yml说明</h2>
+
+<p>做完上述的这些，一个基本的blog框架就已经搭建出来了。如果你要在其中添加一些个性化的设置，可以再congif.yml里面进行添加。添加完之后，如果后面的代码当中有需要使用，可以用来取得它的值(value)。在这里，你还可以对Jekyll的一些功能进行配置，详细的功能配置，请看<a href="http://jekyllcn.com/docs/configuration/">这里</a>。</p>
+
+<h2 id="使用cygments配置高亮代码">使用cygments配置高亮代码</h2>
+
+<p>在前面的基础上，我搭建好之后就迫不及待地把之前写的一篇文章post上来做测试了。但是发现了一个问题，其中的代码部分不会高亮。而且格式还不太对，不能识别围栏式代码块。这可就郁闷了，作为一个准码农（blog主还没毕业哈）的blog，不能高亮代码可不是什么好事。赶快Google了一下，发现比较常用的解决方案时使用pygments来高亮代码。那我就赶快行动起来了，要使用这个首先要安装一下，Mac下使用easy_install安装就可以了（前提是你有这个功能，至于怎么获得这个，还请自行Google一下了哈）。Mac下，打开终端输入以下命令：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>easy_install pip
+<span class="nv">$ </span>pip install pygments
+</code></pre></div>
+<p>过一小会儿，就可以发现安装成功了。然后，用cd命令进入你存放css的文件夹下，执行以下命令：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>pygmentize -S xcode -f html &gt; pygments.css
+</code></pre></div>
+<p>如果顺利的执行完这个命令，该目录下就会多出一个叫pygments.css的文件，这就是高亮代码用到的文件了。在这里，<code>-s xcode</code>表示的是一种高亮的样式，pygments提供了很多种样式供我们选择，可以访问<a href="http://pygments.org/demo/2352259/?style=xcode">这里</a>一一查看样式们然后选择你喜欢的。下面，你还需要更改一下config.yml的配置，在开头加入如下代码：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">markdown: redcarpet
+markdown_ext:  markdown,mkd,mkdn,md
+redcarpet:
+  extensions: <span class="o">[</span><span class="s2">&quot;no_intra_emphasis&quot;</span>, <span class="s2">&quot;fenced_code_blocks&quot;</span>, <span class="s2">&quot;autolink&quot;</span>, <span class="s2">&quot;tables&quot;</span>, <span class="s2">&quot;strikethrough&quot;</span>, <span class="s2">&quot;superscript&quot;</span>, <span class="s2">&quot;with_toc_data&quot;</span>, <span class="s2">&quot;footnotes&quot;</span>,<span class="s2">&quot;space_after_headers&quot;</span>,<span class="s2">&quot;highlight&quot;</span>,<span class="s2">&quot;underline&quot;</span>,<span class="s2">&quot;quote&quot;</span>,<span class="s2">&quot;lax_spacing&quot;</span><span class="o">]</span>
+</code></pre></div>
+<p>我使用的markdown解释器是redcarpet，可能其他也可以但是我没有测试过。以上添加的是关于解释器部分，现在Jekyll引擎还不知道我们要调用pygments，所以为了告知它我们还需要添加下面这句：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">highlighter: pygments
+</code></pre></div>
+<p>有了上面这些，我们已经可以使用pygments来高亮我们的代码了，但是这个css文件还没有加入到我们的模版当中，这个时候我们需要找一下一个default.html的文件，这是默认的模版，一般放在_layout这个文件夹当中。打开这个文件，在<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>的标签之间添加一行代码：</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/css/pygments.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p><strong>注意了，这里的路径很重要。我的repository下laihaotao.github.css文件夹是专门用来放置css文件的，所以我的路径如上所示。这里没有添加正确的路径的话是没有办法调用该css，也就是你的代码还是没办法高亮。</strong></p>
+
+<p>到了这里，保存config.yml文件和default.css文件，把这些更改commit之后，再push到master分支上，过个几分钟就可以去访问你的文章看看了。果然，代码已经有高亮了。</p>
+
+<h1 id="后记">后记</h1>
+
+<p>这一切做完，回顾下来好像又不是很复杂。但是时间也的确用了不少。做完，感觉萌萌嗒。第一篇真正搭完这个blog的文章就先这样，去研究下怎么把以前在csdn上写的文章转移过来。有空post上过程。</p>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://laihaotao.github.io/2015/08/07/listview.html" rel="bookmark">&laquo;&nbsp;ListView 用法解释</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+        <center><footer id="foot">
+            <p>Copyright © 2015 Eric_Lai All rights reserved.</p>
+            <P>This theme template was designed by <a href="http://www.pizn.net" target="_blank" title="the One theme author">PIZn</a>, thanks!</P>
+        </footer></center>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://laihaotao.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/theOne.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /**
+     * disqus
+     */
+    var disqusId = $("#disqus_thread");
+    if(disqusId && typeof disqusId != "undefined" && disqusId.length != 0) {
+        var disqusName = "Ericblog";
+        var disqus_shortname = disqusName != "" ? disqusName : "piznblog";
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+});
+</script>
+</body>
+</html>

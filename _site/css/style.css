@@ -363,7 +363,7 @@ li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
 #logo h1 { font-family: 'JennaSue'; font-size: 80px; width: 200px; overflow: hidden;  line-height: 200px; text-align: center; text-shadow: -1px 2px 3px #a0a0a0; }
 #logo h2 { font-weight: 400; font-family:'JennaSue'; font-size:  30px; color: #898989; line-height: 50px; padding-bottom: .3em; border-bottom: 1px dotted #d8d8d8; }
 #nav { margin: 6em auto 2em auto; }
-#nav li { padding: .5em 0; display: block; width: 79.9%; height: 30px; margin: 0 auto; }
+#nav li { padding: .5em 0; display: block; width: 79.9%; height: 30px; margin: 0 auto; text-align: left;}
 #nav a { color: #d8d8d8;border: 3px solid #fff;font-weight: 400;font-size: 16px;border-radius: 20px 20px; padding: 5px 20px; }
 #nav a:hover, #nav a.action { text-decoration: none;color: #000; border-color: #000;}
 #nav a:hover { -moz-transition:  border-color .3s linear, color .3s linear; -webkit-transition: border-color .3s linear, color .3s linear; transition: border-color .3s linear, color .3s linear; }

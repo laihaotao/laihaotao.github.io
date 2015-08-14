@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    **
+    * 此文档的原作者是PIZn，邮箱pizner@gmail.com
+    *
+    * 在他的基础上由我做了二次做了修改
+    * 本人Eric_Lai,邮箱qq584863350@gmail.com
+    * 
+    **
+    -->
+    <meta charset="utf-8" />
+    <title>Java的swing编程（二） | Eric_Lai's blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="Eric" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://laihaotao.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/pygments.css" type="text/css">
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://laihaotao.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://laihaotao.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <h1>Eric</h1>
+            <h2>Be better than yesterday</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://laihaotao.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/about.html"><i class="icon-info-sign"></i> About</a></li>
+                <li class="fn-clear"><a href="http://laihaotao.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li><img src="http://laihaotao.github.io/images/aboutme.jpg"></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>2015-07-07 00:00:00 +0800</span>
+        </header>
+		<article class="post">
+    <h1 class="post-title">Java的swing编程（二）</h1>
+    <p>其中布局管理器概述部分是转载了他人（<a href="http://blog.sina.com.cn/s/blog_6f116c940101alna">http://blog.sina.com.cn/s/blog_6f116c940101alna</a>) 转载的网络上的一篇文章但是该转载没有注明转载地址，我也不得而知，感谢原博主。</p>
+
+<h1 id="模型-视图-控制器设计模式">模型-视图-控制器设计模式</h1>
+
+<p>设计模式：在解决一个问题时，不需要从头做起，而是借鉴过去的经验，或者向做过的专家请教。设计模式就是一种方法，这种方法以一种结构化的形式展示专家们的心血。</p>
+
+<p>AWT和swing设计中，应用的几种设计模式：</p>
+
+<ul>
+<li>模型-视图-控制器模式</li>
+<li>容器和组件是“组合模式”</li>
+<li>带滚动条的是“装饰器模式”</li>
+<li>布局管理器是“策略模式”</li>
+</ul>
+
+<p>用户界面的各个组成部件当中，每个部件都有三个要素：</p>
+
+<ul>
+<li>内容（按键的状态或者文本框的文本）</li>
+<li>外观（颜色大小等）</li>
+<li>行为（对事件的反应）。</li>
+</ul>
+
+<p>面向对象设计的基本原则：限制一个对象拥有的功能的数量。</p>
+
+<p>模型-视图-控制器模式（MWC）的实现由三个独立的类构成：</p>
+
+<ul>
+<li>模型（model）</li>
+<li>存储内容、视图（view）</li>
+<li>显示内容、控制器（controller）</li>
+<li>处理用户输入。</li>
+</ul>
+
+<p>以按键为例来学习模型类：
+每个JButton对象都存储一个按键模型对象，用一下方法可以得到ta的引用：(每个属性的描述参看P327表9-1)</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">JButton</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;Blue&quot;</span><span class="o">);</span>
+<span class="n">ButtonModel</span> <span class="n">buttonModel</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="na">getModel</span><span class="o">();</span>
+</code></pre></div>
+<h1 id="布局管理器概述">布局管理器概述</h1>
+
+<h2 id="1-borderlayout">1.BorderLayout</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">java.lang.Object
+--java.awt.BorderLayout
+</code></pre></div>
+<p>将版面划分成东、西、南、北、中五个区域，将添加的组件按指定位置放置。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">BorderLayout.EAST
+BorderLayout.WEST
+BorderLayout.SOUTH
+BorderLayout.NORTH
+BorderLayout.CENTER
+</code></pre></div>
+<p>构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">BorderLayout()
+</code></pre></div>
+<p>建立组件间无间距的BorderLayout:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">BorderLayout(int hgap,int vgap)
+</code></pre></div>
+<p>建立组件间水平间距为hgap,垂直间距为vgap的BorderLayout:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BorderLayoutDemo</span> <span class="o">{</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="c1">//建立一个JFrame,JFrame的默认LayoutManager为BorderLayout   </span>
+        <span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="nf">JFrame</span><span class="o">(</span><span class="s">&quot;BorderLayout&quot;</span><span class="o">);</span>  
+        <span class="n">JButton</span> <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;BorderLayout.NORTH&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">NORTH</span><span class="o">);</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;BorderLayout.SOUTH&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">);</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;BorderLayout.EAST&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">EAST</span><span class="o">);</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;BorderLayout.West&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">WEST</span><span class="o">);</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;BorderLayout.CENTER&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>  
+    <span class="o">}</span>  
+
+<span class="o">}</span>  
+</code></pre></div>
+<h2 id="2-flowlayout">2.FlowLayout</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">java.lang.Object
+--java.awt.FlowLayout
+</code></pre></div>
+<p>组件按从左到右而后从上到下的顺序依次排列，一行不能放完则折到下一行。</p>
+
+<p>构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">FlowLayout()
+</code></pre></div>
+<p>建立一个默认为居中对齐,组件彼此有5单位的水平与垂直间距的FlowLayout</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">FlowLayout(int align)
+</code></pre></div>
+<p>建立一个可设置排列方式且组件彼此有5单位的水平与垂直间距的FlowLayout</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">FlowLayout(int align,int hgap,int vgap)
+</code></pre></div>
+<p>建立一个可设置排列方式与组件间距的FlowLayout</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">span</span> <span class="n">style</span><span class="o">=</span><span class="s">&quot;white-space:pre&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlowLayoutDemo</span> <span class="o">{</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="nf">JFrame</span><span class="o">(</span><span class="s">&quot;FlowLayout&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="nf">FlowLayout</span><span class="o">());</span>  
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">7</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>  
+            <span class="n">JButton</span> <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;Button&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">);</span>  
+            <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">);</span>  
+        <span class="o">}</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setSize</span><span class="o">(</span><span class="mi">300</span><span class="o">,</span><span class="mi">150</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>  
+    <span class="o">}</span>  
+
+<span class="o">}</span>  
+</code></pre></div>
+<h2 id="3-gridlayout">3.GridLayout</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">java.lang.Object
+--java.awt.GridLayout
+</code></pre></div>
+<p>矩形网格形式对容器的组件进行布置</p>
+
+<p>构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridLayout()
+</code></pre></div>
+<p>建立一个默认为一行一列的GridLayout</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridLayout(int rows,int cols)
+</code></pre></div>
+<p>建立一个指定行(rows)和列(cols)的GridLayout</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridLayout(int rows,int cols,int hgap,int vgap)
+</code></pre></div>
+<p>建立一个指定行(rows)和列(cols)，且组件间水平间距为hgap、垂直间距为vgap的GridLayout</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridLayoutDemo</span> <span class="o">{</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="nf">JFrame</span><span class="o">(</span><span class="s">&quot;GridLayout&quot;</span><span class="o">);</span>  
+        <span class="c1">//设置f的布局管理器为3行3列的GridLayout,组件间水平与垂直间距为5   </span>
+        <span class="n">f</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="nf">GridLayout</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">));</span>  
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>  
+            <span class="n">JButton</span> <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>  
+            <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">);</span>  
+        <span class="o">}</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>  
+    <span class="o">}</span>  
+
+<span class="o">}</span>  
+</code></pre></div>
+<h2 id="4-gridbaglayout">4.GridBagLayout</h2>
+
+<p>j   ava.lang.Object
+    --java.awt.GridBagLayout
+GridBagLayout以表格形式布置容器内的组件，将每个组件放置在每个单元格内，而一个单元格可以跨越多个单元格合并成一个单元格，即多个单元格可以组合成一个单元格，从而实现组件的自由布局。
+构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridBagLayout()
+</code></pre></div>
+<p>建立一个默认的GridBagLayout
+每一个单元格都有各自的属性，而这些属性由GridBagConstrainsts类的成员变量来定义，且GridBagConstriaints中的所有成员变量都是public的。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">java.lang.Object
+--java.awt.GridBagConstratints
+</code></pre></div>
+<p>构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridBagConstraints()
+</code></pre></div>
+<p>建立一个默认的GridBagConstraints</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GridBagConstraints(intgridx,int gridy,int gridwidth,int gridheight,double weightx,double weighty,int anchor,int fill,Insets insets,int ipadx,int ipady)
+</code></pre></div>
+<p>建立一个指定其参数值的GridBagConstraints
+GridBagConstraints的成员变量：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">gridx</span>
+<span class="kt">int</span> <span class="n">gridy</span>
+<span class="kt">int</span> <span class="n">gridwidth</span>
+<span class="kt">int</span> <span class="n">gridheight</span>
+<span class="kt">double</span> <span class="n">weightx</span>
+<span class="kt">double</span> <span class="n">weighty</span>
+<span class="kt">int</span> <span class="n">anchor</span>
+<span class="kt">int</span> <span class="n">fill</span>
+<span class="n">Insets</span> <span class="n">insets</span>
+<span class="kt">int</span> <span class="n">ipadx</span>
+<span class="kt">int</span> <span class="n">ipady</span>
+</code></pre></div>
+<p>gridx,gridy：设置组件所处行与列的起始坐标。例如gridx=0,gridy=0表示将组件放置在0行0列单元格内。
+gridwidth,gridheight：设置组件横向与纵向的单元格跨越个数。
+可以通过GridBagConstraints的RELETIVE,和REMAINDER来进行指定，它的用法是：
+当把gridx值设置为GridBagConstriants.RELETIVE时，所添加的组件将被放置在前一个组件的右侧。同理，对gridy 值设置为GridBagConstraints.RELETIVE时，所添加的组件将被放置在前一个组件的下方，（这是一种根据前一个组件而决定当前组 件的相对放置方式）
+对gridweight和gridheight也可以应用GridBagConstraints的REMAINDER方式，创建的组件会从创建的起点位置 开始一直延伸到容器所能允许的界限为止。该功能使得你可以创建跨越某些行或列的组件，从而改变相应方向上组件的数目，即使其后在布局的其他地方添加额外的组件也是如此。
+weightx,weighty：设置窗口变大时的缩放比例。
+nchor：设置组件在单元格中的对齐方式。由以下常量来定义</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">CENTER</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">EAST</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">WEST</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">SOUTH</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NORTH</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">SOUTHEAST</span>
+<span class="n">GrisBagConstraints</span><span class="o">.</span><span class="na">SOUTHWEST</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NORTHEAST</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NORTHWEST</span>
+</code></pre></div>
+<p>fill：当某个组件未能填满单元格时，可由此属性设置横向、纵向或双向填满。由以下常量来定义</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NONE</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">HORIZONTAL</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">VERTICAL</span>
+<span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">BOTH</span>
+</code></pre></div>
+<p>i nsets：设置单元格的间距。
+java.lang.Object
+--java.awt.Insets
+Insets(int top,int left,int bottom,int right)
+ipadx,ipady：将单元格内的组件的最小尺寸横向或纵向扩大。若一个组件的尺寸为30*10像素，ipadx=2,ipady=3,则单元格内的组件最小尺寸为34*16像素</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridBagLayoutDemo</span> <span class="o">{</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="nf">JFrame</span><span class="o">(</span><span class="s">&quot;GridBagLayout&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="nf">GridBagLayout</span><span class="o">());</span>  
+        <span class="n">JButton</span> <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">);</span>  
+        <span class="n">GridBagConstraints</span> <span class="n">gbc</span><span class="o">=</span><span class="k">new</span> <span class="nf">GridBagConstraints</span><span class="o">();</span>  
+        <span class="c1">//设定第一个单元格的属性值   </span>
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridy</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridwidth</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridheight</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weightx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weighty</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">anchor</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NORTHWEST</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">fill</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">NONE</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">insets</span><span class="o">=</span><span class="k">new</span> <span class="nf">Insets</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipadx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipady</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">gbc</span><span class="o">);</span>  
+
+        <span class="c1">//设定第二个单元格属性值   </span>
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridx</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridy</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridwidth</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">REMAINDER</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridheight</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weightx</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weighty</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">anchor</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">CENTER</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">fill</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">HORIZONTAL</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">insets</span><span class="o">=</span><span class="k">new</span> <span class="nf">Insets</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">);</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipadx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipady</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;second&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">gbc</span><span class="o">);</span>  
+
+        <span class="c1">//设定第三个单元格属性值   </span>
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridy</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridwidth</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">gridheight</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">REMAINDER</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weightx</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">weighty</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">anchor</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">CENTER</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">fill</span><span class="o">=</span><span class="n">GridBagConstraints</span><span class="o">.</span><span class="na">VERTICAL</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">insets</span><span class="o">=</span><span class="k">new</span> <span class="nf">Insets</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipadx</span><span class="o">=</span><span class="mi">10</span><span class="o">;</span>  
+        <span class="n">gbc</span><span class="o">.</span><span class="na">ipady</span><span class="o">=</span><span class="mi">10</span><span class="o">;</span>  
+        <span class="n">btn</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;three&quot;</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btn</span><span class="o">,</span><span class="n">gbc</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>  
+    <span class="o">}</span>  
+
+<span class="o">}</span>  
+</code></pre></div>
+<h2 id="5-boxlayout">5.BoxLayout</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">java.lang.Object
+--javax.swing.BoxLayout
+</code></pre></div>
+<p>以嵌套式盒子来管里容器的布局，通过将组件放入水平或垂直形盒子以多层嵌套的方式进行布局。
+构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">BoxLayout(Container target,int axis)
+</code></pre></div>
+<p>建立一个水平或垂直的BoxLayout，BoxLayout提供两个常数X_AXIS和Y_AXIS来表示水平或垂直排列。
+说到BoxLayout，就不得不提到Box这个Container，Box这个Container默认的Layout为BoxLayout，而它只能使用这个Layout，否则编译时会有Error产生。
+java.lang.Object
+--javax.swing.Box
+Box有水平的和垂直的两种形式。
+构造函数：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Box(int axis)
+</code></pre></div>
+<p>建立一个Box Container（容器），并指定组件的排列方式，通过使用BoxLayout提供的两个常数X_AXIS和Y_AXIS来指定。</p>
+
+<p>方法：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">public static Box createHorizontalBox()
+</code></pre></div>
+<p>构造一个水平排列的Box组件。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoxLayoutDemo</span> <span class="o">{</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="nf">JFrame</span><span class="o">(</span><span class="s">&quot;BoxLayout&quot;</span><span class="o">);</span>  
+        <span class="c1">//创建水平Box组件   </span>
+        <span class="n">Box</span> <span class="n">box</span><span class="o">=</span><span class="n">Box</span><span class="o">.</span><span class="na">createHorizontalBox</span><span class="o">();</span>  
+        <span class="n">JButton</span> <span class="n">btnA</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;A&quot;</span><span class="o">);</span>  
+        <span class="n">JButton</span> <span class="n">btnB</span><span class="o">=</span><span class="k">new</span> <span class="nf">JButton</span><span class="o">(</span><span class="s">&quot;B&quot;</span><span class="o">);</span>  
+        <span class="n">box</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btnA</span><span class="o">);</span>  
+        <span class="n">box</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">btnB</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">box</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>  
+        <span class="n">f</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>  
+    <span class="o">}</span>  
+
+<span class="o">}</span>   
+</code></pre></div>
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://laihaotao.github.io/2015/07/06/java-swing1.html" rel="bookmark">&laquo;&nbsp;Java的swing编程（一）</a>
+        
+        
+        <a class="next" href="http://laihaotao.github.io/2015/07/13/call-back.html" rel="bookmark">我理解的回调（callback）&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+        <center><footer id="foot">
+            <p>Copyright © 2015 Eric_Lai All rights reserved.</p>
+            <P>This theme template was designed by <a href="http://www.pizn.net" target="_blank" title="the One theme author">PIZn</a>, thanks!</P>
+        </footer></center>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://laihaotao.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://laihaotao.github.io/js/theOne.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /**
+     * disqus
+     */
+    var disqusId = $("#disqus_thread");
+    if(disqusId && typeof disqusId != "undefined" && disqusId.length != 0) {
+        var disqusName = "Ericblog";
+        var disqus_shortname = disqusName != "" ? disqusName : "piznblog";
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+});
+</script>
+</body>
+</html>
