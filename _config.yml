@@ -6,7 +6,7 @@ highlighter:       pygments
 paginate:         4
 
 title:            Eric_Lai's blog
-url:              
+url:              laiihaotao.github.io
 feed:             /atom.xml
 author:
     name:         Eric
