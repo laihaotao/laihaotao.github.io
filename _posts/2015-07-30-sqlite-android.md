@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Android的SQLite数据库存储
-description: 介绍了怎么使用android的Android的SQLite数据库存储数据库存储技术
+description: introduction about how to use Android's SQLite database
 Keyword: android, Android, SQLite
 ---
 
@@ -23,7 +23,7 @@ SQLiteOpenHelper中有两个构造方法可供重写，一般使用参数少的�
 
 下面给出一个具体的使用例子：
 
-```java   
+```java
 public class MyDatabaseHelper extends SQLiteOpenHelper{
 	//构建建表语句
 	public static final String CREATE_BOOK = "create table Book ("
