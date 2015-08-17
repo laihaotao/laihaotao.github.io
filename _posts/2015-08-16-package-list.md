@@ -13,8 +13,10 @@ keyword: html javascript jquery
 
 # 开发过程
 二话不说先上图，以下是两张屏幕快照，分别是数据采集界面和生成单据界面：
-![数据采集界面]（https://github.com/LAIHAOTAO/laihaotao.github.io/images/overlook.png）
-![单据生成界面]（https://github.com/LAIHAOTAO/laihaotao.github.io/images/listlook.png）
+<img src="/images/overlook.png" alt="overlook" >
+数据采集界面
+<img src="/images/listlook.png" alt="listlook" >
+单据生成界面
 
 好吧，看到楼上的图我知道又要吐槽我的界面有多难看了。这个臣妾也不想的啊，但是实在没有什么审美做出好图和好的界面出来，各位忽略这一点吧。相比这些而言，我更想的是记录我在开发过程中的一些感想。
 
