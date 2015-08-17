@@ -489,7 +489,7 @@ h1, h2, h3, h4, h5, h6{ font-weight: 500; color:#333; }
 *************************/
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     body {overflow-x:  hidden;}
-    #head { width: 25%;}
+    #head { width: 27%;}
     #begin { width: 75%; padding: 30px 5%; }
     #contain { margin-left: 35%; min-width: 69.9%; width; 69.9%; overflow: hidden; }
     .post p, .post h3, .post h4, .post blockquote, .post li, .post table, .post img, .post audio, .post iframe, .post audio, .post canvas, .post video {
