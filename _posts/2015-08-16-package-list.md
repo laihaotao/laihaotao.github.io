@@ -15,6 +15,7 @@ keyword: html javascript jquery
 二话不说先上图，以下是两张屏幕快照，分别是数据采集界面和生成单据界面：
 <img src="/images/overlook.png" alt="overlook" >
 数据采集界面
+
 <img src="/images/listlook.png" alt="listlook" >
 单据生成界面
 
