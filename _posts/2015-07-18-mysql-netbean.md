@@ -4,7 +4,7 @@ title: netbean下部署tomcat服务器连接mysql数据库
 description: introduction how to deployment tomcat server and link to mysql database under netbean
 keyword: netbean, tomcat, database, mysql
 ---
-
+**本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 # 前言
 
 继续上文，由于学校的项目没人。只好自己来现学现卖，今天研究了一番怎么配置数据库到服务器上。也是废了好一番功夫，我显示参考了NetBeans的官方教程，然而它使用的不是我们常用的Tomcat服务器，而且教程不讲原理只讲步骤我看得好痛苦。一番摸索下来，通过stackflow和tomcat自带的说明文档，用于研究出来了怎么部署。记录一番，以备查用。

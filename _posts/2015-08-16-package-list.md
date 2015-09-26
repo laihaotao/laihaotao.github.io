@@ -4,7 +4,7 @@ title: 一个简单的公司单据自动生成应用（基于HTML)
 description: a kind of list automation-bulit system for small company applicant
 keyword: html javascript jquery
 ---
-
+**本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 # 写在前面
 前几天去亲戚家玩耍，发现小伙伴在给他父亲的公司开送货单。用的是先在execl上做好然后复制到word上排好版，再打印出来。我看着他操纵觉得有点麻烦，萌生了要不要**“造个轮子”**的想法。虽然“造轮子”是一个很愚蠢的方法，造的时间都可以用上述的方法开几十上百张单了。但是本着做中学的想法，我用了两天时间在家闭门造轮。时间有点长了，大神们勿喷。囧...
 
