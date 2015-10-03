@@ -2,7 +2,7 @@
 layout: post
 title: 算法之最大子数组问题
 description：introduction of the big sum of the subarray
-keyword: sum of subarray algorithm
+keyword: algorithm, big sum, subarray
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 
