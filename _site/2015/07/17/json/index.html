@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>使用第三方库json-lib来传递json格式数据 - Eric's Blog</title>
+
+    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/07/17/json/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>使用第三方库json-lib来传递json格式数据</h1>
+                    
+                    <span class="meta">Posted by Eric's Blog on July 17, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<h1 id="前言">前言</h1>
+
+<p>由于学校的一个小项目的需要，需要我在android端发起一个POST请求，然后服务端返回一组json数据。为了处理这个事情，今天早早的我就起床准备来写一个servlet的小测试代码。然而看了众多的教程，头晕了很久，照着一些例程来写之后发现打印出来的只有一个样子。但是没有数据。为了这个我一直认为是我的逻辑代码不对。我就先不部署tomcat，在纯java的环境下做了一个测试，最后发现的问题竟然是.....先买个关子，如果你也有这样的情况，请您继续看下去。
+构建工程</p>
+
+<p>我使用的是NetBeans的环境，新建工程什么的废话就不说了。为了使用第三方库（json-lib）你首先需要获得它的jar包和一系列相关的支持包。如果你没有的话请按<a href="http://download.csdn.net/detail/haotao_lai/8906333">这里</a>下载。</p>
+
+<p>对于蛋疼的NetBeans，导入包也是一个技术活。记得导入之后，在你需要使用这个包里的资源的地方要import，否则会报错。
+做完之后在工程下建几个类，以方便我们的测试。工程目录的图片如下：
+<img src="http://img.blog.csdn.net/20150716172207673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+
+<h1 id="详细代码">详细代码</h1>
+
+<p>做完这个就开始写代码了，先介绍一下这里面需要自己写的三个类：</p>
+
+<ul>
+<li>JavaJson: 这个类是主函数的所在</li>
+<li>JsonTool: 这个类是用来将普通对象转化成json格式的工具类</li>
+<li>person: 这个Bean是用来创建一个等着被转化对象的实验类<br></li>
+</ul>
+
+<p><mark>此处应有颜色，对于Bean类的声明必须使用 public 否则会报错！这里磨了我好长时间呐。</mark></p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="n">javajson</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaJSON</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="s">&quot;eric&quot;</span><span class="o">,</span><span class="s">&quot;18&quot;</span><span class="o">,</span><span class="s">&quot;male&quot;</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">JsonTool</span><span class="o">.</span><span class="na">createJsonString</span><span class="o">(</span><span class="s">&quot;person&quot;</span><span class="o">,</span> <span class="n">person</span><span class="o">));</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JsonTool</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">createJsonString</span><span class="o">(</span><span class="n">String</span> <span class="n">k</span><span class="o">,</span> <span class="n">Object</span> <span class="n">v</span><span class="o">){</span>
+        <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">JSONObject</span><span class="o">();</span>      
+        <span class="n">json</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span><span class="o">);</span>       
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">gender</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="n">String</span> <span class="n">n</span><span class="o">,</span> <span class="n">String</span> <span class="n">a</span><span class="o">,</span> <span class="n">String</span> <span class="n">g</span><span class="o">){</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+        <span class="n">gender</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAge</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getGender</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">gender</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">n</span><span class="o">){</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+  <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="n">String</span> <span class="n">a</span><span class="o">){</span>
+      <span class="n">age</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+  <span class="o">}</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setGender</span><span class="o">(</span><span class="n">String</span> <span class="n">g</span><span class="o">){</span>
+      <span class="n">gender</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div>
+<p>结果
+<img src="http://img.blog.csdn.net/20150716172956997?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+
+<p>至此完成整个实验，输出的结果如下图所示：</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/13/call-back/" data-toggle="tooltip" data-placement="top" title="我理解的回调（callback）">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/18/mysql-netbean/" data-toggle="tooltip" data-placement="top" title="netbean下部署tomcat服务器连接mysql数据库">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

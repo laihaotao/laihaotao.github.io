@@ -1,34 +1,19 @@
+# Site settings
+title: Eric's Blog
+header-img: img/home-bg.jpg
+email: qq584863350@gmail.com
+description: " Be better than yesterday "
+baseurl: "/startbootstrap-clean-blog-jekyll"
+url: "http://laihaotao.github.io"
+//twitter_username: 
+github_username:  LAIHAOTAO
+facebook_username:  facebook.com/eric.lai.9843499
+
+# Build settings
 markdown: redcarpet
-markdown_ext:  markdown,mkd,mkdn,md
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data", "footnotes","space_after_headers","highlight","underline","quote","lax_spacing"]
-highlighter:       pygments
-paginate:         4
-
-title:            Eric_Lai's blog
-url:              http://laihaotao.github.io
-feed:             /atom.xml
-author:
-    name:         Eric
-    email:        qq584863350@gmail.com
-    description:  "Hello World"
-
-about:            "I am Eric who is interested in android java and web."
-follow:
-    email:        qq584863350@gmail.com
-    github:       https://github.com/LAIHAOTAO
-    wechat:       Eric-LLL
-description:      
-
-indexContent:     false
-
-style:            /css/style.css
-blogName:         Eric
-blogDesc:         Be better than yesterday
-favicon:          /favicon.ico
-theme:            default
-
-disqus:           Ericblog
-
-copyright:        Copyright © 2015 Eric_Lai All rights reserved.
-test:             ok
+highlighter: pygments
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]

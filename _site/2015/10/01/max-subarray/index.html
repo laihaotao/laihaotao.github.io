@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>最大子数组问题 - Eric's Blog</title>
+
+    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/10/01/max-subarray/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>最大子数组问题</h1>
+                    
+                    <span class="meta">Posted by Eric's Blog on October 1, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<h2 id="什么是最大子数组">什么是最大子数组</h2>
+
+<p>在一个序列当中，有正数、负数和零（如果全是非负数，那么最大子数组问题将没有研究的意义）。最大子数组是指，其中连续的某几个数相加之后和最大，那么这几个连续的数称为该数组的最大子数组。</p>
+
+<h2 id="怎么求解一个任意数组的最大子数组">怎么求解一个任意数组的最大子数组</h2>
+
+<h2 id="暴力无脑法">暴力无脑法</h2>
+
+<p>最最最简单的方法，当然就是遍历这个数组找出它的每一个子数组，然后分别求和，再比较这些和的大小。这个方法我称之为暴力无脑法，虽然它的时间复杂度比较大，但是也是一个解决问题的方法。事实上，很多的问题都可以使用暴力来解决。先看看这个方法是如何实现的。</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">violent</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">maxSum</span> <span class="o">=</span> <span class="mi">0</span><span class="err">；</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="err">；</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">maxSum</span><span class="p">){</span>
+                <span class="n">maxSum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>暴力法固然简单，但是从上面我们可以看到这是两个for循环的嵌套，最里面的循环从j到n，它的时间复杂度应该是（n²）。</p>
+
+<h2 id="分治策略">分治策略</h2>
+
+<p>让我们升级一下，摆脱无脑法，用一些上档次的方法来解决这个问题。分治法，在英文里它叫做divide and conquer。先把问题分开，然后再逐个征服。分治法的指导思想是这样的：</p>
+
+<ul>
+<li>把一个问题先分解成若干个小问题</li>
+<li>递归的调用一个方法来解决这些问题</li>
+<li>把解决完的问题的答案合并形成原先问题的答案</li>
+</ul>
+
+<p>联系我们在归并排序时候接触到分治法时的解决方案，第一步就是把这个数组或者说序列一分为二，在这里我们同样这样操作，记中间的元素为mid，它归入到前半部分里面。分成两部分之后，最大子数组必然出现在以下三个位置当中：</p>
+
+<ul>
+<li>前半部分</li>
+<li>后半部分</li>
+<li>跨越前半和后半部分（必然包含了mid）</li>
+</ul>
+
+<p>以上三个问题仍然是最大子数组问题。前两个情况下，我们都还是只需要再次调用求最大子数组的函数即可解决（一直递归下去，直到剩下一个数字）。现在看来，问题的核心就在于求解跨越中点部分的最大子数组。先来研究一下伪码的实现过程：</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">find_crossing_mid</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="n">high</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mid</span><span class="p">){</span>
+    <span class="n">leftSum</span> <span class="o">=</span> <span class="err">负无穷；</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">low</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">leftSum</span><span class="p">){</span>
+            <span class="n">leftSum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+            <span class="n">cross_low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">rightSum</span> <span class="o">=</span> <span class="err">负无穷；</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">if</span> <span class="o">=</span><span class="p">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">rightSum</span><span class="p">){</span>
+            <span class="n">rightSum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+            <span class="n">cross_high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">cross_low</span><span class="p">,</span> <span class="n">cross_high</span><span class="p">,</span> <span class="n">leftSum</span> <span class="o">+</span> <span class="n">rightSum</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>以上这段伪码的思想是，从mid开始分别向左右两边查找，找到两边的最大子数组以后，再把它们加起来。注意这里是从mid开始向两边查找，左边子数组的范围是从[i.....mid]，右边的子数组的范围是从[mid+1.....j]。</p>
+
+<p>有了上面的方法，我们只需要再写一个处理不跨越中点的方法即可。用于处理最大子数组在mid的完全左边或者完全右边。伪码应该可以写成以下的样子：</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">find_max_subarray</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="n">high</span><span class="p">){</span>
+    <span class="c1">//检查基本情况</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">low</span> <span class="o">==</span> <span class="n">high</span><span class="p">){</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">low</span><span class="p">]);</span>
+    <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">left_low</span><span class="p">,</span> <span class="n">left_high</span><span class="p">,</span> <span class="n">leftSum</span><span class="p">)</span> <span class="o">=</span> <span class="n">find_max_subarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">right_low</span><span class="p">,</span> <span class="n">right_high</span><span class="p">,</span> <span class="n">rightSum</span><span class="p">)</span> <span class="o">=</span> <span class="n">find_max_subarrayy</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">high</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">cross_low</span><span class="p">,</span> <span class="n">cross_high</span><span class="p">,</span> <span class="n">crossSum</span><span class="p">)</span> <span class="o">=</span> <span class="n">find_max_subarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">leftSum</span> <span class="o">&gt;=</span> <span class="n">rightSum</span> <span class="o">&amp;&amp;</span> <span class="n">leftSum</span> <span class="o">&gt;=</span> <span class="n">crossSum</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">leftSum</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">rightSum</span> <span class="o">&gt;=</span> <span class="n">leftSum</span> <span class="o">&amp;&amp;</span> <span class="n">rightSum</span> <span class="o">&gt;=</span> <span class="n">crossSum</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">rightSum</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">crossSum</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>以上是使用分治法来寻找最大子数组的方法。分析一下这个方法，<code>find_crossing_mid()</code>所需要的时间复杂度应该是(n)，而后面这个方法<code>find_max_subarray()</code>所需要的时间复杂度应该是(lgn)。后者当中调用了前者，所以应该相乘，总得时间复杂度应该是（nlgn）。</p>
+
+<h3 id="线性解法">线性解法</h3>
+
+<p>那么来到这里，是不是（nlgn）已经是最优的解法呢，其实不然。这个题目可以在线性的时间内求解出来，看到了之后觉得也就这么回事，但是真的要想出来还是不那么容易的。我们再来分析一下：</p>
+
+<ul>
+<li>要求最大子数组问题，那么数组当中必定有正也有负的元素；</li>
+<li>如果某个子数组是最大子数组，那么这个子数组的所有元素相加必定大于0；</li>
+</ul>
+
+<p>以上的第二条是重点，如果一个子数组相加反而比0小，那么我随便找一个只有一个正元素的子数组都大过它，所以它必定不是最大子数组。这里我们就可以得到一个算法：<strong>将一个数组从头开始累加，如果碰到结果为负数，则前面元素全部舍弃，重新开始累加</strong>。如此，只需要相加一次即可求出最大子数组。伪码表示应该是这个样子的：</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">find_max_subarray</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">){</span>
+    <span class="n">maxSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">begin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">maxSum</span><span class="p">){</span>
+            <span class="n">maxSum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">begin</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="n">maxSum</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>以上的方法，很显然只需遍历一次整个数组就可以完成查找最大子数组的操作。它的时间复杂度是线性的。应该是对于这个问题，最快的解法了。</p>
+
+<h2 id="结语">结语</h2>
+
+<p>从前一段时间开始研究算法，一直都感觉算法好难，好枯燥。作为一个不是计算机专业的计算机科学爱好者，我也深深的知道算法的重要，更重要的是，从其他同学面试回来得到的消息是，什么工作都要面算法。好吧，我承认，这才是我打定心水学算法的最终目的。</p>
+
+<p>这段时间下来，看着算法界的圣经“算法导论”，被”折磨“的不成样子，不过今天接触到了这个之后，发现其实算法也是很有魅力的。一个问题居然可以有这三种解法，而且一个比一个巧妙。刚刚拿到这个问题，我想了大半天，脑袋里就只有着暴力解法。相信，能够坚持下去的话，算法也是可以学好的。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/09/29/launch-mode/" data-toggle="tooltip" data-placement="top" title="Android Activity的四种启动模式">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/10/03/quick-sort/" data-toggle="tooltip" data-placement="top" title="排序算法之快速排序">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>一个简单的公司单据自动生成应用（基于HTML) - Eric's Blog</title>
+
+    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/08/16/package-list/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>一个简单的公司单据自动生成应用（基于HTML)</h1>
+                    
+                    <span class="meta">Posted by Eric's Blog on August 16, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<h1 id="写在前面">写在前面</h1>
+
+<p>前几天去亲戚家玩耍，发现小伙伴在给他父亲的公司开送货单。用的是先在execl上做好然后复制到word上排好版，再打印出来。我看着他操纵觉得有点麻烦，萌生了要不要<strong>“造个轮子”</strong>的想法。虽然“造轮子”是一个很愚蠢的方法，造的时间都可以用上述的方法开几十上百张单了。但是本着做中学的想法，我用了两天时间在家闭门造轮。时间有点长了，大神们勿喷。囧...</p>
+
+<p>在写之前，我纠结了一下用什么来写比较合适的问题。由于本人比较水，c已经还给老师很多年了。现在能用的就只有java了。然而想到要用java来写UI什么的有点蛋疼，去到没有jre的环境下还得部署环境（要知道他们还在用手开发货单，所以我对他们的电脑迟一个怀疑的态度）。思来想去，想来思去，我还是决定用做成一个html应用，正好应应景，现在html5不是火得很么。其中很大原因是，我相信浏览器，他们的电脑里应该还是有的。通过浏览器还能够将网页直接生成PDF用于打印，只要我把格式设定成刚好打印纸的大小就可以了，方便快捷。说干就干，然后我就用了两天时间写了这么一个略鸡肋的东东。囧...</p>
+
+<h1 id="开发过程">开发过程</h1>
+
+<p>二话不说先上图，以下是两张屏幕快照，分别是数据采集界面和生成单据界面：
+<img src="/images/overlook.png" alt="overlook" >
+数据采集界面</p>
+
+<p><img src="/images/listlook.png" alt="listlook" >
+单据生成界面</p>
+
+<p>好吧，看到楼上的图我知道又要吐槽我的界面有多难看了。这个臣妾也不想的啊，但是实在没有什么审美做出好图和好的界面出来，各位忽略这一点吧。相比这些而言，我更想的是记录我在开发过程中的一些感想。</p>
+
+<p>这是我第一次，不对应该是第二次使用html和javascript来写这么个东西，因为没有服务器端，所以我老想着怎么把数据从一个html传到另一个html就用了很多时间。自己想啊想发现然并卵之后就Google了一下，发现原来有个一叫做localstorage的类可以用，使用这个类的setItem(key,value)和getItem(key)和方法就可以把数据存到浏览器本地，然后需要的时候从另一个页面当中取出来了。但是这个是功能并不是所有额浏览器都支持，所以我得先做一个检验，看看这个浏览器是否支持localstoreage这个类。如果不支持，那就劝用户更细下浏览器吧。毕竟太古老的东西都会有各种的不便。</p>
+
+<p>接着我就继续写啊写的，没多久又发现一个问题。我原本是打算出货单只给五个行用来填货物的，后来想想觉得不怎么智能，万一货物超过五行怎么办。我就想这个用javascript写一个可以动态添加任意行货我的功能吧。说干就干，这里添加任意行挺容易的。但是后面可以是拿过来去打印信息的呢。所以怎么编号，怎么给这些数据赋一个名字就显得非常重要了。所以我就用用了点时间来写一个给每个输入框的数据都给一个名字的功能。当然前面那五个就直接给定名字了。这个做完，我就想为了节约打印墨水，最好要有一个功能可以知道我一个工输入了多少行货物的信息，不能每次都全部有得没得有打印出来吧。好在这个比较简单，三下五除二给他解决了。</p>
+
+<p>虽然这次写这个东东用了不少时间，然而其中大部分时间都是在无用功。不过也算做出来了，收获还是不小的，实践才是检验真理的唯一标准。下面就是下几个js的代码了，当中是javascript混夹jquery，不知道这样是不是不规范，我有点偷懒，因为有时候jquery不用打那么多，我就直接打jquery了。html的代码就不放上来了，比较简单，看着都能写出来，或者访问我得github来看看就好了。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm">  * author:        Eric_Lai</span>
+<span class="cm">  * page:          laiihaotao.github.io</span>
+<span class="cm">  * name:          util.js</span>
+<span class="cm">  * date:          Aug 10, 2015</span>
+<span class="cm">  * description:   Print package list</span>
+<span class="cm">  * license:       MIT</span>
+<span class="cm">  * copyright:     All right reserved</span>
+<span class="cm">  */</span>
+
+<span class="kd">var</span> <span class="nx">goodsData</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="s2">&quot;goods_name&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;acount&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">moreGood</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">//check the explore whether support this system or not</span>
+<span class="c1">//检查浏览器是否支持</span>
+<span class="kd">function</span> <span class="nx">check</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;恭喜你,你的浏览器能够支持本系统&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;非常抱歉你的浏览器不能支持本系统&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//清除localstorage的缓存</span>
+<span class="kd">function</span> <span class="nx">clearStorage</span><span class="p">(){</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;请在此确定是否要清空缓存&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="nx">c</span><span class="o">===</span><span class="kc">true</span> <span class="p">){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;本地缓存已经清空&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//get the data you store</span>
+<span class="c1">//取出存进去的货物信息，返回该数组的首地址</span>
+<span class="kd">function</span> <span class="nx">getData</span><span class="p">(</span><span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">goodsName</span> <span class="o">=</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">array</span>     <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">goodsName</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//store the data filled in the blank</span>
+<span class="c1">//储存货物的信息</span>
+<span class="kd">function</span> <span class="nx">storeData</span><span class="p">(</span><span class="nx">level</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">w</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">goodsName</span> <span class="o">=</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">array</span>     <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">w</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">goodsName</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//create table</span>
+<span class="c1">//增加一个货物</span>
+<span class="kd">function</span> <span class="nx">createTable</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">w</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">good</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="nx">s</span><span class="p">,</span><span class="nx">a</span><span class="p">,</span><span class="nx">w</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;tr&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="nx">num</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="nx">good</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="nx">good</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="nx">good</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td colspan=&#39;3&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">good</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;/tr&gt;&quot;</span>
+            <span class="p">);</span>
+    <span class="c1">//window.alert(num.toString());</span>
+    <span class="nx">num</span><span class="o">++</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="c1">//a row about sum up</span>
+<span class="c1">//创建表尾的信息</span>
+<span class="kd">function</span> <span class="nx">createSumUp</span><span class="p">(</span><span class="nx">allAccount</span><span class="p">,</span><span class="nx">allWeight</span><span class="p">){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;tr&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;合计&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;nbsp&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;nbsp&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td&gt;&quot;</span> <span class="o">+</span> <span class="nx">allAccount</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;td colspan=&#39;3&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">allWeight</span> <span class="o">+</span> <span class="s2">&quot;&lt;/td&gt;&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;&lt;/tr&gt;&quot;</span>
+            <span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="c1">//get date</span>
+<span class="c1">//获取当前时间</span>
+<span class="kd">function</span> <span class="nx">getYMD</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">dateObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">year</span>       <span class="o">=</span> <span class="nx">dateObject</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="c1">//月份前要加1</span>
+    <span class="kd">var</span> <span class="nx">month</span>      <span class="o">=</span> <span class="p">(</span><span class="nx">dateObject</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">date</span>       <span class="o">=</span> <span class="nx">dateObject</span><span class="p">.</span><span class="nx">getDate</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">string</span>     <span class="o">=</span> <span class="nx">year</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">month</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">date</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//find out how many goods item we have</span>
+<span class="kd">function</span> <span class="nx">goodAccount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">moreGood</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#goods_name3&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//at least use 3</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#goods_name5&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="mi">5</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#goods_name4&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#goods_name2&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="nx">count</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//get the name of the data information</span>
+<span class="c1">//获得货物信息的名字</span>
+<span class="kd">function</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">t</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">i</span>    <span class="o">=</span> <span class="nx">t</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">n</span>    <span class="o">=</span> <span class="s2">&quot;goods_name&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">s</span>    <span class="o">=</span> <span class="s2">&quot;size&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">a</span>    <span class="o">=</span> <span class="s2">&quot;acount&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">w</span>    <span class="o">=</span> <span class="s2">&quot;weight&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">w</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面的是两个页面当中有会用到的js函数，下面的两个是两个页面各自的js文件：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm">  * author:        Eric_Lai</span>
+<span class="cm">  * page:          laiihaotao.github.io</span>
+<span class="cm">  * name:          index.js</span>
+<span class="cm">  * date:          Aug 10, 2015</span>
+<span class="cm">  * description:   Print package list</span>
+<span class="cm">  * license:       MIT</span>
+<span class="cm">  * copyright:     All right reserved</span>
+<span class="cm">  */</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">//add more good</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#add_good&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">addGood</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="c1">//finish and ready to quicklook</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#turn_to_quicklook&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+        <span class="nx">howManyGoods</span> <span class="o">=</span> <span class="nx">goodAccount</span><span class="p">();</span>
+        <span class="c1">//keep this varaible for ohter html</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;howManyGoods&quot;</span><span class="p">,</span><span class="nx">howManyGoods</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="c1">//goodArray was used to storage the information&#39;s name about the goods</span>
+        <span class="kd">var</span> <span class="nx">goodArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">howManyGoods</span><span class="p">);</span>
+        <span class="c1">//alert(howManyGoods);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">howManyGoods</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+            <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">howManyGoods</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">goods_name</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">size</span>       <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">acount</span>     <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">weight</span>     <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="nx">storeData</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">goods_name</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">acount</span><span class="p">,</span> <span class="nx">weight</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">storageInfo</span><span class="p">();</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;quicklook.html&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+<span class="p">});</span>
+
+<span class="c1">//add goods item</span>
+<span class="c1">//注意，分清什么时候要用双引号加上单引号，什么时候只用一种引号</span>
+<span class="kd">function</span> <span class="nx">addGood</span><span class="p">(){</span>
+    <span class="nx">moreGood</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">good</span> <span class="o">=</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">count</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;&lt;div class=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;good_info&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;请输入货品名称:&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;&lt;input class=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;textbox&#39;&quot;</span>  <span class="o">+</span> <span class="s2">&quot;type=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;text&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;id=&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;&#39;_name&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;包装规格:&lt;input class=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;sub_attr&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;type=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;text&#39;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;id=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;_size&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&gt;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;数量:&lt;input class=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;sub_attr&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;type=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;text&#39;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;id=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;_acount&#39;&quot;</span> <span class="o">+</span><span class="s2">&quot;/&gt;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;净重量:&lt;input class=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;sub_attr&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;type=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;text&#39;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;id=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;_weight&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&gt;&quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;&lt;hr/&gt;&quot;</span> 
+                <span class="o">+</span> <span class="s2">&quot;&lt;/div&gt;&quot;</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#good_list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#_name&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="nx">good</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#_size&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="nx">good</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#_acount&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="nx">good</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#_weight&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="nx">good</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+    <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//keep info in local</span>
+<span class="kd">function</span> <span class="nx">storageInfo</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">company_name</span>     <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#company_name&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">list_id</span>          <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#list_id&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">receiver_address</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#receiver_address&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">worker_name</span>      <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#worker_name&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">worker_phone</span>     <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#worker_phone&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">pay_method</span>       <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#pay_method&quot;</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;option:selected&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">transmit_method</span>  <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#transmit_method&quot;</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;option:selected&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">array1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">company_name</span><span class="p">,</span><span class="nx">list_id</span><span class="p">,</span><span class="nx">receiver_address</span><span class="p">,</span>
+                          <span class="nx">worker_name</span><span class="p">,</span><span class="nx">worker_phone</span><span class="p">,</span><span class="nx">pay_method</span><span class="p">,</span><span class="nx">transmit_method</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">array2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="s2">&quot;company_name&quot;</span><span class="p">,</span><span class="s2">&quot;list_id&quot;</span><span class="p">,</span><span class="s2">&quot;receiver_address&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;worker_name&quot;</span><span class="p">,</span><span class="s2">&quot;worker_phone&quot;</span><span class="p">,</span><span class="s2">&quot;pay_method&quot;</span><span class="p">,</span><span class="s2">&quot;transmit_method&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">max</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">max</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">array2</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">array1</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm">  * author:        Eric_Lai</span>
+<span class="cm">  * page:          laiihaotao.github.io</span>
+<span class="cm">  * name:          quicklook.js</span>
+<span class="cm">  * date:          Aug 10, 2015</span>
+<span class="cm">  * description:   Print package list</span>
+<span class="cm">  * license:       MIT</span>
+<span class="cm">  * copyright:     All right reserved</span>
+<span class="cm">  */</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">fillDate</span><span class="p">();</span>
+    <span class="nx">fillInfo</span><span class="p">();</span>
+    <span class="nx">quickLookTable</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">//fill the info in the blank</span>
+<span class="kd">function</span> <span class="nx">fillInfo</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">company_name</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;company_name&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">list_id</span>      <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;list_id&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#company_name&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">company_name</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#company_name&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;readonly&quot;</span><span class="p">,</span> <span class="s2">&quot;readonly&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#list_id&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="nx">list_id</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#list_id&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;readonly&quot;</span><span class="p">,</span> <span class="s2">&quot;readonly&quot;</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">fillDate</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">year_month_day</span> <span class="o">=</span> <span class="nx">getYMD</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#dateYMD&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">year_month_day</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#dateYMD&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;readonly&quot;</span><span class="p">,</span> <span class="s2">&quot;readonly&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//bulit the table</span>
+<span class="kd">function</span> <span class="nx">quickLookTable</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">allAccount</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">allWeight</span>        <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">receiver_address</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;receiver_address&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">worker_name</span>      <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;worker_name&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">worker_phone</span>     <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;worker_phone&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">pay_method</span>       <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;pay_method&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">transmit_method</span>  <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;transmit_method&quot;</span><span class="p">);</span>
+    <span class="c1">//goodArray was used to storage the information&#39;s name about the goods</span>
+    <span class="kd">var</span> <span class="nx">howManyGoods</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;howManyGoods&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">goodArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">howManyGoods</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">howManyGoods</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="nx">goodArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">findItem</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">howManyGoods</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">table</span>  <span class="o">=</span> <span class="nx">getData</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="nx">createTable</span><span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nx">table</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="nx">table</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="nx">table</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+        <span class="kd">var</span> <span class="nx">t2</span>     <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+        <span class="kd">var</span> <span class="nx">t3</span>     <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+        <span class="nx">allAccount</span> <span class="o">+=</span> <span class="nx">t2</span><span class="p">;</span>
+        <span class="nx">allWeight</span>  <span class="o">+=</span> <span class="nx">t3</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">createSumUp</span><span class="p">(</span><span class="nx">allAccount</span><span class="p">,</span><span class="nx">allWeight</span><span class="p">);</span>
+    <span class="nx">tableFoot</span><span class="p">(</span><span class="nx">receiver_address</span><span class="p">,</span><span class="nx">worker_name</span><span class="p">,</span><span class="nx">worker_phone</span><span class="p">,</span><span class="nx">pay_method</span><span class="p">,</span><span class="nx">transmit_method</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//print the table foot</span>
+<span class="kd">function</span> <span class="nx">tableFoot</span><span class="p">(</span><span class="nx">receiver_address</span><span class="p">,</span><span class="nx">worker_name</span><span class="p">,</span><span class="nx">worker_phone</span><span class="p">,</span><span class="nx">pay_method</span><span class="p">,</span><span class="nx">transmit_method</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;结算方式&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="nx">pay_method</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;送货地址&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td colspan=&#39;3&#39;&gt;&quot;</span><span class="o">+</span><span class="nx">receiver_address</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="o">+</span>
+                <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;运输方式&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="nx">transmit_method</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;联系人&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;&amp;nbsp&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td width=&#39;12%&#39;&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;联系电话&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;&amp;nbsp&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="o">+</span>
+                <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;业务员&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="nx">worker_name</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;手机号&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="nx">worker_phone</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td colspan=&#39;1&#39;&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;客户签名&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                    <span class="s2">&quot;&lt;td&gt;&quot;</span><span class="o">+</span><span class="s2">&quot;&amp;nbsp&quot;</span><span class="o">+</span><span class="s2">&quot;&lt;/td&gt;&quot;</span><span class="o">+</span>
+                <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#need_change&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;colspan&quot;</span><span class="p">,</span><span class="s2">&quot;3&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>接下来是一个css的文件，本来这个我没有单独写出来而是直接嵌在每一个的html当中。但是强迫症患者最终还是接受不了，就抽出来单独写了一个css的文件。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#container1</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;}</span>
+<span class="nf">#container2</span><span class="p">{</span><span class="k">width</span><span class="o">:</span>  <span class="m">21cm</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">margin-left</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span><span class="k">margin-right</span><span class="o">:</span> <span class="k">auto</span><span class="p">;}</span>
+<span class="nc">.title</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">30px</span><span class="p">;}</span>
+<span class="nf">#head</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">3px</span><span class="p">;</span><span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span><span class="k">border-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;}</span>
+<span class="nf">#mainbody</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">border-style</span><span class="o">:</span> <span class="k">ridge</span><span class="p">;</span><span class="k">border-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">500px</span><span class="p">;}</span>
+<span class="nf">#info</span><span class="p">{</span><span class="k">width</span><span class="o">:</span> <span class="m">32%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">450px</span><span class="p">;</span><span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span><span class="k">margin-left</span><span class="o">:</span> <span class="m">5%</span><span class="p">;}</span>
+<span class="nf">#goods</span><span class="p">{</span><span class="k">width</span><span class="o">:</span> <span class="m">35%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">450px</span><span class="p">;</span><span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span><span class="k">margin-right</span><span class="o">:</span> <span class="m">3%</span><span class="p">;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span><span class="k">overflow</span><span class="o">:</span> <span class="k">scroll</span><span class="p">;}</span>
+<span class="nf">#foot</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span><span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;}</span>
+<span class="nf">#tip</span><span class="p">{</span><span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span><span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;}</span>
+<span class="nf">#abovetable</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">80%</span><span class="p">;</span><span class="k">margin-top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding-top</span><span class="o">:</span> <span class="m">0</span><span class="p">;}</span>
+<span class="nf">#content</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span><span class="k">margin-top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding-top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#belowtable</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">80%</span><span class="p">;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;}</span>
+<span class="nt">table</span><span class="p">{</span><span class="k">border-collapse</span><span class="o">:</span> <span class="k">collapse</span><span class="p">;}</span>
+<span class="nt">td</span><span class="p">{</span> <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#999999</span><span class="p">;</span><span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">13px</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;}</span>
+<span class="nc">.center</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span><span class="k">auto</span><span class="p">;</span><span class="k">width</span><span class="o">:</span><span class="m">80%</span><span class="p">;}</span>
+<span class="nt">input</span><span class="nc">.textbox</span><span class="o">,</span> <span class="nt">select</span><span class="nc">.textbox</span> <span class="p">{</span><span class="k">width</span><span class="o">:</span> <span class="m">250px</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span> <span class="m">4px</span><span class="p">;}</span>
+<span class="nt">input</span><span class="nc">.sub_attr</span><span class="p">{</span><span class="k">width</span><span class="o">:</span> <span class="m">64px</span><span class="p">}</span>
+</code></pre></div>
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/08/10/built-blog/" data-toggle="tooltip" data-placement="top" title="Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/09/20/sort/" data-toggle="tooltip" data-placement="top" title="排序算法 之 插入排序&归并排序">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

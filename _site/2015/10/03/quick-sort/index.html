@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>排序算法之快速排序 - Eric's Blog</title>
+
+    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/10/03/quick-sort/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>排序算法之快速排序</h1>
+                    
+                    <span class="meta">Posted by Eric's Blog on October 3, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<p>今天学习了一个在排序界颇具声名的排序算法“快速排序”。此算法据说是实际排序应用当中最好的选择，在最坏情况下它的时间复杂度是（n³），期望时间复杂度是（nlgn），其中的常数因为非常小。另外，它还能进行原址排序。</p>
+
+<p>这个算法，同样使用了分治法的思想，以一个数组A[p...r]为例来研究它的分治三部曲：</p>
+
+<ol>
+<li><strong>分解：</strong>数组A被划分为两个（可能为空）子数组A1[p...q-1]和A2[q+1...r],使得A1当中的所有元素都不大于A[q]，而A[q]也不大于A[q+1...r]当中的任何元素；</li>
+<li><strong>解决：</strong>通过递归调用快速排序，对子数组A1,A2进行重复上面的操作；</li>
+<li><strong>合并：；</strong>因为子数组都是原址排序，所以不需要进行合并操作，数组A[p...r]已经有序；</li>
+</ol>
+
+<p>整个算法的主要核心很明显在于第一步分解，怎么才能使这个分解达到上诉的要求。下面给出一段伪码来描述这个算法：</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">partition</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">){</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">];</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> 
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">){</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">];</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>分析一下以上的代码，它的主要思想是这样的：去传入数组的最右边的一项为一个key，把整个数组分成三部分，前面部分是不大于key的元素，中间是key，后面是比key大的数。最后返回，key元素<strong>换位后</strong>对应的下标。这样，<mark>利用这个下标</mark>前后两个部分的子数组数组可以进入下一轮的递归。</p>
+
+<p>具体上，怎么把一个数组分成这么三拨呢？首先，把数组的最右边一个元素存到一个叫x的变量里面。然后，弄两个指针，一个指向数组的第一个元素（即上述代码的j），另一个指针比j落后一位（也就是上述的i）。j从元素的头开始向数组的尾部移动一直到倒数第二个（r-1）为止（因为最后一个元素是key，不需要进行比较）。在j移动过程中，每遇到一个比key小的元素，就让i往前移动一位，然后交换i和j所指向的元素（把小的元素放到元素的头部）。最后，交换key与i+1指向的元素。这样，就实现了上一段所说的把一个数组分成3拨（这样key所在的位置就必定是正确的，大的都在后面，小的都在前面）。</p>
+
+<p>有了上面这一段，递归部分就很好写了。<mark>每当递归一次，就把一个元素移动到了它所在的正确位置上</mark>。下面给出一段伪码：</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">){</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>由于这个算法的实现思想比较好理解，编写实际语言环境下的代码也比较简单就不在给出具体的代码了。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/startbootstrap-clean-blog-jekyll/2015/10/01/max-subarray/" data-toggle="tooltip" data-placement="top" title="最大子数组问题">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
