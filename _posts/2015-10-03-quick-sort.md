@@ -1,10 +1,11 @@
-----
+---
 layout: post
 title: 排序算法之快速排序
 description: introduction of quick sort
 keyword: quick_sort 
+---
+**本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 
-----
 
 今天学习了一个在排序界颇具声名的排序算法“快速排序”。此算法据说是实际排序应用当中最好的选择，在最坏情况下它的时间复杂度是（n³），期望时间复杂度是（nlgn），其中的常数因为非常小。另外，它还能进行原址排序。
 
