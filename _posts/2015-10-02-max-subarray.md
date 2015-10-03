@@ -3,7 +3,6 @@ layout: post
 title: 算法之最大子数组问题
 description：introduction of the big sum of the subarray
 keyword: sum of subarray algorithm
-
 ------
 
 ## 什么是最大子数组
