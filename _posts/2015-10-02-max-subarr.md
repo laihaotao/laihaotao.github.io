@@ -4,6 +4,7 @@ title: 算法之最大子数组问题
 description：introduction of the big sum of the subarray
 keyword: sum of subarray algorithm
 ---
+**本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 
 ## 什么是最大子数组
 在一个序列当中，有正数、负数和零（如果全是非负数，那么最大子数组问题将没有研究的意义）。最大子数组是指，其中连续的某几个数相加之后和最大，那么这几个连续的数称为该数组的最大子数组。
