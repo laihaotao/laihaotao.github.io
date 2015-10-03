@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 排序算法之快速排序
-description: introduction of quick sort
+subtitle: introduction of quick sort
 keyword: quick_sort 
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**

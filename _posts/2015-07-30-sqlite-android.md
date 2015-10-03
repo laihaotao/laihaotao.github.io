@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Android的SQLite数据库存储
-description: introduction about how to use Android's SQLite database
+subtitle: introduction about how to use Android's SQLite database
 Keyword: android, Android, SQLite
 ---
 
