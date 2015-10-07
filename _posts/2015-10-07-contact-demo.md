@@ -1,10 +1,9 @@
------
+---
 layout: post
 title: 获取手机联系人Demo
-description: a demo of getting the contact infomation in your phone
+subtitle: a demo of getting the contact infomation in your phone
 keyword: contact, android, number,phone，fragment
-
------
+---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 
 今天做一个获取手机联系人的实战训练，复习一下ListView的使用方法，顺带学习一下fragment的使用方法。
