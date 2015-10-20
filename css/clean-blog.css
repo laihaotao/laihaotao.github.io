@@ -395,3 +395,5 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #0085a1;
 }
+
+#ds-thread  {padding:24px;}
