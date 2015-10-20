@@ -3,7 +3,7 @@ title: Eric's Blog
 header-img: img/home-bg.jpg
 email: qq584863350@gmail.com
 description: " Be better than yesterday "
-#baseurl: "/startbootstrap-clean-blog-jekyll"
+#baseurl: "/laihaotao.github.io"
 url: "http://laihaotao.github.io"
 #twitter_username: 
 github_username:  LAIHAOTAO
@@ -17,3 +17,9 @@ highlighter: pygments
 permalink: pretty
 paginate: 10
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+# comments
+comments :
+    provider : duoshuo
+    duoshuo :
+          short_name : laihaotao
