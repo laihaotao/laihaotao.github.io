@@ -276,7 +276,7 @@ keyword: spring, mybatis
 </generatorConfiguration>
 ```
 
-```propeties
+```java
 jdbc.driverLocation=C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar
 jdbc.driverClass=com.mysql.jdbc.Driver
 jdbc.connectionURL=jdbc:mysql://localhost:3306/test
@@ -316,7 +316,7 @@ public class Test {
 
 	static {
 		try {
-			reader = Resources.getUrlAsReader("file:///C:\\Users\\Administrator\\workspace\\myBatisDemo\\Configuration.xml");
+			reader = Resources.getRecourseAsReader("Configuration.xml");
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		} catch (Exception e) {
 			e.printStackTrace();
