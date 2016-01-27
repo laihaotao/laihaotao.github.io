@@ -4,7 +4,7 @@ title: 初探Spring+myBatis
 subtitle: A demo about spring and mybatis
 keyword: spring, mybatis
 ---
-**本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
+**本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric Lai](http://laihaotao.github.io)**
 
 ## 写在前面
 最近实习了，很多东西要学没有太多的时间来更新。公司用的大框架是SpringMVC+myBatis，这段时间一直在扒这个框架。今天终于做完了一个demo记录一下以备查阅。
