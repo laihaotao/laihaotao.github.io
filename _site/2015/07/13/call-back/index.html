@@ -10,16 +10,16 @@
 
     <title>我理解的回调（callback） - Eric's Blog</title>
 
-    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/07/13/call-back/">
+    <link rel="canonical" href="/2015/07/13/call-back/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/clean-blog.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -49,22 +49,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                    <a href="/about/">About</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                    <a href="/contact/">Contact</a>
                 </li>
                 
             </ul>
@@ -76,12 +76,14 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <h1>我理解的回调（callback）</h1>
+                    
+                    <h2 class="subheading">explain what is call back through an vivi example</h2>
                     
                     <span class="meta">Posted by Eric's Blog on July 13, 2015</span>
                 </div>
@@ -96,9 +98,8 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
-
-<h1 id="前言">前言</h1>
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong>
+# 前言</p>
 
 <p>昨天做一个android的客户端和服务端的post通信，调试了整整一天都没有成功。作为一个不是计算机专业出身的人，我已经心力交瘁加绝望，横竖都看不出哪里有问题了。然而网上躺床真被看书睡觉的时候发现，书的后面几页就有关于这个的提示。原来是由于在新开的网络请求线程里面没有写回调方法导致数据无法传输。</p>
 
@@ -106,7 +107,7 @@
 
 <p>废话少说，下面研究下回调究竟是什么鬼。</p>
 
-<h1 id="回调（callback）">回调（callback）</h1>
+<h1 id="callback">回调（callback）</h1>
 
 <p>回调说白了，就是通过A对象里面调用了B类的C方法，但是被调用B类的引用又反过来调用A对象里面的D方法。</p>
 
@@ -117,115 +118,132 @@
 <p>让我们看看回调机制的抽象过程：</p>
 
 <ul>
-<li><p>一个实现了回调接口的A类
-/<em>接口当中声明的方法就是回调方法</em>/</p></li>
-<li><p>A类中有B类对像的引用，以便于可以调用B类的方法和回调接口的实现方法
-/<em>上面这句可以理解成，小明要有小李电话号码才可以打通小李的电话找到小李。实现接口的方法则是处理回调的逻辑代码</em>/</p></li>
-<li><p>B类中有接收回调接口对象的方法，以便于实现对A类中实现的回调接口方法的调用。
-/<em>上面这句可以理解成，小李要知道小明的电话才能够在知道答案之后返回去告诉他，这就是回调的方法</em>/</p></li>
+  <li>
+    <p>一个实现了回调接口的A类
+/<em>接口当中声明的方法就是回调方法</em>/</p>
+  </li>
+  <li>
+    <p>A类中有B类对像的引用，以便于可以调用B类的方法和回调接口的实现方法
+/<em>上面这句可以理解成，小明要有小李电话号码才可以打通小李的电话找到小李。实现接口的方法则是处理回调的逻辑代码</em>/</p>
+  </li>
+  <li>
+    <p>B类中有接收回调接口对象的方法，以便于实现对A类中实现的回调接口方法的调用。
+/<em>上面这句可以理解成，小李要知道小明的电话才能够在知道答案之后返回去告诉他，这就是回调的方法</em>/</p>
+  </li>
 </ul>
 
 <p>下面我们通过demo的代码来理解一下
 （我用的是eclipse作为IDE，先新建了一个工程，并加入一些必要的文件）</p>
 
 <p>接下来是每一个类的具体代码，解释我都注释在代码当中了</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**</span>
-<span class="cm"> * name:CallBack.java</span>
-<span class="cm"> * by:ERIC_LAI</span>
-<span class="cm"> * date:13,July,2015</span>
-<span class="cm"> */</span>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * name:CallBack.java
+ * by:ERIC_LAI
+ * date:13,July,2015
+ */</span>
 
 <span class="cm">/*package name different from person to person*/</span>
 <span class="kn">package</span> <span class="n">callbacktest</span><span class="o">;</span>
 <span class="cm">/*create a interface*/</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CallBack</span> <span class="o">{</span>
-    <span class="cm">/*declare the method*/</span>
-    <span class="kt">void</span> <span class="nf">result</span><span class="o">(</span><span class="n">String</span> <span class="n">answer</span><span class="o">);</span>
+	<span class="cm">/*declare the method*/</span>
+	<span class="kt">void</span> <span class="n">result</span><span class="o">(</span><span class="n">String</span> <span class="n">answer</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**</span>
-<span class="cm"> * name:XiaoMing.java</span>
-<span class="cm"> * by:ERIC_LAI</span>
-<span class="cm"> * date:13,July,2015</span>
-<span class="cm"> */</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * name:XiaoMing.java
+ * by:ERIC_LAI
+ * date:13,July,2015
+ */</span>
 
 <span class="cm">/*package name different from person to person*/</span>
 <span class="kn">package</span> <span class="n">callbacktest</span><span class="o">;</span>
 
 <span class="cm">/*class name XiaoMing implement CallBack*/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XiaoMing</span> <span class="kd">implements</span> <span class="n">CallBack</span><span class="o">{</span>
-    <span class="cm">/*use li to get class XiaoLi resource*/</span>
-    <span class="kd">private</span> <span class="n">XiaoLi</span> <span class="n">li</span><span class="o">;</span>
-    <span class="cm">/*constructor, give it a parameter from class XiaoLi*/</span>
-    <span class="kd">public</span> <span class="nf">XiaoMing</span><span class="o">(</span><span class="n">XiaoLi</span> <span class="n">li</span><span class="o">){</span>
-    <span class="cm">/*put the parameter to the field*/</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">li</span><span class="o">=</span><span class="n">li</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="cm">/*method is used by xiaoming to ask question to xiaoli*/</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">askQuestion</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">question</span><span class="o">){</span>
-        <span class="cm">/*create new thread*/</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="cm">/*call the method from class XiaoLi used the field li*/</span>
-                <span class="n">li</span><span class="o">.</span><span class="na">answerQuestion</span><span class="o">(</span><span class="n">XiaoMing</span><span class="o">.</span><span class="na">this</span><span class="o">,</span><span class="n">question</span><span class="o">);</span>
-            <span class="o">}</span>
-            <span class="cm">/*start the thread*/</span>
-        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
-        <span class="cm">/*after asking xiaoming can do other thing, now two threads is working*/</span>
-        <span class="n">play</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;i am playing&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="cm">/*the implement of the CallBack interface*/</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">result</span><span class="o">(</span><span class="n">String</span> <span class="n">answer</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;xiaoli tell xiaoming the answer is---&gt;&quot;</span> <span class="o">+</span> <span class="n">answer</span><span class="o">);</span>
-    <span class="o">}</span>
+	<span class="cm">/*use li to get class XiaoLi resource*/</span>
+	<span class="kd">private</span> <span class="n">XiaoLi</span> <span class="n">li</span><span class="o">;</span>
+	<span class="cm">/*constructor, give it a parameter from class XiaoLi*/</span>
+	<span class="kd">public</span> <span class="n">XiaoMing</span><span class="o">(</span><span class="n">XiaoLi</span> <span class="n">li</span><span class="o">){</span>
+	<span class="cm">/*put the parameter to the field*/</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">li</span><span class="o">=</span><span class="n">li</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="cm">/*method is used by xiaoming to ask question to xiaoli*/</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="n">askQuestion</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">question</span><span class="o">){</span>
+		<span class="cm">/*create new thread*/</span>
+		<span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+			<span class="nd">@Override</span>
+			<span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+				<span class="cm">/*call the method from class XiaoLi used the field li*/</span>
+				<span class="n">li</span><span class="o">.</span><span class="na">answerQuestion</span><span class="o">(</span><span class="n">XiaoMing</span><span class="o">.</span><span class="na">this</span><span class="o">,</span><span class="n">question</span><span class="o">);</span>
+			<span class="o">}</span>
+			<span class="cm">/*start the thread*/</span>
+		<span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+		<span class="cm">/*after asking xiaoming can do other thing, now two threads is working*/</span>
+		<span class="n">play</span><span class="o">();</span>
+	<span class="o">}</span>
+	
+	<span class="kd">private</span> <span class="kt">void</span> <span class="n">play</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i am playing"</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="cm">/*the implement of the CallBack interface*/</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="n">result</span><span class="o">(</span><span class="n">String</span> <span class="n">answer</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"xiaoli tell xiaoming the answer is---&gt;"</span> <span class="o">+</span> <span class="n">answer</span><span class="o">);</span>
+	<span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div><div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**</span>
-<span class="cm"> * name:XiaoLi.java</span>
-<span class="cm"> * by:ERIC_LAI</span>
-<span class="cm"> * date:13,July,2015</span>
-<span class="cm"> */</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * name:XiaoLi.java
+ * by:ERIC_LAI
+ * date:13,July,2015
+ */</span>
 
 <span class="cm">/*package name different from person to person*/</span>
 <span class="kn">package</span> <span class="n">callbacktest</span><span class="o">;</span>
 <span class="cm">/*class name XiaoMing*/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XiaoLi</span> <span class="o">{</span>
-    <span class="cm">/*method which is used to answer xiaoming&#39;s question*/</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">answerQuestion</span><span class="o">(</span><span class="n">CallBack</span> <span class="n">callback</span><span class="o">,</span><span class="n">String</span> <span class="n">question</span><span class="o">)</span> <span class="o">{</span>
-        <span class="cm">/*show the question*/</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;the question is &quot;</span><span class="o">+</span><span class="n">question</span><span class="o">);</span>
-        <span class="cm">/*xiaoli is busy when xiaoming ask him*/</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{};</span>
-        <span class="cm">/*xiaoli finally figure out the difficult question*/</span>
-        <span class="n">String</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">&quot;answer is two&quot;</span><span class="o">;</span>
-        <span class="cm">/*callback the method to tell xiaoming what the answer is*/</span>
-        <span class="n">callback</span><span class="o">.</span><span class="na">result</span><span class="o">(</span><span class="n">answer</span><span class="o">);</span>
-    <span class="o">}</span>
+	<span class="cm">/*method which is used to answer xiaoming's question*/</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="n">answerQuestion</span><span class="o">(</span><span class="n">CallBack</span> <span class="n">callback</span><span class="o">,</span><span class="n">String</span> <span class="n">question</span><span class="o">)</span> <span class="o">{</span>
+		<span class="cm">/*show the question*/</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"the question is "</span><span class="o">+</span><span class="n">question</span><span class="o">);</span>
+		<span class="cm">/*xiaoli is busy when xiaoming ask him*/</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{};</span>
+		<span class="cm">/*xiaoli finally figure out the difficult question*/</span>
+		<span class="n">String</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">"answer is two"</span><span class="o">;</span>
+		<span class="cm">/*callback the method to tell xiaoming what the answer is*/</span>
+		<span class="n">callback</span><span class="o">.</span><span class="na">result</span><span class="o">(</span><span class="n">answer</span><span class="o">);</span>
+	<span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>以上是每个类和接口的代码，接下来是写一个程序的入口，并让小明提出问题。这个很简单就不用注释了。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**</span>
-<span class="cm"> * name:CallBackTest.java</span>
-<span class="cm"> * by:ERIC_LAI</span>
-<span class="cm"> * date:13,July,2015</span>
-<span class="cm"> */</span>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * name:CallBackTest.java
+ * by:ERIC_LAI
+ * date:13,July,2015
+ */</span>
 
 <span class="kn">package</span> <span class="n">callbacktest</span><span class="o">;</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CallBackTest</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>     
-        <span class="n">XiaoLi</span> <span class="n">li</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">XiaoLi</span><span class="o">();</span>
-        <span class="n">XiaoMing</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">XiaoMing</span><span class="o">(</span><span class="n">li</span><span class="o">);</span>       
-        <span class="n">xiaoming</span><span class="o">.</span><span class="na">askQuestion</span><span class="o">(</span><span class="s">&quot;what is the answer of one and one ?&quot;</span><span class="o">);</span>
-    <span class="o">}</span>   
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>		
+		<span class="n">XiaoLi</span> <span class="n">li</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XiaoLi</span><span class="o">();</span>
+		<span class="n">XiaoMing</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XiaoMing</span><span class="o">(</span><span class="n">li</span><span class="o">);</span>		
+		<span class="n">xiaoming</span><span class="o">.</span><span class="na">askQuestion</span><span class="o">(</span><span class="s">"what is the answer of one and one ?"</span><span class="o">);</span>
+	<span class="o">}</span>	
 <span class="o">}</span>
-</code></pre></div>
+</code></pre>
+</div>
+
 <p>通过以上，我们可以基本理解出什么是回调了吧。重复一下，就是在通过A对象里面调用了B类的C方法，但是被调用B类的引用又反过来调用A对象里面的D方法。
 代码里面有一个play方法，通过输出的结果我们发现是paly方式先被执行。这里体现了一个异步的回调过程。
 因为小明问问题是通过一个新的线程来进行的。所以问问题并不会堵塞住原来的主线程（也就是play的线程）。</p>
@@ -238,12 +256,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/07/java-swing2/" data-toggle="tooltip" data-placement="top" title="Java的swing编程（二）">&larr; Previous Post</a>
+                        <a href="/2015/07/07/java-swing2/" data-toggle="tooltip" data-placement="top" title="Java的swing编程（二）">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/17/json/" data-toggle="tooltip" data-placement="top" title="使用第三方库json-lib来传递json格式数据">Next Post &rarr;</a>
+                        <a href="/2015/07/17/json/" data-toggle="tooltip" data-placement="top" title="使用第三方库json-lib来传递json格式数据">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -251,7 +269,25 @@
             </div>
         </div>
     </div>
+    
 </article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/07/13/call-back data-title=我理解的回调（callback） data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
 
 <hr>
 
@@ -263,7 +299,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     <li>
-                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                        <a href="/feed.xml">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -292,20 +328,20 @@
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
             </div>
         </div>
     </div>
 </footer>
 
 <!-- jQuery -->
-<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+<script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+<script src="/js/clean-blog.min.js "></script>
 
 
 </body>

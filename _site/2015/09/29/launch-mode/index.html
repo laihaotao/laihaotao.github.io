@@ -10,16 +10,16 @@
 
     <title>Android Activity的四种启动模式 - Eric's Blog</title>
 
-    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/09/29/launch-mode/">
+    <link rel="canonical" href="/2015/09/29/launch-mode/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/clean-blog.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -49,22 +49,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                    <a href="/about/">About</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                    <a href="/contact/">Contact</a>
                 </li>
                 
             </ul>
@@ -76,12 +76,14 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <h1>Android Activity的四种启动模式</h1>
+                    
+                    <h2 class="subheading">Introduction about the launch mode of the android activity</h2>
                     
                     <span class="meta">Posted by Eric's Blog on September 29, 2015</span>
                 </div>
@@ -98,88 +100,85 @@
 
 				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
 
-<h2 id="写在前面">写在前面</h2>
+<h2 id="section">写在前面</h2>
+<p>最近在一个blog上看到了一篇关于Android的Activity的启动模式分析的文章，觉得写得甚好。看完之后，我自己总结了一下得出这篇文章，我看的blog名字叫做<code class="highlighter-rouge">技术小黑屋</code>，点击<a href="http://droidyue.com/blog/2015/08/16/dive-into-android-activity-launchmode/">这里</a>可以查看原文。本文引用了原文的一些图片，如果不欢迎引用请和我联系。</p>
 
-<p>最近在一个blog上看到了一篇关于Android的Activity的启动模式分析的文章，觉得写得甚好。看完之后，我自己总结了一下得出这篇文章，我看的blog名字叫做<code>技术小黑屋</code>，点击<a href="http://droidyue.com/blog/2015/08/16/dive-into-android-activity-launchmode/">这里</a>可以查看原文。本文引用了原文的一些图片，如果不欢迎引用请和我联系。</p>
-
-<h2 id="几个概念">几个概念</h2>
-
+<h2 id="section-1">几个概念</h2>
 <p>下文当中会运动到一些概念，这里先做简要的介绍：</p>
 
 <ul>
-<li><code>Task</code>，这里指与用户交互的Activity实例的集合</li>
-<li>Task中的Activity实例以栈的形式存放，这个栈叫做Activity的退回栈</li>
-<li><code>栈(stack)</code>，一种数据类型，遵循后进先出的原则</li>
+  <li><code class="highlighter-rouge">Task</code>，这里指与用户交互的Activity实例的集合</li>
+  <li>Task中的Activity实例以栈的形式存放，这个栈叫做Activity的退回栈</li>
+  <li><code class="highlighter-rouge">栈(stack)</code>，一种数据类型，遵循后进先出的原则</li>
 </ul>
 
-<h2 id="什么是启动模式">什么是启动模式</h2>
+<h2 id="section-2">什么是启动模式</h2>
+<p>在Android当中，每个Activity的实例被创建的时候都可以选择四种不同的创建模式，分别是：<code class="highlighter-rouge">standard</code>、<code class="highlighter-rouge">singleTop</code>、<code class="highlighter-rouge">singleTask</code>、<code class="highlighter-rouge">singleInstance</code>，这些创建Activity的方式，我们就称为Activity的启动模式。当我们没有添加其他的要求是系统默认的启动方式是standard。想要使用不同的启动方式，我们只需要在Mainfest当中添加如下代码：</p>
 
-<p>在Android当中，每个Activity的实例被创建的时候都可以选择四种不同的创建模式，分别是：<code>standard</code>、<code>singleTop</code>、<code>singleTask</code>、<code>singleInstance</code>，这些创建Activity的方式，我们就称为Activity的启动模式。当我们没有添加其他的要求是系统默认的启动方式是standard。想要使用不同的启动方式，我们只需要在Mainfest当中添加如下代码：</p>
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
-    <span class="na">android:name=</span><span class="s">&quot;.SingleTaskActivity&quot;</span>
-    <span class="na">android:label=</span><span class="s">&quot;singleTask launchMode&quot;</span>
-    <span class="na">android:launchMode=</span><span class="s">&quot;singleTask(选择一种你希望的方式)&quot;</span><span class="nt">&gt;</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">".SingleTaskActivity"</span>
+    <span class="na">android:label=</span><span class="s">"singleTask launchMode"</span>
+    <span class="na">android:launchMode=</span><span class="s">"singleTask(选择一种你希望的方式)"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/activity&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
+
 <p>下面我们就开始详细研究一下这四种模式</p>
 
-<h2 id="standard模式">standard模式</h2>
-
+<h2 id="standard">standard模式</h2>
 <p>在这个模式下，每一次有Intent请求过来要求启动一个Activity的时候都会生成一个新的实例。</p>
 
 <p><strong>在Android 5.0以前</strong>的版本当中，这种新生成的Activity会放入发送Intent的Task的栈顶，不论它们是否同属于一个应用程序。下面两图分别表示了同应用程序之间和不同应用程序之间启动的示意图。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/pre_lollipop_standard_activity_in_same_app.jpg" alt="同程序的Standard启动"></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/pre_lollipop_standard_activity_in_same_app.jpg" alt="同程序的Standard启动" /></p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/pre_lollipop_standard_activity_across_app.jpg" alt="不同程序间的Standard启动"></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/pre_lollipop_standard_activity_across_app.jpg" alt="不同程序间的Standard启动" /></p>
 
 <p><strong>在Android 5.0以后</strong>的版本当中，不同引用程序之间这种新生成的Activity会被放入一个新的Task当中，如下图所示。相同应用程序之间的方法没有变化。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/lollipop_across_app_new_task.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/lollipop_across_app_new_task.jpg" alt="" /></p>
 
 <p>standard模式的使用场景：适合于撰写邮件Activity或者社交网络消息发布Activity。如果你想为每一个intent创建一个Activity处理，那么就是用standard这种模式。</p>
 
-<h2 id="singletop模式">singleTop模式</h2>
-
+<h2 id="singletop">singleTop模式</h2>
 <p>singleTop和standard其实很像，它也可以创建多个Activity实例。但是有一点不同，如下图所示，<strong>如果调用的目标Activity已经位于调用者的Task的栈顶，则不创建新实例，而是使用当前的这个Activity实例，并调用这个实例的onNewIntent方法。</strong></p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletop.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletop.jpg" alt="" /></p>
 
 <p>singleTop模式的使用场景：搜索功能的应用，每次都搜索的是时候都是使用一个Activity的实例，避免浪费资源和内存。</p>
 
-<h2 id="singletask模式">singleTask模式</h2>
-
+<h2 id="singletask">singleTask模式</h2>
 <p>在这个模式下启动的Activity在系统当中只会存在一个实例。如果这个实例已经存在，Intent会通过onNewItent传递到Activity当中。否则就会新建一个实例。</p>
 
 <p>在同一个应用程序内，如果系统不存在singleTask的Activity实例，那么就会创建一个新的实例，并把它放在调用者的Task的栈顶，如下图所示。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_inapp_create_new_instance.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_inapp_create_new_instance.jpg" alt="" /></p>
 
 <p>如果系统内已经存在这个实例，那么在这个实例上面的其他实例全部出栈（回调相关的生命周期函数来销毁），这样使得singleTask Activity位于栈顶，展示在用户的操作下。与此同时，Intent会通过onNewIntent传递到这个Activity当中，如下图所示。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_sameapp_instance_exists.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_sameapp_instance_exists.jpg" alt="" /></p>
 
 <p>在跨应用(即不同的引用程序间)Intent传递时，如果系统中不存在singleTask Activity的实例，那么将创建一个新的Task，然后创建SingleTask Activity的实例，将其放入新的Task中。Task变化如下所示。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_across_app_no_instance.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_across_app_no_instance.jpg" alt="" /></p>
 
 <p>如果singleTask Activity所在的应用进程存在，但是singleTask Activity实例不存在，那么从别的应用启动这个Activity，新的Activity实例会被创建，并放入到调用者所在的Task中，并位于栈顶位置。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_acrossapp_application_exists_activity_nonexists.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_acrossapp_application_exists_activity_nonexists.jpg" alt="" /></p>
 
 <p>还有一种更加复杂的情况，如果singleTask Activity所在的进程存在并且它的实例也存在。在这种情况下，这个实例所在的Task会移动到调用者所在的Task上方，singleTask Activity上得其他实例全部出栈。也就是说这种情况下，如果按下back键，会返回到singleTask Activity所在的Task的其他Activity实例。直到这个栈空了，才会回到调用者的Task，如下图所示。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_acrossapp_instance_exists_and_back.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singletask_acrossapp_instance_exists_and_back.jpg" alt="" /></p>
 
 <p>singleTask模式的使用场景：该模式的使用场景多类似于邮件客户端的收件箱或者社交应用的时间线Activity。上述两种场景需要对应的Activity只保持一个实例即可，但是也要谨慎使用这种模式，因为它可以在用户未感知的情况下销毁掉其他Activity。</p>
 
-<h2 id="singleinstance模式">singleInstance模式</h2>
-
+<h2 id="singleinstance">singleInstance模式</h2>
 <p>这个模式跟singleTask差不多，它们在系统里面都只有一个实例。唯一不同的就是存放singleInstance的Task只能存放一个该模式的Activity实例。也就是说，如果从singleInstance模式的Activity当中启动另一个Activity，系统会创建一个新的Task来存在实例，同理，一个singleInstance的Activity被启动的话，它不会被放在调用者的Task当中，而是放在一个新创建的Task当中。如下图所示。</p>
 
-<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singleInstance_new_instance.jpg" alt=""></p>
+<p><img src="http://7jpolu.com1.z0.glb.clouddn.com/singleInstance_new_instance.jpg" alt="" /></p>
 
 <p>最后，这种模式的使用情况比较罕见，在Launcher中可能使用。或者你确定你需要使Activity只有一个实例。建议谨慎使用。</p>
+
 
 
                 <hr>
@@ -187,12 +186,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/09/29/heap-sort/" data-toggle="tooltip" data-placement="top" title="排序算法之堆排序">&larr; Previous Post</a>
+                        <a href="/2015/09/29/heap-sort/" data-toggle="tooltip" data-placement="top" title="排序算法之堆排序">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/10/01/max-subarray/" data-toggle="tooltip" data-placement="top" title="最大子数组问题">Next Post &rarr;</a>
+                        <a href="/2015/10/01/max-subarray/" data-toggle="tooltip" data-placement="top" title="最大子数组问题">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -200,7 +199,25 @@
             </div>
         </div>
     </div>
+    
 </article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/09/29/launch-mode data-title=Android Activity的四种启动模式 data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
 
 <hr>
 
@@ -212,7 +229,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     <li>
-                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                        <a href="/feed.xml">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -241,20 +258,20 @@
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
             </div>
         </div>
     </div>
 </footer>
 
 <!-- jQuery -->
-<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+<script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+<script src="/js/clean-blog.min.js "></script>
 
 
 </body>

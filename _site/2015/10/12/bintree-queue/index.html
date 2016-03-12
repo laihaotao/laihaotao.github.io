@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>自上而下的打印二叉树 - Eric's Blog</title>
+
+    <link rel="canonical" href="/2015/10/12/bintree-queue/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>自上而下的打印二叉树</h1>
+                    
+                    <h2 class="subheading">Print the BinTree from top to bottom</h2>
+                    
+                    <span class="meta">Posted by Eric's Blog on October 12, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<h2 id="section">写在前面</h2>
+<p>最近一直在刷数据结构和算法的内容，今天在《剑指offer》当中看到一个关于广度遍历二叉树的题目，就做了一下下，记录一下内容以备回顾，==实际的编程语言采用的是Java==。首先，把题目贴出来：</p>
+
+<blockquote>
+  <p>题目描述：
+从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
+
+  <p>输入：
+输入可能包含多个测试样例，输入以EOF结束。
+对于每个测试案例，输入的第一行一个整数n(1&lt;=n&lt;=1000, ：n代表将要输入的二叉树元素的个数（节点从1开始编号）。接下来一行有n个数字,代表第i个二叉树节点的元素的值。</p>
+
+  <p>接下来有n行，每行有一个字母Ci。</p>
+
+  <ul>
+    <li>Ci=’d’表示第i个节点有两子孩子，紧接着是左孩子编号和右孩子编号。</li>
+    <li>Ci=’l’表示第i个节点有一个左孩子，紧接着是左孩子的编号。</li>
+    <li>Ci=’r’表示第i个节点有一个右孩子，紧接着是右孩子的编号。</li>
+    <li>Ci=’z’表示第i个节点没有子孩子。</li>
+  </ul>
+
+  <p>输出：
+对应每个测试案例，
+按照从上之下，从左至右打印出二叉树节点的值。</p>
+</blockquote>
+
+<p>如果还不是很明白题目要干什么的话,下面是有一个样例的输入和输出供参考。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>样例输入：
+7
+8 6 5 7 10 9 11
+d 2 5
+d 3 4
+z
+z
+d 6 7
+z
+z
+样例输出：
+8 6 10 5 7 9 11
+</code></pre>
+</div>
+
+<h2 id="section-1">解法分析</h2>
+<p>根据一般二叉树的结构（没有指向父亲的指针，也没有指向最大弟弟的指针），我们大多数遍历的时候是按照“父亲–&gt;儿子”的顺序来进行的，也就是从根节点开始，遍历完它的左子树然后再去遍历右子树。在这种情况下，我们不可能完成自上而下，自左往右地打印二叉树的任务的。这种，自上而下自左往右的遍历方法，我们先给他起个名字叫做二叉树的广度遍历。</p>
+
+<p>为了完成这个任务，我们需要做到在遍历一个结点（设定为A）的时候先后获得它的左右孩子节点（左是B，右是C），打印出来，然后再返回来对左孩子（B）进行操作，获得它的左右孩子结点（分别是D和E），打印出来。接着，回到上一层的右孩子（C），获得它的左右孩子结点（分别是F和G），打印出来。重复上述的操作，一直到遍历到最右边的叶子结点。</p>
+
+<p>这里，==我们需要用到别的数据结构作为辅助，那就是<strong>队列</strong>！==使用队列，我们可以很方便来完成上诉的操作。我们来详细的分析一下具体的做法：</p>
+
+<ol>
+  <li>构建一个队列结构，将根结点放在队列当中；</li>
+  <li>根结点执行出队操作，此时将出队结点的所有孩子结点（如果有的话）依照从左到右的顺序，插入队列当中；</li>
+  <li>出队对头的元素，每个出队的结点都重复操作2，直到队列当中没有任何元素；</li>
+</ol>
+
+<p>下面是上述这部分详细的代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//遍历二叉树的队列</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">BinTreeNode</span><span class="o">&gt;</span> <span class="n">queue1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//根节点</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">BinTreeNode</span> <span class="n">realroot</span><span class="o">;</span>
+<span class="c1">//按照题目要求(自上而下遍历二叉树)打印输出的函数</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//将根节点插入队列</span>
+    <span class="n">queue1</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">realroot</span><span class="o">);</span>
+    <span class="k">while</span> <span class="o">(!</span><span class="n">queue1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">//用一个临时的结点来当做当前结点</span>
+        <span class="n">BinTreeNode</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">queue1</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">value</span><span class="o">+</span><span class="s">" "</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">lChild</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">queue1</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">lChild</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">rChild</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">queue1</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">rChild</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>恭喜大家！执行完上面的三个步骤之后，二叉树就会被我们自上而下自左往右地打印出来了。但是，执行这些操作的<strong>前提</strong>是：==我们已经构建好了二叉树==。怎么从输入的里面解析出表示不同意思的数据，对这些数据的处理，同样是我们需要关注的问题。下面，我们分析一下怎么解析输入的数据:</p>
+
+<ul>
+  <li>第一个输入的是这棵树的结点个数，这个比较好处理。直接保存为一个整形就可以了。</li>
+  <li>第二个输入的是一个序列，代表每个结点的值（value）</li>
+  <li>接下来是n行，代表第n个结点的孩子的情况，这里我使用两个表来装，一个装孩子的信息，一个装孩子的值，分别用两个指针来维护。</li>
+</ul>
+
+<p>下面是数据处理部分的代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//字符串数组,处理输入的信息</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">info</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//二叉树的结点总数</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">n</span><span class="o">;</span>
+<span class="c1">//保存二叉树所有结点的值的数组</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">;</span>
+<span class="c1">//存放子树的值</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">subTreeValue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//存放子树的信息</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">subTreeInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//指向子树的值</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">p1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="c1">//指向子树的信息</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">p2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+<span class="c1">//接受输入信息的函数</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">scanner</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">//接受树的结点个数</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="c1">//接受树的结点value</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="c1">//接受树的子树信息</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">t</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">scanner</span><span class="o">.</span><span class="na">hasNextLine</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+                <span class="n">info</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//处理输入信息的函数</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">BuildAndJudgeSubTree</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//取出info当中的子树信息存入一个字符数组</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">p</span> <span class="o">:</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">","</span><span class="o">);</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">subTreeInfo1</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="c1">//根据子树的信息建立子树</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">subTreeInfo1</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">//拿掉空格(ASCII当中32==space)</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">subTreeInfo1</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="mi">32</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//子树的信息            </span>
+            	<span class="k">if</span> <span class="o">(</span><span class="n">subTreeInfo1</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="sc">'a'</span> <span class="o">&amp;&amp;</span> <span class="n">subTreeInfo1</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="sc">'z'</span> <span class="o">)</span>
+                    <span class="n">subTreeInfo</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">subTreeInfo1</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+                <span class="c1">//子树的值</span>
+                <span class="k">else</span>
+                    <span class="n">subTreeValue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">subTreeInfo1</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>有了上面的两个子树相关的数据，我们就可以着手构建二叉树了。在这里，我们还是需要用到辅助数据结构，队列。同样地，我们先分析一下构建二叉树的步骤应该是怎样的，必须明确的是，数据里面的子树的信息，也是从上往下，从左往右给的。</p>
+
+<ol>
+  <li>新建一个结点，将根节点的值放进去，然后将这个结点放入队列当中；</li>
+  <li>将队列头部元素弹出，这个元素作为当前的操作元素，根据信息构建它的子树，并将子结点按照顺序加入到队列当中；</li>
+  <li>重复第2步的操作，直到队列为空。</li>
+</ol>
+
+<p>另外，为了方便操作和封装，这里我们需要构建一个二叉树结点类：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BinTreeNode</span><span class="o">{</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="n">BinTreeNode</span> <span class="n">lChild</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="n">BinTreeNode</span> <span class="n">rChild</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="n">BinTreeNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>下面是构建二叉树的详细代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//构建二叉树的队列</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">BinTreeNode</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//遍历二叉树的队列</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">BinTreeNode</span><span class="o">&gt;</span> <span class="n">queue1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//根节点</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">BinTreeNode</span> <span class="n">root</span><span class="o">;</span>
+<span class="c1">//根节点,用于打印</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">BinTreeNode</span> <span class="n">realroot</span><span class="o">;</span>
+
+<span class="c1">//构建二叉树的函数,利用了一个队列</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">buildTree</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinTreeNode</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="n">realroot</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="c1">//将根节点插入队列</span>
+    <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+    <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">//从队列弹出一个结点作为当前结点</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="c1">//判断当前子树的信息,选择其中一项执行,最后"指针"后移一位</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">subTreeInfo</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p2</span><span class="o">)</span> <span class="o">==</span> <span class="sc">'d'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//如果当前结点有两个孩子,则新建两个结点放到当前结点的孩子当中</span>
+            <span class="c1">//注意将字符转换成整形</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">lChild</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinTreeNode</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">subTreeValue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p1</span><span class="o">++)</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]);</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">rChild</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinTreeNode</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">subTreeValue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p1</span><span class="o">++)</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]);</span>
+            <span class="c1">//将左右孩子插入队列当中,以便构建它们的子树</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">lChild</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">rChild</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">//只有一个孩子的话.无论左右孩子对于当前的题目要求没有影响,默认当成左孩子处理</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">subTreeInfo</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p2</span><span class="o">)</span> <span class="o">==</span> <span class="sc">'r'</span> <span class="o">||</span> <span class="n">subTreeInfo</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p2</span><span class="o">)</span> <span class="o">==</span> <span class="sc">'r'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">lChild</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinTreeNode</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">subTreeValue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">p1</span><span class="o">++)</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">lChild</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">//指针后移一位</span>
+        <span class="n">p2</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>### 防坑
+上面有一个地方可能造成坑，特别记录下来。为什么会有两个变量，一个叫<code class="highlighter-rouge">root</code>另一个叫<code class="highlighter-rouge">realroot</code>，它们有什么区别。一开始呢，<code class="highlighter-rouge">root</code>和<code class="highlighter-rouge">realroot</code>都是指根节点的。后来，<code class="highlighter-rouge">root</code>用来指示当前的操作结点了。遍历完之后，它是最后一个叶子结点。<code class="highlighter-rouge">realroot</code>则一直表示的都是根节点，没有改变过，所以是”真的根节点“，在其他需要使用根节点的地方可以使用它，但是不要使用<code class="highlighter-rouge">root</code>，因为有可能会造成错误！</p>
+
+<h2 id="section-2">结语</h2>
+<p>这个题目做完还是比较有意思的，使用了一种辅助的数据结构，完成对二叉树的一个比较特别的遍历方法，广度遍历。通过这个题目，加深了对二叉树和队列的认识。好题！</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/10/08/view-myview/" data-toggle="tooltip" data-placement="top" title="编写一个属于自己的View">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2015/10/24/permutation-eightqueen/" data-toggle="tooltip" data-placement="top" title="入门级全排列算法">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    
+</article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/10/12/bintree-queue data-title=自上而下的打印二叉树 data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

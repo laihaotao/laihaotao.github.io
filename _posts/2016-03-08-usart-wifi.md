@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [毕设记录]WiFi完成过程文档
+title: 毕设记录 WiFi完成过程文档
 subtitle: Introduction of USART-WiFi Module
 keyword: USART WiFi
 ---
@@ -13,6 +13,7 @@ ESP8266模块，是一款USART转WiFi模块，可以使嵌入式系统串口通�
 
 ## 引脚
 这个模块的引脚一般引出来的有6个:
+
 - VCC：电源（建议接3.3v，在5v下也可以工作，据测试发热量稍大）
 - GND：电源地
 - TXD：模块串口发送引脚（TTL电平，可接单片机的RXD）
@@ -22,6 +23,7 @@ ESP8266模块，是一款USART转WiFi模块，可以使嵌入式系统串口通�
 
 ## 工作模式
 这个模块通常会有三种工作模式：
+
 - AP模式，这种模式下模块相当于一个WiFi热点，其他设备可以接入这个热点，从而实现无线通信。（和蓝牙类似，不需要网络也可以实现）
 - STA模式，这个模式下模块相当于一个WiFi设备，需要通过路由器与其他的网络设备通信。
 - AP+SAT模式，这种模式是上述两种模式的并集。
@@ -30,6 +32,7 @@ ESP8266模块，是一款USART转WiFi模块，可以使嵌入式系统串口通�
 
 ## 指令介绍
 模块提供了一套完整的AT指令，供我们来操作，详细的指令请参考文档，这里不逐一列出。
+
 > [ESP8266用户手册 ](https://laihaotao.github.io/documents/ESP8266%20User_Manual.pdf)
 
 ## 注意事项
@@ -41,6 +44,7 @@ ESP8266模块，是一款USART转WiFi模块，可以使嵌入式系统串口通�
 实现WiFi的功能，分成硬件和软件部分。硬件上，使用stm32的USART2与ESP8266相连接。软件上，根据手册，封装AT命令，使用中断读取接收数据等。
 
 引脚连接方式：
+
 - ESP8266_RXD连接stm32_USART2_TXD
 - ESP8266_TXD连接stm32_USART2_RXD
 - ESP8266_VCC连接3.3v
@@ -51,6 +55,7 @@ ESP8266模块，是一款USART转WiFi模块，可以使嵌入式系统串口通�
 PS：stm32与ESP8266要共地。
 
 软件上，主要由下面几个文件来实现WiFi模块的驱动：
+
 - wifi_config.c 这个文件主要完成USART2的初始化，USART2的中断控制器配置
 - wifi_function.c 这个文件主要实现对wifi模块的AT指令操作，并完成STA TCP Client连接
 

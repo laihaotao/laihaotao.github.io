@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" Be better than yesterday ">
+
+    <title>编写一个属于自己的View - Eric's Blog</title>
+
+    <link rel="canonical" href="/2015/10/08/view-myview/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>编写一个属于自己的View</h1>
+                    
+                    <h2 class="subheading">Write a view by yourself</h2>
+                    
+                    <span class="meta">Posted by Eric's Blog on October 8, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+
+<h2 id="view">编写自定义view</h2>
+<p>当我们在开发Android的界面的时候，难免有时会不太满意系统提供给我们的控件，从而需要自己定义一些控件来试用，或者将若干个系统控件封装成一个自定义的控件。这个时候，我们就需要写一个类继承自系统的View。通过IDE，我们可以知道继承自View的类有四个构造器供我们选择，一般情况下我们需要覆盖其中的两个，<code class="highlighter-rouge">MyView(Context context)</code>和<code class="highlighter-rouge">MyView(Context context, AttributeSet attrs)</code>。其中，前者供代码使用，后者供布局文件使用（这个在后文会有提及）。除了这两个构造器以外，还有一个方法我们在需要绘制图形的时候重写的，叫做<code class="highlighter-rouge">onDraw（Canvas canvas）</code>。利用这个方法的canvas，我们可以绘制各个类型的东西，包括有文字、圆形、矩形、圆角矩形和图片等。下面给出代码演示：</p>
+
+<p>首先，我们需要在xml文件里面添加我们的自定义控件：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;com.eric_lai.myview.MyView</span>
+	<span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+	<span class="na">android:layout_height=</span><span class="s">"match_parent"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+<p>接着是java的代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">;</span>
+    
+    <span class="c1">//供java代码使用的构造器</span>
+    <span class="kd">public</span> <span class="n">MyView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">getResources</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//供布局xml使用的构造器</span>
+    <span class="kd">public</span> <span class="n">MyView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+        <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">getResources</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+        <span class="c1">//实例化一个paint,用来控制样式(包括字体的大小,颜色,形状的样式等)</span>
+        <span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+        <span class="n">paint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+        <span class="c1">//绘制文字，以下数字都是坐标，具体值参见API文档</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="s">"hello word my view"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="c1">//绘制矩形</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">60</span><span class="o">,</span> <span class="mi">180</span><span class="o">,</span> <span class="mi">120</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="c1">//绘制圆形</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">80</span><span class="o">,</span> <span class="mi">240</span><span class="o">,</span> <span class="mi">80</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="c1">//绘制图片(需要从图片工厂里面得到一个图片)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">350</span><span class="o">,</span><span class="n">paint</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>MainActivity上的代码很简单，只要在<code class="highlighter-rouge">onCreate()</code>方法里面执行两行代码就可以了：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+<span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+<span class="c1">//下面这个也可以,使用了MyView只有一个上下文参数的构造器</span>
+<span class="c1">//setContentView(New MyView(this));</span>
+</code></pre>
+</div>
+<p>下面是一张模拟器上运行上述代码的图片：</p>
+
+<p><img src="/images/view_v1.png" /></p>
+
+<h2 id="section">设计逻辑线程</h2>
+<p>以上，我们为自定义的view绘制了一些东西，然而它们现在都是静态的。为了有更好的用户体验，我们要想办法让这些元素动起来。怎么能够让它们动起来呢？我们都知道为什么电影能够给我们动得感觉是将一帧一帧的静态图用比较快得速度拨出来。在Android上应该也是这样的，用不断的重新绘制来给我们一种“动”的效果。</p>
+
+<p>这里我先说一下要实现的效果：</p>
+
+<ol>
+  <li>让一行文字从屏幕的一边移动到另一边完全出去了之后，再从原来的地方一个一个进入屏幕；</li>
+  <li>让一个圆通过扫描的方式画出来；</li>
+</ol>
+
+<p>下面是实现的代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">ublic</span> <span class="kd">class</span> <span class="nc">logicView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mx</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="n">MyThread</span> <span class="n">thread</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">sweepAngle</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">RectF</span> <span class="n">rectF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">80</span><span class="o">,</span> <span class="mi">160</span><span class="o">,</span> <span class="mi">160</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">logicView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">logicView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+        <span class="n">paint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="s">"你好eric"</span><span class="o">,</span> <span class="n">mx</span><span class="o">,</span> <span class="mi">40</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawArc</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">sweepAngle</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">thread</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyThread</span><span class="o">();</span>
+            <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">mx</span> <span class="o">+=</span> <span class="mi">3</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">mx</span> <span class="o">&gt;</span> <span class="n">getWidth</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="n">mx</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">paint</span><span class="o">.</span><span class="na">measureText</span><span class="o">(</span><span class="s">"你好eric"</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">sweepAngle</span> <span class="o">++;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">sweepAngle</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">sweepAngle</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">postInvalidate</span><span class="o">();</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="view-1">提取和封装自定义view</h2>
+<p>上面的代码，虽然实现了我们绘制的元素动起来的目的。但是当中，逻辑代码比较混乱，怎么样可以让我们只专注于view的设计，将”动起来“这些逻辑封装起来呢？接下来，我们来关注一下这里。首先，我打算写一个baseview的抽象类来继承自view类。将转移我们注意力的代码全部扔到这里来实现。然后，其他的自定义view继承自这个view就可以了。抽象类的实现代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">baseView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+
+    <span class="c1">//逻辑线程</span>
+    <span class="kd">private</span> <span class="n">MyThread</span> <span class="n">thread</span><span class="o">;</span>
+    <span class="c1">//停止线程的标志</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isRuning</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="c1">//实现绘制的抽象方法, 在需要的子类当中复写</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="n">drawSub</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">);</span>
+    <span class="c1">//实现逻辑的抽象方法, 在需要的子类当中复写</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="n">logic</span><span class="o">();</span>
+
+    <span class="c1">//两个构造器</span>
+    <span class="kd">public</span> <span class="n">baseView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">baseView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">//启动线程, 调用绘制方法</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">thread</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyThread</span><span class="o">();</span>
+            <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">drawSub</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">//view退出是回调的方法</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onDetachedFromWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDetachedFromWindow</span><span class="o">();</span>
+        <span class="n">isRuning</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//内部类实现一个线程</span>
+    <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">//判断view是否在当前使用</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">isRuning</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//调用逻辑抽象方法</span>
+                <span class="n">logic</span><span class="o">();</span>
+                <span class="c1">//重新绘制view</span>
+                <span class="n">postInvalidate</span><span class="o">();</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="c1">//线程休眠30ms</span>
+                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>下面是实现这个抽象类的类，效果和第二个标题的一样。这里只是演示了，怎么封装。封装之后，代码更加清晰，增加了可读性，下面没有给出注释，相信也可以看得明白，主要就是实现了两个抽象方法分别是绘制和逻辑。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">logicView</span> <span class="kd">extends</span> <span class="n">baseView</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mx</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">android</span><span class="o">.</span><span class="na">graphics</span><span class="o">.</span><span class="na">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">sweepAngle</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">RectF</span> <span class="n">rectF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">80</span><span class="o">,</span> <span class="mi">160</span><span class="o">,</span> <span class="mi">160</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">logicView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">logicView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">drawSub</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">paint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="s">"你好eric"</span><span class="o">,</span> <span class="n">mx</span><span class="o">,</span> <span class="mi">40</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawArc</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">sweepAngle</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">logic</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">mx</span> <span class="o">+=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mx</span> <span class="o">&gt;</span> <span class="n">getWidth</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">mx</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">paint</span><span class="o">.</span><span class="na">measureText</span><span class="o">(</span><span class="s">"你好eric"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">sweepAngle</span> <span class="o">++;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">sweepAngle</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sweepAngle</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>有了上面的储备，相信大家都可以写出自己所需要的view了。后面有时间的话，需要研究一下view的系统底层是怎么实现的。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/10/07/contact-demo/" data-toggle="tooltip" data-placement="top" title="获取手机联系人Demo">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2015/10/12/bintree-queue/" data-toggle="tooltip" data-placement="top" title="自上而下的打印二叉树">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    
+</article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/10/08/view-myview data-title=编写一个属于自己的View data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

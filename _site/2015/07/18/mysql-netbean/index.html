@@ -10,16 +10,16 @@
 
     <title>netbean下部署tomcat服务器连接mysql数据库 - Eric's Blog</title>
 
-    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/07/18/mysql-netbean/">
+    <link rel="canonical" href="/2015/07/18/mysql-netbean/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/clean-blog.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -49,22 +49,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                    <a href="/about/">About</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                    <a href="/contact/">Contact</a>
                 </li>
                 
             </ul>
@@ -76,12 +76,14 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <h1>netbean下部署tomcat服务器连接mysql数据库</h1>
+                    
+                    <h2 class="subheading">introduction how to deployment tomcat server and link to mysql database under netbean</h2>
                     
                     <span class="meta">Posted by Eric's Blog on July 18, 2015</span>
                 </div>
@@ -96,22 +98,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
-
-<h1 id="前言">前言</h1>
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong>
+# 前言</p>
 
 <p>继续上文，由于学校的项目没人。只好自己来现学现卖，今天研究了一番怎么配置数据库到服务器上。也是废了好一番功夫，我显示参考了NetBeans的官方教程，然而它使用的不是我们常用的Tomcat服务器，而且教程不讲原理只讲步骤我看得好痛苦。一番摸索下来，通过stackflow和tomcat自带的说明文档，用于研究出来了怎么部署。记录一番，以备查用。</p>
 
-<h1 id="环境准备">环境准备</h1>
-
+<h1 id="section">环境准备</h1>
 <p>在准备布置这些之前需要的工具如下并且配置好所需的环境：
 NetBeans IDE、tomcat8.0、mysql数据库、一张数据表（本文默认你已经知道怎么把数据库连接到IDE里面，如果不知道的请看这里）
-<mark>友情提示1</mark>：tomcat8.0在NetBeans上无法部署的问题，如果报错是 &#39;127.0.0.1&#39; is not recognized as an internal or external command  的话，你需要在tomcat安装目录下找到bin文件夹下的catalina.bat文件，然后用记事本打开它的第179到184行，将以下内容</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">:noJuliConfig
-set &quot;JAVA_OPTS=%JAVA_OPTS% %LOGGING_CONFIG%&quot;
+==友情提示1==：tomcat8.0在NetBeans上无法部署的问题，如果报错是 ‘127.0.0.1’ is not recognized as an internal or external command  的话，你需要在tomcat安装目录下找到bin文件夹下的catalina.bat文件，然后用记事本打开它的第179到184行，将以下内容</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:noJuliConfig
+set "JAVA_OPTS=%JAVA_OPTS% %LOGGING_CONFIG%"
 ..
 :noJuliManager
-set &quot;JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%&quot;
+set "JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%"
 更改为：
 
 :noJuliConfig
@@ -119,33 +120,41 @@ set JAVA_OPTS=%JAVA_OPTS% %LOGGING_CONFIG%
 ..
 :noJuliManager
 set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%
-</code></pre></div>
+</code></pre>
+</div>
 <p><strong>简单的说就是把这两出的双引号去掉。然后保存，重新打开tomcat即可完成部署。</strong>
-<mark>友情提示2</mark>：在进入NetBeans开始配置之前还有很重要的事情，要把从mysql上下载的JDBC驱动放到tomcat的安装目录的cof目录下，通过它的官方文档可以知道，只有这样只有在这个文件夹里的文件对tomcat启动的时候才是可见的。而且每次启动tomcat只会读取一次，所以必须要在没有启动服务器之前放到这个文件夹里面。注意这个JDBC的jre版本有讲究，太新的驱动不能配太老的数据库。这里我给出一个我可以用的。</p>
+==友情提示2==：在进入NetBeans开始配置之前还有很重要的事情，要把从mysql上下载的JDBC驱动放到tomcat的安装目录的cof目录下，通过它的官方文档可以知道，只有这样只有在这个文件夹里的文件对tomcat启动的时候才是可见的。而且每次启动tomcat只会读取一次，所以必须要在没有启动服务器之前放到这个文件夹里面。注意这个JDBC的jre版本有讲究，太新的驱动不能配太老的数据库。这里我给出一个我可以用的。</p>
 
-<h1 id="在ide下配置数据库连接池">在IDE下配置数据库连接池</h1>
+<h1 id="ide">在IDE下配置数据库连接池</h1>
 
 <p>在这之前我们需要下载两个Apache要求的jre文件（分别是jstl和stander），并把他们添加到工程的WEB-INF下的lib文件夹里（没有就新建）。没有的话下载的连接在这里。
 首先，我们需要配置JNDI到tomcat。找到Context.xml这个文件，双击之打开源码。加入以下内容：</p>
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">&quot;jdbc/DbTest(你的工程名字)&quot;</span> 
-                <span class="na">auth=</span><span class="s">&quot;Container&quot;</span> <span class="na">type=</span><span class="s">&quot;javax.sql.DataSource&quot;</span>
-               <span class="na">maxTotal=</span><span class="s">&quot;100&quot;</span> <span class="na">maxIdle=</span><span class="s">&quot;30&quot;</span> <span class="na">maxWaitMillis=</span><span class="s">&quot;10000&quot;</span>
-               <span class="na">username=</span><span class="s">&quot;你的数据库用户名&quot;</span> <span class="na">password=</span><span class="s">&quot;数据库密码&quot;</span> <span class="na">driverClassName=</span><span class="s">&quot;com.mysql.jdbc.Driver&quot;</span>
-               <span class="na">url=</span><span class="s">&quot;jdbc:mysql://localhost:3306/你的数据库名字&quot;</span><span class="nt">/&gt;</span>
-</code></pre></div>
-<p>然后，找到WEB-INF/web.xml这个文件，同样双击之打开源码。进行注册，在<code>&lt;web-app&gt;</code>和<code>&lt;/web-app&gt;</code>标签之间加入以下代码：</p>
-<div class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;resource-ref&gt;</span>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">"jdbc/DbTest(你的工程名字)"</span> 
+				<span class="na">auth=</span><span class="s">"Container"</span> <span class="na">type=</span><span class="s">"javax.sql.DataSource"</span>
+               <span class="na">maxTotal=</span><span class="s">"100"</span> <span class="na">maxIdle=</span><span class="s">"30"</span> <span class="na">maxWaitMillis=</span><span class="s">"10000"</span>
+               <span class="na">username=</span><span class="s">"你的数据库用户名"</span> <span class="na">password=</span><span class="s">"数据库密码"</span> <span class="na">driverClassName=</span><span class="s">"com.mysql.jdbc.Driver"</span>
+               <span class="na">url=</span><span class="s">"jdbc:mysql://localhost:3306/你的数据库名字"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
+<p>然后，找到WEB-INF/web.xml这个文件，同样双击之打开源码。进行注册，在<code class="highlighter-rouge">&lt;web-app&gt;</code>和<code class="highlighter-rouge">&lt;/web-app&gt;</code>标签之间加入以下代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;resource-ref&gt;</span>
       <span class="nt">&lt;description&gt;</span>DB Connection<span class="nt">&lt;/description&gt;</span>
       <span class="nt">&lt;res-ref-name&gt;</span>jdbc/工程名字<span class="nt">&lt;/res-ref-name&gt;</span>
       <span class="nt">&lt;res-type&gt;</span>javax.sql.DataSource<span class="nt">&lt;/res-type&gt;</span>
       <span class="nt">&lt;res-auth&gt;</span>Container<span class="nt">&lt;/res-auth&gt;</span>
   <span class="nt">&lt;/resource-ref&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>最后，如果你建数据表的时候没有取得最高权限的话你需要在mysql的命令行模式下执行如下命令来取得权限：</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 用户名@localhost
-    -&gt;   IDENTIFIED BY <span class="s1">&#39;密码&#39;</span> WITH GRANT OPTION<span class="p">;</span>
-</code></pre></div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">mysql&gt; </span>GRANT ALL PRIVILEGES ON <span class="k">*</span>.<span class="k">*</span> TO 用户名@localhost
+    -&gt;   IDENTIFIED BY <span class="s1">'密码'</span> WITH GRANT OPTION;
+</code></pre>
+</div>
 <p>至此，你完成了连接部分的配置。</p>
+
 
 
                 <hr>
@@ -153,12 +162,12 @@ set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/17/json/" data-toggle="tooltip" data-placement="top" title="使用第三方库json-lib来传递json格式数据">&larr; Previous Post</a>
+                        <a href="/2015/07/17/json/" data-toggle="tooltip" data-placement="top" title="使用第三方库json-lib来传递json格式数据">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/07/19/jstl/" data-toggle="tooltip" data-placement="top" title="使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互">Next Post &rarr;</a>
+                        <a href="/2015/07/19/jstl/" data-toggle="tooltip" data-placement="top" title="使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -166,7 +175,25 @@ set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%
             </div>
         </div>
     </div>
+    
 </article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/07/18/mysql-netbean data-title=netbean下部署tomcat服务器连接mysql数据库 data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
 
 <hr>
 
@@ -178,7 +205,7 @@ set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     <li>
-                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                        <a href="/feed.xml">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -207,20 +234,20 @@ set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
             </div>
         </div>
     </div>
 </footer>
 
 <!-- jQuery -->
-<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+<script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+<script src="/js/clean-blog.min.js "></script>
 
 
 </body>

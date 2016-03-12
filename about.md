@@ -3,9 +3,9 @@ layout: page
 title: "About"
 description: "This is me !"
 ---
-以下内容还没有翻译成中文，希望获取我得==中文简历==，请点击[这里]({{site.url}}/documents/cv_chinese.pdf)
+以下内容还没有翻译成中文，希望获取我得中文简历，请点击[这里]({{site.url}}/documents/cv_chinese.pdf)
 
-The following paragraphy will be something about myself, if you don't have time to read the them, you may be interested in my ==CV== please click [here]({{site.url}}/documents/cv_english.pdf).
+The following paragraphy will be something about myself, if you don't have time to read the them, you may be interested in my sCV please click [here]({{site.url}}/documents/cv_english.pdf).
 
 ## Introduction
 

@@ -10,16 +10,16 @@
 
     <title>排序算法之堆排序 - Eric's Blog</title>
 
-    <link rel="canonical" href="http://laihaotao.github.io/startbootstrap-clean-blog-jekyll/2015/09/29/heap-sort/">
+    <link rel="canonical" href="/2015/09/29/heap-sort/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/clean-blog.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/startbootstrap-clean-blog-jekyll/css/syntax.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -49,22 +49,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/startbootstrap-clean-blog-jekyll/">Eric's Blog</a>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/about/">About</a>
+                    <a href="/about/">About</a>
                 </li>
                 
                 <li>
-                    <a href="/startbootstrap-clean-blog-jekyll/contact/">Contact</a>
+                    <a href="/contact/">Contact</a>
                 </li>
                 
             </ul>
@@ -76,12 +76,14 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/startbootstrap-clean-blog-jekyll/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <h1>排序算法之堆排序</h1>
+                    
+                    <h2 class="subheading">Introduction of heap sort</h2>
                     
                     <span class="meta">Posted by Eric's Blog on September 29, 2015</span>
                 </div>
@@ -98,121 +100,121 @@
 
 				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
 
-<h2 id="什么是堆排序">什么是堆排序</h2>
-
+<h2 id="section">什么是堆排序</h2>
 <p>堆排序是指利用堆这种数据结构所设计的一种排序算法，它是选择排序的一种。可以利用数组的特点快速的定位指定索引的元素。堆分为大根堆和小根堆，是完全二叉树。在本次的排序算法当中使用的时大根堆的性质（最大堆性质），即每个子结点的元素的值都不能大于其父结点的元素的值。</p>
 
-<h2 id="排序思想">排序思想</h2>
-
+<h2 id="section-1">排序思想</h2>
 <p>整个堆排序的思想可以分成三个部分：</p>
 
 <ul>
-<li>维护最大堆性质</li>
-<li>构建堆</li>
-<li>从堆中取出元素完成排序</li>
+  <li>维护最大堆性质</li>
+  <li>构建堆</li>
+  <li>从堆中取出元素完成排序</li>
 </ul>
 
 <p>从我们拿到一个无序的序列开始说起。拿到一个序列之后，要使用堆排序的话，我们当然首先要构建一个堆。在构建堆的过程当中我们要维护堆的最大堆性质，一边构建一边维护的话，当堆建好我们也已经维护好了。最后，就需要从堆里取出元素进行排序即可。</p>
 
-<h2 id="堆排序三部曲">堆排序三部曲</h2>
-
+<h2 id="section-2">堆排序三部曲</h2>
 <p>下面我们将上面三个部分逐一进行分析，从最简单的开始。这里，先做出一点定义，将上述的三个部分分别用一个函数（方法）来实现，命名如下：</p>
 
 <ul>
-<li>维护最大堆性质的函数（方法）名为：<code>heap_keep_max()</code></li>
-<li>构建堆的函数（方法）名为：<code>heap_build()</code></li>
-<li>从堆中取出元素完成排序的函数（方法）名为：<code>heap_sort()</code></li>
+  <li>维护最大堆性质的函数（方法）名为：<code class="highlighter-rouge">heap_keep_max()</code></li>
+  <li>构建堆的函数（方法）名为：<code class="highlighter-rouge">heap_build()</code></li>
+  <li>从堆中取出元素完成排序的函数（方法）名为：<code class="highlighter-rouge">heap_sort()</code></li>
 </ul>
 
-<h3 id="从堆中取出元素完成排序">从堆中取出元素完成排序</h3>
-
-<p>假设我们现在已经得到了一个堆，它维持着最大堆的性质。所以，我们可以推出：<mark>整个序列当中最大的元素必然是在二叉树的根部</mark>。为了排成有序列（这里按照非降序进行排列），第一步应该是：（1）将这个元素放到序列的最后（直接在原数组当中进行排序），并除去这个节点；为了直接在原数组当中排序，最大元素放在数组最后了，那么数组原本的最后一个元素就应该去到了二叉树根。但是，除去这个数（根节点上的数值），子结点应该仍然维持着最大堆的性质，所以，第二步：（2）我们需要对根节点执行维护最大堆的操作；</p>
+<h3 id="section-3">从堆中取出元素完成排序</h3>
+<p>假设我们现在已经得到了一个堆，它维持着最大堆的性质。所以，我们可以推出：==整个序列当中最大的元素必然是在二叉树的根部==。为了排成有序列（这里按照非降序进行排列），第一步应该是：（1）将这个元素放到序列的最后（直接在原数组当中进行排序），并除去这个节点；为了直接在原数组当中排序，最大元素放在数组最后了，那么数组原本的最后一个元素就应该去到了二叉树根。但是，除去这个数（根节点上的数值），子结点应该仍然维持着最大堆的性质，所以，第二步：（2）我们需要对根节点执行维护最大堆的操作；</p>
 
 <p>总结起来，就是如下的两步：</p>
 
 <ol>
-<li>把根节点的值与序列最后的值作一个交换，然后在堆中除去序列最后的值。即执行一个典型的两数互换操作(比较简单，这里不单独给出代码)；</li>
-<li>对根节点进行维护最大堆性质的操作。即执行<code>heap_keep_max()</code>;</li>
+  <li>把根节点的值与序列最后的值作一个交换，然后在堆中除去序列最后的值。即执行一个典型的两数互换操作(比较简单，这里不单独给出代码)；</li>
+  <li>对根节点进行维护最大堆性质的操作。即执行<code class="highlighter-rouge">heap_keep_max()</code>;</li>
 </ol>
 
 <p>也就是说排序的函数（方法）的具体代码实现应该是这样的：</p>
-<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">heap_sort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">array</span><span class="p">){</span>
-    <span class="c1">//假定两数交换的函数（方法）是exchange()</span>
-    <span class="n">exchange</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">array</span><span class="p">.</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="c1">//移除最后一个已经排好序的元素</span>
-    <span class="n">heap_size</span> <span class="o">=</span> <span class="n">heap_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="c1">//执行维护根节点,0代表根节点</span>
-    <span class="n">heap_keep_max</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="维护最大堆性质">维护最大堆性质</h3>
 
-<p>下面讨论怎么实现对<mark>某个</mark>节点（不局限于根节点，如果需要只对根节点进行维护，提供一个参数（根节点的下标）即可）实行最大堆性质的维护。原理应该是这样的：<strong>对于给出的结点，取出它的值，然后和它的子结点的值进行比较。若不存在比它大的值，则不需要进行任何操作；若存在比它大的值，将它和大的值换个位置</strong>。然后对换了位置的地方，重复上述的步骤（递归调用）即可完成。实现代码如下所示：</p>
-<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="c1">//array是待排序的序列，i是任意节点的下标</span>
-<span class="c1">//其中出现的heap_size是堆的有效长度的全局变量</span>
-<span class="n">heap_keep_max</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
-    <span class="c1">//定义两个变量代表二叉树的孩子节点的下标</span>
-    <span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="n">r</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">largest</span><span class="p">,</span><span class="n">tmp</span><span class="p">;</span>
-    <span class="c1">//以0下标为第一个元素（根节点）</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="c1">//判断i的左孩子节点是否比array[i]大</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&lt;=</span> <span class="n">array</span><span class="p">.</span><span class="n">heap_size</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
-        <span class="n">largest</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">largest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">//判断i的右孩子节点是否比array[largest]大</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;=</span> <span class="n">array</span><span class="p">.</span><span class="n">heap_size</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">array</span><span class="p">[</span><span class="n">largest</span><span class="p">]){</span>
-        <span class="n">largest</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">//判断是否需要进行两数的呼唤</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">largest</span> <span class="o">!=</span> <span class="n">i</span><span class="p">){</span>
-        <span class="c1">//开始进行交换</span>
-        <span class="n">exchange</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">largest</span><span class="p">]);</span>
-        <span class="c1">//交换后可能破坏了最大堆性质，维护进行了交换的地方</span>
-        <span class="n">heap_keep_max</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">largest</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="构建堆">构建堆</h3>
+<pre><code class="language-C">void heap_sort(int[] array){
+	//假定两数交换的函数（方法）是exchange()
+	exchange(array[0],array[array.length-1]);
+	//移除最后一个已经排好序的元素
+	heap_size = heap_size - 1;
+	//执行维护根节点,0代表根节点
+	heap_keep_max(array,0);
+}
+</code></pre>
 
-<p>我们如果假设l和r为某一个节点i的左孩子和右孩子。在第一个节点的下标设置为0的情况下，通过一些数学关系，我们可以得出两个关系式<code>l = 2 * i + 1</code>,<code>r = l + 1</code>。构建堆的时候，很显然我们从底部往上构建比从上往下构建要容易得多，因为你不知道最大的数会出现在什么地方。所以，我们取待排序列的最后一个数开始。一边维护最大堆的性质一边构建堆。具体的代码如下所示：</p>
-<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="n">heap_build</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">array</span><span class="p">){</span>
-    <span class="n">heap_size</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
-        <span class="n">heap_keep_max</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="具体实现">具体实现</h2>
+<h3 id="section-4">维护最大堆性质</h3>
+<p>下面讨论怎么实现对==某个==节点（不局限于根节点，如果需要只对根节点进行维护，提供一个参数（根节点的下标）即可）实行最大堆性质的维护。原理应该是这样的：<strong>对于给出的结点，取出它的值，然后和它的子结点的值进行比较。若不存在比它大的值，则不需要进行任何操作；若存在比它大的值，将它和大的值换个位置</strong>。然后对换了位置的地方，重复上述的步骤（递归调用）即可完成。实现代码如下所示：</p>
 
+<pre><code class="language-C">//array是待排序的序列，i是任意节点的下标
+//其中出现的heap_size是堆的有效长度的全局变量
+heap_keep_max(int[] array, int i){
+	//定义两个变量代表二叉树的孩子节点的下标
+	int l,r;
+	int largest,tmp;
+	//以0下标为第一个元素（根节点）
+	l = 2 * i + 1;
+	r = l + 1;
+	//判断i的左孩子节点是否比array[i]大
+	if (l &lt;= array.heap_size &amp;&amp; array[l] &gt; array[i]){
+		largest = l;
+	}else{
+		largest = i;
+	}
+	//判断i的右孩子节点是否比array[largest]大
+	if (r &lt;= array.heap_size &amp;&amp; array[r] &gt;= array[largest]){
+		largest = r;
+	}
+	//判断是否需要进行两数的呼唤
+	if (largest != i){
+		//开始进行交换
+		exchange(array[i],array[largest]);
+		//交换后可能破坏了最大堆性质，维护进行了交换的地方
+		heap_keep_max(array,largest);
+	}
+}
+</code></pre>
+
+<h3 id="section-5">构建堆</h3>
+<p>我们如果假设l和r为某一个节点i的左孩子和右孩子。在第一个节点的下标设置为0的情况下，通过一些数学关系，我们可以得出两个关系式<code class="highlighter-rouge">l = 2 * i + 1</code>,<code class="highlighter-rouge">r = l + 1</code>。构建堆的时候，很显然我们从底部往上构建比从上往下构建要容易得多，因为你不知道最大的数会出现在什么地方。所以，我们取待排序列的最后一个数开始。一边维护最大堆的性质一边构建堆。具体的代码如下所示：</p>
+
+<pre><code class="language-C">heap_build(int[] array){
+	heap_size = array.length;
+	for (int i = array.length-1; i &gt;= 0; i--){
+		heap_keep_max(array,i);
+	}
+}
+</code></pre>
+
+<h2 id="section-6">具体实现</h2>
 <p>上面给出了初步的逻辑代码，下面给出在Java环境下运行通过的详细代码：</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="n">heap</span><span class="o">;</span>
-<span class="cm">/**</span>
-<span class="cm"> * 堆排序</span>
-<span class="cm"> * @author ERIC_LAI</span>
-<span class="cm"> */</span>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kn">package</span> <span class="n">heap</span><span class="o">;</span>
+<span class="cm">/**
+ * 堆排序
+ * @author ERIC_LAI
+ */</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Heap</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">heap_size</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">int</span> <span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="o">{</span><span class="mi">4</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">16</span><span class="o">,</span><span class="mi">9</span><span class="o">,</span><span class="mi">10</span><span class="o">,</span><span class="mi">14</span><span class="o">,</span><span class="mi">8</span><span class="o">,</span><span class="mi">7</span><span class="o">};</span>
         <span class="n">Heap</span><span class="o">.</span><span class="na">heap_build</span><span class="o">(</span><span class="n">array</span><span class="o">);</span>
         <span class="n">Heap</span><span class="o">.</span><span class="na">heap_sort</span><span class="o">(</span><span class="n">array</span><span class="o">);</span>       
-       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;final: &quot;</span><span class="o">);</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"final: "</span><span class="o">);</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">]+</span><span class="s">&quot; &quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">]+</span><span class="s">" "</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * 维护最大堆性质</span>
-<span class="cm">     * @param array 待排序列的首地址</span>
-<span class="cm">     * @param i 需要维护的下标</span>
-<span class="cm">     */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">heap_keep_max</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">){</span>
+    
+    <span class="cm">/**
+     * 维护最大堆性质
+     * @param array 待排序列的首地址
+     * @param i 需要维护的下标
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">heap_keep_max</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">){</span>
         <span class="kt">int</span> <span class="n">largest</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
         <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
         <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
@@ -236,29 +238,29 @@
             <span class="n">Heap</span><span class="o">.</span><span class="na">heap_keep_max</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">largest</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * 构建堆</span>
-<span class="cm">     * @param array 待排序列的首地址</span>
-<span class="cm">     */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">heap_build</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">){</span>
+    
+    <span class="cm">/**
+     * 构建堆
+     * @param array 待排序列的首地址
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">heap_build</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">){</span>
         <span class="n">heap_size</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--){</span>
             <span class="n">Heap</span><span class="o">.</span><span class="na">heap_keep_max</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
-         <span class="c1">//这里的注释部分用于显示每次维护后的结果，方便调试</span>
-<span class="c1">//          System.out.print(&quot;i=&quot;+i);</span>
+		 <span class="c1">//这里的注释部分用于显示每次维护后的结果，方便调试</span>
+<span class="c1">//          System.out.print("i="+i);</span>
 <span class="c1">//          for (int j = 0; j &lt; array.length; j++) {</span>
-<span class="c1">//              System.out.print(&quot; &quot;+array[j]+&quot; &quot;);</span>
+<span class="c1">//              System.out.print(" "+array[j]+" ");</span>
 <span class="c1">//            }</span>
 <span class="c1">//          System.out.println();</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="cm">/**</span>
-<span class="cm">     * 排序</span>
-<span class="cm">     * @param array 待排序列的首地址</span>
-<span class="cm">     */</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">heap_sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+	<span class="cm">/**
+     * 排序
+     * @param array 待排序列的首地址
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">heap_sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span> <span class="o">;</span><span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">;</span> <span class="n">k</span><span class="o">--){</span>
             <span class="kt">int</span> <span class="n">tmp</span><span class="o">;</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
@@ -269,10 +271,12 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>
+
+</code></pre>
+</div>
 <p>下面是以上程序的运行结果截图：</p>
 
-<p><img src="/images/heap_sort.png"/></p>
+<p><img src="/images/heap_sort.png" /></p>
 
 
                 <hr>
@@ -280,12 +284,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/09/28/smarthome1/" data-toggle="tooltip" data-placement="top" title="小本课程设计：一个基于STM32和Android的智能家居demo（一）">&larr; Previous Post</a>
+                        <a href="/2015/09/28/smarthome1/" data-toggle="tooltip" data-placement="top" title="小本课程设计：一个基于STM32和Android的智能家居demo（一）">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/startbootstrap-clean-blog-jekyll/2015/09/29/launch-mode/" data-toggle="tooltip" data-placement="top" title="Android Activity的四种启动模式">Next Post &rarr;</a>
+                        <a href="/2015/09/29/launch-mode/" data-toggle="tooltip" data-placement="top" title="Android Activity的四种启动模式">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -293,7 +297,25 @@
             </div>
         </div>
     </div>
+    
 </article>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2015/09/29/heap-sort data-title=排序算法之堆排序 data-url="http://laihaotao.github.io"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"laihaotao"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
 
 <hr>
 
@@ -305,7 +327,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     <li>
-                        <a href="/startbootstrap-clean-blog-jekyll/feed.xml">
+                        <a href="/feed.xml">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -334,20 +356,20 @@
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2015</p>
+                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
             </div>
         </div>
     </div>
 </footer>
 
 <!-- jQuery -->
-<script src="/startbootstrap-clean-blog-jekyll/js/jquery.min.js "></script>
+<script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/bootstrap.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/startbootstrap-clean-blog-jekyll/js/clean-blog.min.js "></script>
+<script src="/js/clean-blog.min.js "></script>
 
 
 </body>
