@@ -5,12 +5,12 @@ email: qq584863350@gmail.com
 description: " Be better than yesterday "
 #baseurl: "/laihaotao.github.io"
 url: "http://laihaotao.github.io"
-#twitter_username: 
+#twitter_username:
 github_username:  LAIHAOTAO
 facebook_username:  facebook.com/eric.lai.9843499
 
 # Build settings
-markdown: redcarpet
+markdown: rouge
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data", "footnotes","space_after_headers","highlight","underline","quote","lax_spacing"]
 highlighter: pygments
