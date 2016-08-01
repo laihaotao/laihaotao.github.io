@@ -3,6 +3,8 @@ layout: post
 title: 一个简单的公司单据自动生成应用（基于HTML)
 subtitle: a kind of list automation-bulit system for small company applicant
 keyword: html javascript jquery
+tag:
+   - project
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 # 写在前面

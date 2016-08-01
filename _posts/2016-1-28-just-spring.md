@@ -3,6 +3,8 @@ layout: post
 title: 再探spring+mbybaits
 subtitle: A demo about spring and spring+mybatis
 keyword: spring mvc
+tag:
+   - java_ee
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 

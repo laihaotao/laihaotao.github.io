@@ -3,6 +3,9 @@ layout: post
 title: 毕设记录之Android照相机基础基于camera2API
 subtitle: Introduction of Android API Camera2
 keyword: Android API Camera2
+tag:
+   - Android
+   - 毕业设计
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 
@@ -18,7 +21,7 @@ keyword: Android API Camera2
 ## 架构分析
 首先来了解一下camera2的整体结构：
 
-![图1 camera2整体架构图](http://upload-images.jianshu.io/upload_images/735527-75fce95f4e3c0670.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![图1 camera2整体架构图](/images/android-camera2-1.jpg)
 如上所示，整个camera2由一个CameraManager来进行统一管理，通过Context的getSystemService方法可以实例化CameraManager，然后该类主要通过三个类来对Camera进行操作。下面分别介绍一下：
 
 - CameraDevice：描述一个照相机设备，一个Android设备可能会有多个摄像头，通过CameraId可以进行区别。它最主要有一个相机状态的回调函数，当下达打开相机的命令后，若相机正确的打开便会回调该函数。
@@ -44,7 +47,7 @@ Android设备的屏幕方向，与摄像头的原始方向并不一致，需要�
 - onPause：关闭照相机，停止照相机线程；
 
 
-![图2 代码整体流程](http://upload-images.jianshu.io/upload_images/735527-a54b516b15a766fb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![图2 代码整体流程](/images/android-camera2-2.jpg)
 
 正常来说，代码的整体流程如图2所示，activity将需要的fragment加载进来后，开始加载显示预览的控件texture，当控件加载完毕会执行一个回调函数`onSurfaceTextureAvailable()`，在这个回调函数里面，打开摄像头（即执行`openCamera()`）。
 

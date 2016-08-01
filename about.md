@@ -1,17 +1,18 @@
 ---
 layout: page
 title: "About"
-description: "This is me !"
+description: "Hey, this is me !"
+header-img: "img/about-bg.jpg"
 ---
 以下内容还没有翻译成中文，希望获取我得中文简历，请点击[这里]({{site.url}}/documents/cv_chinese.pdf)
 
-The following paragraphy will be something about myself, if you don't have time to read the them, you may be interested in my sCV please click [here]({{site.url}}/documents/cv_english.pdf).
+The following paragraphy will be something about myself, if you don't have time to read the them, you may be interested in my CV. Want to get it ? please click [here]({{site.url}}/documents/cv_english.pdf).
 
 ## Introduction
 
 Hello, dear visitors. My name is Haotao Lai, also you can call me Eric. ***My dream is to become a software engineer. Now, I am foucus on Android, Java and web development.***
 
-I'm from China, now as a senior student in Guangzhou University (expected graduate in 2016), majored in Mechanical Automation Engineering. Rather than ME, I find my real interest in Software Engineering, specically in mobile and web applicant developments. I notcied that when I learned "C Language" although it wasn't my faviource language, I still really thanks it to bring me in the coding world. I believe that would be my career life. Programming is an amazing and charming job, it requires an clear brain and strong logical thinking. I like challenge and enjoy the feeling when I figure out some diffcult problems. So, I spend my spare time in learing programming, in all languages what I like best is java. Now I am foucus on android, java and web development(that is an order list). Because I do not really learning software engineering, now I am trying my best to apply for a master program in computer science or software engineering or relative field.
+I'm from China, now as a senior student in Guangzhou University (expected graduate in 2016), majored in Mechanical Automation Engineering. Rather than ME, I find my real interest in Software Engineering, specically in mobile and web applicant developments. I notcied that when I learned "C Language" although it wasn't my faviource language, I still really thank it to bring me in the coding world. I believe that would be my career life. Programming is an amazing and charming job, it requires an clear brain and strong logical thinking. I like challenge and enjoy the feeling when I figure out some diffcult problems. So, I spend my spare time in learing programming, in all languages what I like best is java. Now I am foucus on android, java and web development(that is an order list). Because I do not really learning software engineering, now I am trying my best to apply for a master program in computer science or software engineering or relative field.
 
 ## Academic Experience
 

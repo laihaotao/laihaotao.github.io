@@ -3,6 +3,8 @@ layout: post
 title: 编写一个属于自己的View
 subtitle: Write a view by yourself
 keyword: view
+tag:
+   - Android
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 

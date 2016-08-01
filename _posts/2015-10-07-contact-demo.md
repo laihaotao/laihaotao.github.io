@@ -3,6 +3,8 @@ layout: post
 title: 获取手机联系人Demo
 subtitle: a demo of getting the contact infomation in your phone
 keyword: contact, android, number,phone，fragment
+tag:
+   - Android
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 

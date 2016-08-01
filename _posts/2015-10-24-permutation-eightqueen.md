@@ -3,6 +3,8 @@ layout: post
 title: 入门级全排列算法
 subtitle: Introduction of permutation
 keyword: permutation
+tag:
+   - algorithm
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 

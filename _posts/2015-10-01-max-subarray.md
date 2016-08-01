@@ -3,6 +3,8 @@ layout: post
 title: 最大子数组问题
 subtitle: introduction of the max subarray
 keyword: max_subarray, subarray
+tag:
+   - algorithm
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 

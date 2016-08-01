@@ -3,6 +3,8 @@ layout: post
 title: 毕设记录之WiFi完成过程文档
 subtitle: Introduction of USART-WiFi Module
 keyword: USART WiFi
+tag:
+   - 毕业设计
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 

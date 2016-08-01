@@ -1,26 +1,72 @@
-gems: [jekyll-paginate]
 # Site settings
-title: Eric's Blog
+title: Eric Blog
+SEOTitle: Eric的博客 | Eric Blog
 header-img: img/home-bg.jpg
 email: qq584863350@gmail.com
-description: " Be better than yesterday "
-#baseurl: "/laihaotao.github.io"
-url: "http://laihaotao.github.io"
-#twitter_username:
-github_username:  LAIHAOTAO
-facebook_username:  facebook.com/eric.lai.9843499
+description: ""
+keyword: ""
+url: "http://laihaotao.github.io"              # your host, for absolute URL
+#baseurl: "http://laihaotao.github.io"         # for example, '/blog' if your blog hosted on 'host/blog'
+
+# SNS settings
+RSS: false
+weibo_username:     eric0325
+zhihu_username:     laihaotao
+github_username:    LAIHAOTAO
+#twitter_username:  huxpro
+#facebook_username:  huxpro
 
 # Build settings
-markdown: kramdown
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data", "footnotes","space_after_headers","highlight","underline","quote","lax_spacing"]
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 highlighter: rouge
 permalink: pretty
 paginate: 10
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:211 of `post.html`
 
-# comments
-comments :
-    provider : duoshuo
-    duoshuo :
-          short_name : laihaotao
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+# Duoshuo settings
+duoshuo_username: laihaotao
+# Share component is depend on Comment so we can NOT use share only.
+duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "be better than yesterday !"
+sidebar-avatar: /img/my-id-photo.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+# Friends
+friends: [
+    {
+        title: "Victor Zhong",
+        href: "http://victorzhong.github.io"
+    },{
+        title: "Effy Li",
+        href: "http://effyli.github.io"
+    }
+]
+
+# Analytics settings
+# Baidu Analytics
+#ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+# Google Analytics
+#ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+#ga_domain: huangxuan.me
+
+

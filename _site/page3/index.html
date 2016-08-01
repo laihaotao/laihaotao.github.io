@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content=" Be better than yesterday ">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Eric's Blog</title>
+    <title>Eric的博客 | Eric Blog</title>
 
     <link rel="canonical" href="/page3/">
 
@@ -16,15 +18,23 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
 
     <!-- Pygments Github CSS -->
     <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,57 +43,99 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 
-<body>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
     <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Eric's Blog</a>
+            <a class="navbar-brand" href="/">Eric Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                
-                <li>
-                    <a href="/about/">About</a>
-                </li>
-                
-                <li>
-                    <a href="/contact/">Contact</a>
-                </li>
-                
-            </ul>
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/contact/">Contact</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
 </nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
 
 
     <!-- Page Header -->
 <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>Eric's Blog</h1>
-                    <hr class="small">
-                    <span class="subheading">Be better than yesterday</span>
+                    <h1>Eric Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">be better than yesterday !</span>
                 </div>
             </div>
         </div>
@@ -93,61 +145,187 @@
 <!-- Main Content -->
 <div class="container">
 	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2015/07/30/sqlite-android/">
+        <h2 class="post-title">
+            Android的SQLite数据库存储
+        </h2>
+        
+        <h3 class="post-subtitle">
+            introduction about how to use Android's SQLite database
+        </h3>
+        
+        <div class="post-content-preview">
+            以下内容是学习android的过程的记录，部分是自己的理解，部分来自与网络，部分来自于书籍《第一行代码》。欢迎转载，请注明出处。
+
+创建数据库
+
+为了帮助我们管理数据库，提供了一个SQLiteOpenHelper帮助类，借助这个类，可以非常简单的对数据库进行创建和升级。
+
+该类是一个抽象类。我们如果想要使用需要创建一个自己的帮助类去继承它，然后在类中重写它的两个抽象方法onCreate()和...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on July 30, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/07/19/jstl/">
+        <h2 class="post-title">
+            使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互
+        </h2>
+        
+        <h3 class="post-subtitle">
+            a smiple demo used JSTL for manipulate the data inside the server's database through a website
+        </h3>
+        
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+# 前言
+
+昨天因为有事情，没有时间来做实验。今天接着前面的来做了一下，前面已经完成了数据库与开发环境的连接配置。今天要做的就是写一个简单的demo来通过网页操作数据库里面的资源。几个交互的网页那当然是一下子就写完了，代码将会在下面给出。在这次的小实验当中，最令我困惑的就是如何把网页提交的比如说查询的目标参数，传入到JS...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on July 19, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/07/18/mysql-netbean/">
+        <h2 class="post-title">
+            netbean下部署tomcat服务器连接mysql数据库
+        </h2>
+        
+        <h3 class="post-subtitle">
+            introduction how to deployment tomcat server and link to mysql database under netbean
+        </h3>
+        
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+# 前言
+
+继续上文，由于学校的项目没人。只好自己来现学现卖，今天研究了一番怎么配置数据库到服务器上。也是废了好一番功夫，我显示参考了NetBeans的官方教程，然而它使用的不是我们常用的Tomcat服务器，而且教程不讲原理只讲步骤我看得好痛苦。一番摸索下来，通过stackflow和tomcat自带的说明文档，用于研究出...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on July 18, 2015
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/2015/07/17/json/">
-        <h2 class="post-title">            使用第三方库json-lib来传递json格式数据
+        <h2 class="post-title">
+            使用第三方库json-lib来传递json格式数据
         </h2>
         
         <h3 class="post-subtitle">
             introduction how to use json－lib to manipulate data in json formact
         </h3>
         
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+# 前言
+
+由于学校的一个小项目的需要，需要我在android端发起一个POST请求，然后服务端返回一组json数据。为了处理这个事情，今天早早的我就起床准备来写一个servlet的小测试代码。然而看了众多的教程，头晕了很久，照着一些例程来写之后发现打印出来的只有一个样子。但是没有数据。为了这个我一直认为是我的逻辑代码不...
+        </div>
     </a>
-    <p class="post-meta">Posted by Eric's Blog on July 17, 2015</p>
+    <p class="post-meta">
+        Posted by Eric Blog on July 17, 2015
+    </p>
 </div>
 <hr>
 
 <div class="post-preview">
     <a href="/2015/07/13/call-back/">
-        <h2 class="post-title">            我理解的回调（callback）
+        <h2 class="post-title">
+            我理解的回调（callback）
         </h2>
         
         <h3 class="post-subtitle">
             explain what is call back through an vivi example
         </h3>
         
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+# 前言
+
+昨天做一个android的客户端和服务端的post通信，调试了整整一天都没有成功。作为一个不是计算机专业出身的人，我已经心力交瘁加绝望，横竖都看不出哪里有问题了。然而网上躺床真被看书睡觉的时候发现，书的后面几页就有关于这个的提示。原来是由于在新开的网络请求线程里面没有写回调方法导致数据无法传输。
+
+好吧，接受...
+        </div>
     </a>
-    <p class="post-meta">Posted by Eric's Blog on July 13, 2015</p>
+    <p class="post-meta">
+        Posted by Eric Blog on July 13, 2015
+    </p>
 </div>
 <hr>
 
 <div class="post-preview">
     <a href="/2015/07/07/java-swing2/">
-        <h2 class="post-title">            Java的swing编程（二）
+        <h2 class="post-title">
+            Java的swing编程（二）
         </h2>
         
         <h3 class="post-subtitle">
             learning material about java-swing
         </h3>
         
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+
+其中布局管理器概述部分是转载了他人（http://blog.sina.com.cn/s/blog_6f116c940101alna) 转载的网络上的一篇文章但是该转载没有注明转载地址，我也不得而知，感谢原博主。
+
+模型-视图-控制器设计模式
+
+设计模式：在解决一个问题时，不需要从头做起，而是借鉴过去的经验，或者向做过的...
+        </div>
     </a>
-    <p class="post-meta">Posted by Eric's Blog on July 7, 2015</p>
+    <p class="post-meta">
+        Posted by Eric Blog on July 7, 2015
+    </p>
 </div>
 <hr>
 
 <div class="post-preview">
     <a href="/2015/07/06/java-swing1/">
-        <h2 class="post-title">            Java的swing编程（一）
+        <h2 class="post-title">
+            Java的swing编程（一）
         </h2>
         
         <h3 class="post-subtitle">
             learning material about java-swing
         </h3>
         
+        <div class="post-content-preview">
+            本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
+# 框架
+
+在Java中，顶层窗口被称为框架。在AWT中，有一个被称为Frame的类用于描述顶层窗口。这个类的swing版本名称是JFrame，扩展与Frame类。用于修饰部件，由用户的窗口系统负责绘制。以下为显示一个空框架的简单代码：
+
+public class FrameTest {	
+	public static ...
+        </div>
     </a>
-    <p class="post-meta">Posted by Eric's Blog on July 6, 2015</p>
+    <p class="post-meta">
+        Posted by Eric Blog on July 6, 2015
+    </p>
 </div>
 <hr>
 
@@ -164,11 +342,138 @@
 </ul>
 
 
-		</div>
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#java" title="java" rel="4">
+                                    java
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#数据库" title="数据库" rel="2">
+                                    数据库
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#java_ee" title="java_ee" rel="3">
+                                    java_ee
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="6">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#project" title="project" rel="2">
+                                    project
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#algorithm" title="algorithm" rel="6">
+                                    algorithm
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#毕业设计" title="毕业设计" rel="5">
+                                    毕业设计
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/my-id-photo.jpg" />
+                        
+                        
+                            <p>be better than yesterday !</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/laihaotao">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/eric0325">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/LAIHAOTAO">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://victorzhong.github.io">Victor Zhong</a></li>
+                    
+                        <li><a href="http://effyli.github.io">Effy Li</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
 	</div>
 </div>
-
-<hr>
 
 
     <!-- Footer -->
@@ -177,28 +482,36 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
                     <li>
-                        <a href="/feed.xml">
+                        <a target="_blank" href="https://www.zhihu.com/people/laihaotao">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
                             </span>
                         </a>
                     </li>
                     
                     
                     <li>
-                        <a href="https://www.facebook.com/facebook.com/eric.lai.9843499">
+                        <a target="_blank" href="http://weibo.com/eric0325">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
                     
+
+
+                    
                     
                     <li>
-                        <a href="https://github.com/LAIHAOTAO">
+                        <a target="_blank" href="https://github.com/LAIHAOTAO">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -207,7 +520,10 @@
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Eric's Blog 2016</p>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2016 | 
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                </p>
             </div>
         </div>
     </div>
@@ -220,8 +536,75 @@
 <script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/js/clean-blog.min.js "></script>
+<script src="/js/hux-blog.min.js "></script>
 
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
 

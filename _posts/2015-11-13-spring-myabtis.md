@@ -3,6 +3,8 @@ layout: post
 title: 初探Spring+myBatis
 subtitle: A demo about spring and mybatis
 keyword: spring, mybatis
+tag:
+   - java_ee
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric Lai](http://laihaotao.github.io)**
 
@@ -341,7 +343,9 @@ public class Test {
 
 }
 ```
+
 运行后，可以得到结果如下：
+
 >李四
->
 >2
+

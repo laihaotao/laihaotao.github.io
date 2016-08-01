@@ -3,6 +3,8 @@ layout: post
 title: 自上而下的打印二叉树
 subtitle: Print the BinTree from top to bottom
 keyword: BinTree
+tag:
+   - algorithm
 ---
 
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**

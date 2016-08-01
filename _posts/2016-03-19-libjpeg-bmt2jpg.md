@@ -3,6 +3,8 @@ layout: post
 title: 毕设记录之libjpeg将bmp格式转换成jpg格式
 subtitle: Using LIBJPEG change bmp to jpg
 keyword: LIBJPEG bmp jpg
+tag:
+   - 毕业设计
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 

@@ -3,6 +3,8 @@ layout: post
 title: 毕设记录之python利用socket进行文件传输
 subtitle: Introduction of socket in python
 keyword: socket tcp
+tag:
+   - 毕业设计
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 
@@ -123,18 +125,16 @@ print 'connection closed'
 
 通过运行上面的代码，图片成功的传输了到服务端的文件夹下：
 
-![测试结果](http://upload-images.jianshu.io/upload_images/735527-d3b21be123068767.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-s
+![测试结果](/images/python-socket-1.png)
+
 # 进阶修改
 上述的代码只是直接将一张图片，从客户端发送到了服务端。在实际的使用当中，应该是需要发送命令和文件两种形式。所以，我们需要对上面的代码进行一些修改。
 
 我们先定义一个通信协议：
 
 >	建立连接后开启一个线程，用于处理本次的通信（一个while循环），如果遇到接收文件的情况，则开启一个子线程用于接收。
-
 >	发送数据有两种情况，发送命令，发送文件
 >	接收数据有两种情况，一种是接收命令，一种是接收文件
-
 >	发送数据：
 >		发送命令时，第一个字符为c（command）表示后面接的是命令，第二个字符是命令代号。
 >            发送文件时，第一个字符为f（file）表示后面接的是文件，后面就是文件的二进制形式。
@@ -261,4 +261,5 @@ print 'connection closed'
 > 
 >[线程的中文文档](http://python.usyiyi.cn/python_278/library/threading.html#module-threading)
 
-![修改后运行结果](http://upload-images.jianshu.io/upload_images/735527-87aab063dc414a8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![修改后运行结果](/images/python-socket-2.png)
+

@@ -3,6 +3,8 @@ layout: post
 title: 毕设记录之socket自定义数据包发送图片
 subtitle: Using Socket to send picture by my-defined digital package 
 keyword: Socket Send-picture
+tag:
+   - 毕业设计
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@[Eric_Lai](http://laihaotao.github.io)**
 
@@ -290,6 +292,6 @@ public class Main {
 
 运行上述代码后，结果如下：
 
-![运行结果](/images/socket-send_pic4.jpg)
+![运行结果](/images/socket-send_pic4.png)
 
 注意，需要自己准备图片！

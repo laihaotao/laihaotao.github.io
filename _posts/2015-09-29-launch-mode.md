@@ -3,6 +3,8 @@ layout: post
 title: Android Activity的四种启动模式
 subtitle: Introduction about the launch mode of the android activity
 keyword: Android activity launch_mode
+tag:
+   - Android 
 ---
 **本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai**
 

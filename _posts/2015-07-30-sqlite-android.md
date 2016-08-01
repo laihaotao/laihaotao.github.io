@@ -3,6 +3,9 @@ layout: post
 title: Android的SQLite数据库存储
 subtitle: introduction about how to use Android's SQLite database
 Keyword: android, Android, SQLite
+tag:
+   - Android
+   - 数据库
 ---
 
 ***以下内容是学习android的过程的记录，部分是自己的理解，部分来自与网络，部分来自于书籍《第一行代码》。欢迎转载，请注明出处。***

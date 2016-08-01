@@ -4,6 +4,8 @@ title: Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇�
 data: 2015-08-10
 subtitle: introduction about how to built a blog by Jekyll＋github page
 keyword: jekyll, github page, pygments, redcarpet, Mac
+tag:
+   - github
 ---
 
 ***本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai***

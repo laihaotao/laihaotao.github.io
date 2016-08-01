@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Tags - Eric的博客 | Eric Blog</title>
+
+    <link rel="canonical" href="/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/contact/">Contact</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>Tags</h1>
+                    <span class="subheading">keep hungry keep foolish</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#java" title="java" rel="4">java</a>
+				
+				<a href="#json" title="json" rel="1">json</a>
+				
+				<a href="#tomcat" title="tomcat" rel="1">tomcat</a>
+				
+				<a href="#数据库" title="数据库" rel="2">数据库</a>
+				
+				<a href="#java_ee" title="java_ee" rel="3">java_ee</a>
+				
+				<a href="#Android" title="Android" rel="6">Android</a>
+				
+				<a href="#github" title="github" rel="1">github</a>
+				
+				<a href="#project" title="project" rel="2">project</a>
+				
+				<a href="#algorithm" title="algorithm" rel="6">algorithm</a>
+				
+				<a href="#毕业设计" title="毕业设计" rel="5">毕业设计</a>
+				
+			</div>
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="java">
+                    <span class="tag-text">java</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-17">2015-07-17</time>
+				  <a href="/2015/07/17/json/" title="使用第三方库json-lib来传递json格式数据">使用第三方库json-lib来传递json格式数据</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/17/json/">
+				        <h2 class="post-title">
+                            使用第三方库json-lib来传递json格式数据
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction how to use json－lib to manipulate data in json formact
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-13">2015-07-13</time>
+				  <a href="/2015/07/13/call-back/" title="我理解的回调（callback）">我理解的回调（callback）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/13/call-back/">
+				        <h2 class="post-title">
+                            我理解的回调（callback）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            explain what is call back through an vivi example
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-07">2015-07-07</time>
+				  <a href="/2015/07/07/java-swing2/" title="Java的swing编程（二）">Java的swing编程（二）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/07/java-swing2/">
+				        <h2 class="post-title">
+                            Java的swing编程（二）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            learning material about java-swing
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-06">2015-07-06</time>
+				  <a href="/2015/07/06/java-swing1/" title="Java的swing编程（一）">Java的swing编程（一）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/06/java-swing1/">
+				        <h2 class="post-title">
+                            Java的swing编程（一）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            learning material about java-swing
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-06</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="json">
+                    <span class="tag-text">json</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-17">2015-07-17</time>
+				  <a href="/2015/07/17/json/" title="使用第三方库json-lib来传递json格式数据">使用第三方库json-lib来传递json格式数据</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/17/json/">
+				        <h2 class="post-title">
+                            使用第三方库json-lib来传递json格式数据
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction how to use json－lib to manipulate data in json formact
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="tomcat">
+                    <span class="tag-text">tomcat</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-18">2015-07-18</time>
+				  <a href="/2015/07/18/mysql-netbean/" title="netbean下部署tomcat服务器连接mysql数据库">netbean下部署tomcat服务器连接mysql数据库</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/18/mysql-netbean/">
+				        <h2 class="post-title">
+                            netbean下部署tomcat服务器连接mysql数据库
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction how to deployment tomcat server and link to mysql database under netbean
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-18</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="数据库">
+                    <span class="tag-text">数据库</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-30">2015-07-30</time>
+				  <a href="/2015/07/30/sqlite-android/" title="Android的SQLite数据库存储">Android的SQLite数据库存储</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/30/sqlite-android/">
+				        <h2 class="post-title">
+                            Android的SQLite数据库存储
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction about how to use Android's SQLite database
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-18">2015-07-18</time>
+				  <a href="/2015/07/18/mysql-netbean/" title="netbean下部署tomcat服务器连接mysql数据库">netbean下部署tomcat服务器连接mysql数据库</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/18/mysql-netbean/">
+				        <h2 class="post-title">
+                            netbean下部署tomcat服务器连接mysql数据库
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction how to deployment tomcat server and link to mysql database under netbean
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-18</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="java_ee">
+                    <span class="tag-text">java_ee</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-28">2016-01-28</time>
+				  <a href="/2016/01/28/just-spring/" title="再探spring+mbybaits">再探spring+mbybaits</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/28/just-spring/">
+				        <h2 class="post-title">
+                            再探spring+mbybaits
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            A demo about spring and spring+mybatis
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-13">2015-11-13</time>
+				  <a href="/2015/11/13/spring-myabtis/" title="初探Spring+myBatis">初探Spring+myBatis</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/13/spring-myabtis/">
+				        <h2 class="post-title">
+                            初探Spring+myBatis
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            A demo about spring and mybatis
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-19">2015-07-19</time>
+				  <a href="/2015/07/19/jstl/" title="使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互">使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/19/jstl/">
+				        <h2 class="post-title">
+                            使用jsp的JSTL标准标签配合数据库连接池与数据库进行交互
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            a smiple demo used JSTL for manipulate the data inside the server's database through a website
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-19</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Android">
+                    <span class="tag-text">Android</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-22">2016-03-22</time>
+				  <a href="/2016/03/22/android-camera2/" title="毕设记录之Android照相机基础基于camera2API">毕设记录之Android照相机基础基于camera2API</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/22/android-camera2/">
+				        <h2 class="post-title">
+                            毕设记录之Android照相机基础基于camera2API
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of Android API Camera2
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-08">2015-10-08</time>
+				  <a href="/2015/10/08/view-myview/" title="编写一个属于自己的View">编写一个属于自己的View</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/08/view-myview/">
+				        <h2 class="post-title">
+                            编写一个属于自己的View
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Write a view by yourself
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-07">2015-10-07</time>
+				  <a href="/2015/10/07/contact-demo/" title="获取手机联系人Demo">获取手机联系人Demo</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/07/contact-demo/">
+				        <h2 class="post-title">
+                            获取手机联系人Demo
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            a demo of getting the contact infomation in your phone
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-29">2015-09-29</time>
+				  <a href="/2015/09/29/launch-mode/" title="Android Activity的四种启动模式">Android Activity的四种启动模式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/29/launch-mode/">
+				        <h2 class="post-title">
+                            Android Activity的四种启动模式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction about the launch mode of the android activity
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-08-07">2015-08-07</time>
+				  <a href="/2015/08/07/listview/" title="ListView 用法解释">ListView 用法解释</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/08/07/listview/">
+				        <h2 class="post-title">
+                            ListView 用法解释
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction about a kind of ui in Android named listview
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-08-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-30">2015-07-30</time>
+				  <a href="/2015/07/30/sqlite-android/" title="Android的SQLite数据库存储">Android的SQLite数据库存储</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/30/sqlite-android/">
+				        <h2 class="post-title">
+                            Android的SQLite数据库存储
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction about how to use Android's SQLite database
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-30</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="github">
+                    <span class="tag-text">github</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-08-10">2015-08-10</time>
+				  <a href="/2015/08/10/built-blog/" title="Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题">Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/08/10/built-blog/">
+				        <h2 class="post-title">
+                            Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction about how to built a blog by Jekyll＋github page
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-08-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="project">
+                    <span class="tag-text">project</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-28">2015-09-28</time>
+				  <a href="/2015/09/28/smarthome1/" title="小本课程设计：一个基于STM32和Android的智能家居demo（一）">小本课程设计：一个基于STM32和Android的智能家居demo（一）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/28/smarthome1/">
+				        <h2 class="post-title">
+                            小本课程设计：一个基于STM32和Android的智能家居demo（一）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            a kind of smart home system base on STM32 and Android
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-08-16">2015-08-16</time>
+				  <a href="/2015/08/16/package-list/" title="一个简单的公司单据自动生成应用（基于HTML)">一个简单的公司单据自动生成应用（基于HTML)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/08/16/package-list/">
+				        <h2 class="post-title">
+                            一个简单的公司单据自动生成应用（基于HTML)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            a kind of list automation-bulit system for small company applicant
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-08-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="algorithm">
+                    <span class="tag-text">algorithm</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-24">2015-10-24</time>
+				  <a href="/2015/10/24/permutation-eightqueen/" title="入门级全排列算法">入门级全排列算法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/24/permutation-eightqueen/">
+				        <h2 class="post-title">
+                            入门级全排列算法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of permutation
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-12">2015-10-12</time>
+				  <a href="/2015/10/12/bintree-queue/" title="自上而下的打印二叉树">自上而下的打印二叉树</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/12/bintree-queue/">
+				        <h2 class="post-title">
+                            自上而下的打印二叉树
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Print the BinTree from top to bottom
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-03">2015-10-03</time>
+				  <a href="/2015/10/03/quick-sort/" title="排序算法之快速排序">排序算法之快速排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/03/quick-sort/">
+				        <h2 class="post-title">
+                            排序算法之快速排序
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction of quick sort
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-01">2015-10-01</time>
+				  <a href="/2015/10/01/max-subarray/" title="最大子数组问题">最大子数组问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/01/max-subarray/">
+				        <h2 class="post-title">
+                            最大子数组问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            introduction of the max subarray
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-01</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-29">2015-09-29</time>
+				  <a href="/2015/09/29/heap-sort/" title="排序算法之堆排序">排序算法之堆排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/29/heap-sort/">
+				        <h2 class="post-title">
+                            排序算法之堆排序
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of heap sort
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-20">2015-09-20</time>
+				  <a href="/2015/09/20/sort/" title="排序算法 之 插入排序&归并排序">排序算法 之 插入排序&归并排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/20/sort/">
+				        <h2 class="post-title">
+                            排序算法 之 插入排序&归并排序
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            sorting algorithm insertion and merge sort
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="毕业设计">
+                    <span class="tag-text">毕业设计</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-04-02">2016-04-02</time>
+				  <a href="/2016/04/02/socket-send_pic/" title="毕设记录之socket自定义数据包发送图片">毕设记录之socket自定义数据包发送图片</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/04/02/socket-send_pic/">
+				        <h2 class="post-title">
+                            毕设记录之socket自定义数据包发送图片
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Using Socket to send picture by my-defined digital package
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-04-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-22">2016-03-22</time>
+				  <a href="/2016/03/22/android-camera2/" title="毕设记录之Android照相机基础基于camera2API">毕设记录之Android照相机基础基于camera2API</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/22/android-camera2/">
+				        <h2 class="post-title">
+                            毕设记录之Android照相机基础基于camera2API
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of Android API Camera2
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-19">2016-03-19</time>
+				  <a href="/2016/03/19/libjpeg-bmt2jpg/" title="毕设记录之libjpeg将bmp格式转换成jpg格式">毕设记录之libjpeg将bmp格式转换成jpg格式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/19/libjpeg-bmt2jpg/">
+				        <h2 class="post-title">
+                            毕设记录之libjpeg将bmp格式转换成jpg格式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Using LIBJPEG change bmp to jpg
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-19</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-10">2016-03-10</time>
+				  <a href="/2016/03/10/python-socket/" title="毕设记录之python利用socket进行文件传输">毕设记录之python利用socket进行文件传输</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/10/python-socket/">
+				        <h2 class="post-title">
+                            毕设记录之python利用socket进行文件传输
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of socket in python
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-08">2016-03-08</time>
+				  <a href="/2016/03/08/usart-wifi/" title="毕设记录之WiFi完成过程文档">毕设记录之WiFi完成过程文档</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/08/usart-wifi/">
+				        <h2 class="post-title">
+                            毕设记录之WiFi完成过程文档
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Introduction of USART-WiFi Module
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-08</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/laihaotao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/eric0325">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/LAIHAOTAO">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2016 | 
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
