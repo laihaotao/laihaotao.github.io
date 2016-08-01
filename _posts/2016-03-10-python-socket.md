@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 毕设记录python利用socket进行文件传输
+title: 毕设记录之python利用socket进行文件传输
 subtitle: Introduction of socket in python
 keyword: socket tcp
 ---

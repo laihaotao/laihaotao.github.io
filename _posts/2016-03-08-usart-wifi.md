@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 毕设记录 WiFi完成过程文档
+title: 毕设记录之WiFi完成过程文档
 subtitle: Introduction of USART-WiFi Module
 keyword: USART WiFi
 ---
