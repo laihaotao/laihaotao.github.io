@@ -22,7 +22,7 @@ keyword: Socket Send-picture
 ## TCP / IP 协议
 Transmission Control Protocol/Internet Protocol的简写，中译名为传输控制协议/因特网互联协议，又名网络通讯协议，是Internet最基本的协议、Internet国际互联网络的基础，由网络层的IP协议和传输层的TCP协议组成。TCP/IP 定义了电子设备如何连入因特网，以及数据如何在它们之间传输的标准。协议采用了4层的层级结构，如下图所示，每一层都呼叫它的下一层所提供的协议来完成自己的需求。（来自百度百科）
 
-![tcp ip协议层级示意图](/image/socket-send_pic1.jpg)
+![tcp ip协议层级示意图](/images/socket-send_pic1.jpg)
 
 通俗而言：IP协议是给因特网的每一台联网设备规定一个地址，以便能够在因特上上定位到该设备。TCP负责发现传输的问题，一有问题就发出信号，要求重新传输，直到所有数据安全正确地传输到目的地。
 
@@ -31,14 +31,14 @@ Transmission Control Protocol/Internet Protocol的简写，中译名为传输控
 
 socket，翻译成中文是“套接字”。它是应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用已实现进程在网络中通信，如下图所示。socket源起于UNIX，在一切皆是文件的哲学思想下，socket是“打开-读写-关闭”模式的实现，服务端和客户端共同维护一个“文件”，在连接建立之后，双方都可以对文件进行读写操作；通讯结束时，关闭该文件。
 
-![socket 示意图](/image/socket-send_pic2.jpg)
+![socket 示意图](/images/socket-send_pic2.jpg)
 
 # 具体实现
 有了上面的原理，我们可以着手来实现以下了。以下出现的代码，只是为了演示，真实开发环境下不要这样写。
 
 Java提供了socket的相关API，我们不需要知道怎么写socket的底层，通过调用API就可以建立连接了。在建立连接之前，我们需要自己定义一个用于发送图片的简单的通信协议。我自己随便定义了一个，如下图中间部分所示。
 
-![自定义socket通信](/image/socket-send_pic3.jpg)
+![自定义socket通信](/images/socket-send_pic3.jpg)
 
 通信协议，顾名思义，是用来规定通信过程的一种约定。只有服务端和客户端都遵循同一个协议，才可以完成有效的通信。就想上图表示的一样，我规定了如下的内容：
 
@@ -290,6 +290,6 @@ public class Main {
 
 运行上述代码后，结果如下：
 
-![运行结果](/image/socket-send_pic4.jpg)
+![运行结果](/images/socket-send_pic4.jpg)
 
 注意，需要自己准备图片！
