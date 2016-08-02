@@ -3,10 +3,10 @@
   <channel>
     <title>Eric Blog</title>
     <description></description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 02 Aug 2016 02:24:41 +0800</pubDate>
-    <lastBuildDate>Tue, 02 Aug 2016 02:24:41 +0800</lastBuildDate>
+    <link>http://laihaotao.github.io/</link>
+    <atom:link href="http://laihaotao.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 02 Aug 2016 03:05:02 +0800</pubDate>
+    <lastBuildDate>Tue, 02 Aug 2016 03:05:02 +0800</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
     
       <item>
@@ -303,8 +303,8 @@
 &lt;p&gt;注意，需要自己准备图片！&lt;/p&gt;
 </description>
         <pubDate>Sat, 02 Apr 2016 00:00:00 +0800</pubDate>
-        <link>/2016/04/02/socket-send_pic/</link>
-        <guid isPermaLink="true">/2016/04/02/socket-send_pic/</guid>
+        <link>http://laihaotao.github.io/2016/04/02/socket-send_pic/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/04/02/socket-send_pic/</guid>
         
         <category>毕业设计</category>
         
@@ -1318,8 +1318,8 @@ public class CameraFragment extends Fragment {
 &lt;/div&gt;
 </description>
         <pubDate>Tue, 22 Mar 2016 00:00:00 +0800</pubDate>
-        <link>/2016/03/22/android-camera2/</link>
-        <guid isPermaLink="true">/2016/03/22/android-camera2/</guid>
+        <link>http://laihaotao.github.io/2016/03/22/android-camera2/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/03/22/android-camera2/</guid>
         
         <category>Android</category>
         
@@ -1608,8 +1608,8 @@ public class CameraFragment extends Fragment {
 &lt;/div&gt;
 </description>
         <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
-        <link>/2016/03/19/libjpeg-bmt2jpg/</link>
-        <guid isPermaLink="true">/2016/03/19/libjpeg-bmt2jpg/</guid>
+        <link>http://laihaotao.github.io/2016/03/19/libjpeg-bmt2jpg/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/03/19/libjpeg-bmt2jpg/</guid>
         
         <category>毕业设计</category>
         
@@ -1889,8 +1889,8 @@ public class CameraFragment extends Fragment {
 
 </description>
         <pubDate>Thu, 10 Mar 2016 00:00:00 +0800</pubDate>
-        <link>/2016/03/10/python-socket/</link>
-        <guid isPermaLink="true">/2016/03/10/python-socket/</guid>
+        <link>http://laihaotao.github.io/2016/03/10/python-socket/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/03/10/python-socket/</guid>
         
         <category>毕业设计</category>
         
@@ -2104,8 +2104,8 @@ char* getRealRecv(char *pStr){
 &lt;p&gt;以上，是WiFi模块的完成过程。&lt;/p&gt;
 </description>
         <pubDate>Tue, 08 Mar 2016 00:00:00 +0800</pubDate>
-        <link>/2016/03/08/usart-wifi/</link>
-        <guid isPermaLink="true">/2016/03/08/usart-wifi/</guid>
+        <link>http://laihaotao.github.io/2016/03/08/usart-wifi/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/03/08/usart-wifi/</guid>
         
         <category>毕业设计</category>
         
@@ -2562,8 +2562,8 @@ char* getRealRecv(char *pStr){
 
 </description>
         <pubDate>Thu, 28 Jan 2016 00:00:00 +0800</pubDate>
-        <link>/2016/01/28/just-spring/</link>
-        <guid isPermaLink="true">/2016/01/28/just-spring/</guid>
+        <link>http://laihaotao.github.io/2016/01/28/just-spring/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2016/01/28/just-spring/</guid>
         
         <category>java_ee</category>
         
@@ -2927,8 +2927,8 @@ char* getRealRecv(char *pStr){
 
 </description>
         <pubDate>Fri, 13 Nov 2015 00:00:00 +0800</pubDate>
-        <link>/2015/11/13/spring-myabtis/</link>
-        <guid isPermaLink="true">/2015/11/13/spring-myabtis/</guid>
+        <link>http://laihaotao.github.io/2015/11/13/spring-myabtis/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2015/11/13/spring-myabtis/</guid>
         
         <category>java_ee</category>
         
@@ -3144,8 +3144,8 @@ char* getRealRecv(char *pStr){
 &amp;gt;对这个问题的解法共有: 92&lt;/p&gt;
 </description>
         <pubDate>Sat, 24 Oct 2015 00:00:00 +0800</pubDate>
-        <link>/2015/10/24/permutation-eightqueen/</link>
-        <guid isPermaLink="true">/2015/10/24/permutation-eightqueen/</guid>
+        <link>http://laihaotao.github.io/2015/10/24/permutation-eightqueen/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2015/10/24/permutation-eightqueen/</guid>
         
         <category>algorithm</category>
         
@@ -3375,8 +3375,8 @@ z
 &lt;p&gt;这个题目做完还是比较有意思的，使用了一种辅助的数据结构，完成对二叉树的一个比较特别的遍历方法，广度遍历。通过这个题目，加深了对二叉树和队列的认识。好题！&lt;/p&gt;
 </description>
         <pubDate>Mon, 12 Oct 2015 00:00:00 +0800</pubDate>
-        <link>/2015/10/12/bintree-queue/</link>
-        <guid isPermaLink="true">/2015/10/12/bintree-queue/</guid>
+        <link>http://laihaotao.github.io/2015/10/12/bintree-queue/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2015/10/12/bintree-queue/</guid>
         
         <category>algorithm</category>
         
@@ -3613,8 +3613,8 @@ z
 &lt;p&gt;有了上面的储备，相信大家都可以写出自己所需要的view了。后面有时间的话，需要研究一下view的系统底层是怎么实现的。&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Oct 2015 00:00:00 +0800</pubDate>
-        <link>/2015/10/08/view-myview/</link>
-        <guid isPermaLink="true">/2015/10/08/view-myview/</guid>
+        <link>http://laihaotao.github.io/2015/10/08/view-myview/</link>
+        <guid isPermaLink="true">http://laihaotao.github.io/2015/10/08/view-myview/</guid>
         
         <category>Android</category>
         
