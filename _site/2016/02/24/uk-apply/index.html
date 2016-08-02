@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>小本课程设计：一个基于STM32和Android的智能家居demo（一） - Eric的博客 | Eric Blog</title>
+    <title>我的英国授课硕士申请经历 - Eric的博客 | Eric Blog</title>
 
-    <link rel="canonical" href="http://laihaotao.github.io/2015/09/28/smarthome1/">
+    <link rel="canonical" href="http://laihaotao.github.io/2016/02/24/uk-apply/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -144,15 +144,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#project" title="project">project</a>
+                        <a class="tag" href="/tags/#留学" title="留学">留学</a>
                         
                     </div>
-                    <h1>小本课程设计：一个基于STM32和Android的智能家居demo（一）</h1>
+                    <h1>我的英国授课硕士申请经历</h1>
                     
                     
-                    <h2 class="subheading">a kind of smart home system base on STM32 and Android</h2>
+                    <h2 class="subheading">My experience of applying UK course-based master program</h2>
                     
-                    <span class="meta">Posted by Eric Blog on September 28, 2015</span>
+                    <span class="meta">Posted by Eric Blog on February 24, 2016</span>
                 </div>
             </div>
         </div>
@@ -170,103 +170,61 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai</strong></p>
+				<p><strong>本文是作者原创文章，欢迎转载，请注明出处 from:@<a href="http://laihaotao.github.io">Eric_Lai</a></strong></p>
 
-<h2 id="section">写在前面</h2>
-<p>刚开学，马上来三周的课程设计，主题是一个以单片机为主的机电系统。我一直对智能家居这个方向很感兴趣，毕业设计也打算做这个，刚好先拿这个课设来练练手了。二话不说，和舍友马上组队开始刷怪。</p>
+<p>更新(2016-06-22)：最后决定接受了加拿大的offer，不去英国了。</p>
 
-<p>经过三周（其实是两周，中间因为考试复习了一周，没干事儿）“艰苦的奋斗”，也算低空掠过完成这个小demo，下面是记录在开发过程当中的一些问题，以及解决方案。</p>
+<h1 id="section">背景</h1>
+<p>今天实在闲得没事干，什么要动脑的事情都不想干，又把能接受的剧都看光光了。所以，决定做一件“有意义”的事情，写一写申请英国授课制硕士的经历吧。先说说我的背景，目前国内野鸡大学大四，成绩渣渣（均分还没到80），语言刚好压线（IELTS 6.5），相关经历有一些（详情看<a href="http://laihaotao.github.io/about">这里</a>），从me跨专业申cs（或者se），同时申枫叶国和腐国。毕业之后呢，也没打算从事什么高深的学术研究，老老实实的找份码工做就好了。所以，申的全是course-based的学位，要是想申research-based的童鞋下文可能不太适合你。</p>
 
-<h2 id="section-1">架构设计</h2>
-<p>我们的想法是这样的，搭建一个模拟家里的环境，然后用一些电机和伺服电机模拟家庭里面的一些设备，提供两种控制方式来进行控制。这两种控制方式分别是：</p>
+<p>高冷的枫叶国目前还没任何回应，腐国的来了三个offer，分别是：
+&gt; 格拉斯哥、纽卡斯尔、利物浦（按我选择的意愿排列）</p>
 
-<ul>
-  <li>硬件开关或者按钮控制</li>
-  <li>Android软件控制</li>
-</ul>
+<h1 id="section-1">前期准备</h1>
+<p>## 思想上的准备
+我是从大二开始有意愿想去国外读个书什么的，也是大二开始决定以后找码工的（现在有这样想法的，还是年轻的你们，赶快把专业转了才是正道，能读海本的就转吧）。当时基本上把国内的各种论坛都狂了个遍，各种信息，看来下感觉前路困难重重，吾辈还需努力。比较了世界上几个主流的国家之后，当时就下定决心奔枫叶去了。原因如下：
+&gt;美帝，我不要考gre，我不要考gre，我不要考gre；
+&gt;澳洲，好贵呀，好贵呀，好贵呀；
+&gt;英帝，好贵呀，好贵呀，好贵呀；（现在妥协于它的一年制了）
+&gt;枫叶，学费便宜（相比而言，不要和我说国内的…我不听，我不听，我不听…），邻近美帝，cs行业发达；</p>
 
-<p>整个系统里面，下位机采用ST公司的STM32芯片作为MCU，上位机方面采用一个搭载了Android系统的智能手机。为了要驱动电机和伺服电机当然需要一些驱动芯片了。</p>
+<p>这个时候，还要想清楚一个问题，究竟是念完书之后，想留下还是想回国。嗯，感觉我大二的时候还是没有想清楚这个问题的。其实都各有优缺点，每个人按照自己的情况来想吧。我现在是这样想的，回国是肯定的。只是看什么时候回而已，最好是能留下刷一两年的经验。英国很难留下，基本上都是毕业就回国的。加拿大的话留下的几率比英国稍大，但是还要看个人的水平和英语的能力。</p>
 
-<p>程序设计方面，主程序一直保持着空的状态，随时蓝牙传输过来的数据进入串口中断，或者响应由硬件按钮和开关触发的外部中断。</p>
+<h2 id="section-2">物质上的准备</h2>
+<p>这里说的物质不是指学费什么的，而是申请学位时需要的各种条件。首先是本科阶段的均分，这里我又可以给一个亲身经历的tips了：
+&gt;请用尽一切方法提高你的平均分！
+&gt;请用尽一切方法提高你的平均分！
+&gt;请用尽一切方法提高你的平均分！</p>
 
-<p>这也就意味着要有一个Android下的应用专门用于控制。另外，还需要有上位机和下位机的通信。本着能省则省得原则，通信就用蓝牙来实现了。刚好，学习了几个月的Android，我也有机会实战一下。</p>
+<p>其他什么的各种经历都是虚的，只有你的成绩才是硬道理（这里仅仅针对申cs、ece的童鞋来说，其他专业，特别是非工科的，我就不是很清楚了）。成绩上的差距，不是其他什么的东西可以弥补的。当然，一个超级高的语言、超级高的gre、顶级期刊的论文等，都是对申请有帮助的，但是它的帮助远远没有你想想的那么大，特别是对于授课的硕士来说。</p>
 
-<p>然而，这里让我吐槽一下。我学Android的原因就是为了逃避硬件，每每做硬件的时候的调试都能把我气个半死。没想到，学个Android的应用还是要和蓝牙打交道。吐槽归吐槽，活还是得继续做的。</p>
+<p>我是16fall的candidate，我的语言是14年的8月份报了个班，然后10月份考的，只考了一次，刚好到要求的线，也就没有打算继续刷了。毕竟，考试费越来越贵，而且我这种懒癌患者也没耐心再去备考一次了。</p>
 
-<p>构思了之后，我们整体的框架打算按照下面的图片展示那样来构建。</p>
+<p>等到了大三的下学期结束，就可以准备一下文书之类的东西了。打算走中介的请忽略这一段，我是DIY的，以下仅针对DIY的童鞋。个人觉得英国就是傻瓜式的操作，完全没有发现中介在申请当中的价值。我觉得下一年我也可以当一个私人中介来赚赚外快了，嗯，有意者和我联系。基本是腐国需要的东西就那么几样：
+&gt;1. Personal Statement
+&gt;2. Curriculum Vitae 
+&gt;3. Transcript
+&gt;4. Reference Letter
+&gt;5. degree certificate</p>
 
-<p><img src="/images/sh_framework.png" alt="framework" /></p>
+<p>我申请的是cs，又是枫叶和腐国同时申。我还写了建了个<a href="http://laihaotao.github.io">个人的网站</a>什么的，不过感觉完全是没有什么作用。不过，也算是培养了下写作的兴趣，以后应该也会有用的。</p>
 
-<h2 id="section-2">硬件开发篇</h2>
-<p>这里接下去的内容将会是我在开发硬件过程当中遇到的一些坑爹问题，特别记录下来，防止以后再次掉进这些个大坑里面。</p>
+<h1 id="section-3">申请</h1>
+<p>到了申请季，各个学校的申请系统就会开放。我们需要做的就是按照上面的要求填写自己的个人信息。然后把上面说到的材料上传到系统里面就好了。现在腐国的学校我个人还没发现需要邮递材料过去了。而且，很多学校都是免申请费的。当然，从16年开始，部分学校的部分专业开始征收一部分的申请费了，25镑到100镑不等。</p>
 
-<p>STM32的开发环境选用的是keil4，十分蛋疼的一个开发环境，自从用惯了有代码补全的IDE之后再回来用这种单片机的开发环境就觉得十分的不顺手，还经常打错函数名字，果然是懒癌末期了。恩，还有交代一下，程序烧录和调试用的是Jlink。</p>
+<p>填完信息，提交上去。过几天你会收到一份确认你申请的邮件通知。然后，你需要做的就是静等了。在这个时候，收到一两封的拒信，不要灰心，不要难过，相信面包总会有的。如果收到的拒信的确很多（希望不要出现这种情况），那就要考虑你的定位是不是有问题了。</p>
 
-<h3 id="section-3">反转法进行矩阵键盘的检测</h3>
-<p>为什么要有这个键盘的检测呢，因为根据我们的设定，打算在门禁的地方设一个密码锁，输入正确的密码就可以控制门自行打开。所以，我们需要一个有0~9的数字的键盘，另外还需要一个确定按钮和取消按钮。</p>
+<p>英国的学校不多，中国留学生申请硕士的基本都是前30所（综合排名）。如果觉得是定位有问题的话，就抓紧时间补申一些学校，记得要到学校的官方网站上看清楚他们的requirement。如果你没有达到就硬申，基本上是没什么戏的。特别是背景的要求，要求你的本科学位是什么的，如果跨专业很离谱，没有修够前期的课程，基本上都是要被拒的。</p>
 
-<p>首先，扫一下盲，什么是矩阵键盘呢？就是把键盘按照一定的方式连接起来的方法，分为行和列。而不是一个键盘使用一个单片机的引脚。具体的连接原理图如下所示：</p>
+<p>一般一个月左右，就会有结果，快的话一个星期的也有。offer来了，要看看以下几点：
+&gt;是否需要deposit，要的话deadline是什么时候
+&gt;是否是conditional的offer，是的话con的条件是什么
+&gt;学费几何，是否有奖，等等</p>
 
-<p><img src="http://www.chinabaike.com/uploads/allimg/141002/1305115954-0.gif" alt="矩阵键盘原理图" /></p>
+<p>拿到了offer，就要决定是accept还是decline它了，要在规定的期限内做出决定。特别是deposit，如果没有按照要求做的话，offer是有可能会被取消掉的。从我获取到的信息来看，一般申请A&amp;F的都需要交deposit，并且要交的日期比较早。申请engineering或者science的就没有这个要求，或者要求的deadline比较晚。</p>
 
-<p>从上图可以看到，这是一个4*4的矩阵键盘，我们习惯把V1~V5称为行线，把H1~H称为列线。然后每个引脚都接上一个上拉电阻，行线和列线之间通过一个键盘来连接。没有按下去前行线和列线不通，按键按下去后导通。</p>
-
-<p>说完这个，下面我们可以研究一下检测的原理。怎么样准确的定位到是哪一个按键被按下去了。在这里，定位一个按键是通过行线和列线来确定的。我们所使用的反转法原理如下（使用的MCU是STM32）：</p>
-
-<ul>
-  <li>行线的所有引脚设置为开漏输出==<strong>（模式设置为开漏输出后，该引脚还需要写进0或者1，写0时与地线接通表现出低电平，写1是与地断开表现为高阻态）</strong>==，列线的所有引脚设置为上拉输入并设置为外部中断引脚（下降沿触发）；</li>
-  <li>有按键被按下之后，由于行线开漏输出引脚接地，该按键对应的列线的引脚的点评必然会被拉低（从高—&gt;低，表现为下降沿），所以触发了外部中断，程序进入事先设置好的中断服务程序；</li>
-  <li>在中断服务程序里面，我们首先==屏蔽外部中断==，然后翻转行线与列线的引脚的状态（即行线引脚设置成上拉输入，列线引脚设置成开漏输出）。这里为什么要屏蔽中断，因为翻转引脚状态的时候原先的上拉输入引脚转为了开漏输出（并且写了0，即接了地），电平由高变低了。如果没有屏蔽中断的话就会一直进入中断嵌套；</li>
-  <li>翻转引脚状态之后，读取行线的引脚电平（单片机的速度很快，这时候可以理解成人的手按下去之后按键还没有弹起来），读取到为低电平的行线，加上前面进入中断前的列线，即可定位按键==（记得读完之后要把外部中断重新打开）==；</li>
-</ul>
-
-<p>以上，就是反转法检测矩阵键盘的原理了。记得要开漏输出的引脚写0，并且进入中断之后要屏蔽外部中断。</p>
-
-<h3 id="section-4">使用蓝牙模块进行通信</h3>
-<p>上位机如果要控制下位机的话就必须要有一个数据的交互，为了完成数据交互的功能，我们选择使用蓝牙技术。Android方面，现在基本上不是脑残的智能手机都配有蓝牙，所以我们只需要在STM32这边接上一个蓝牙模块即可实现。对蓝牙的控制，我们将它玩完全的当做一个异步的串行通信接口即可。使用的时候大体的步骤应该如下（使用库函数开发）：</p>
-
-<ul>
-  <li>定义一个配置UASRT的结构体</li>
-  <li>查时钟树，打开对应的时钟</li>
-  <li>选择波特率、停止位、奇偶检验位、数据位、是否使用硬件流、接收或者发送模式等</li>
-  <li>将配置好的结构体提交上去</li>
-</ul>
-
-<p>最后是配置中断控制器NVIC（步骤和上述差不多，最后记得提交结构体）:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>NVIC_InitTypeDef NVIC_InitStructure; 
-NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
-NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn; 
-NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
-NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
-NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
-NVIC_Init(&amp;NVIC_InitStructure);
-</code></pre>
-</div>
-
-<p>其中接的使能接收中断，使用以下的语句即可：</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-</code></pre>
-</div>
-
-<p>使用蓝牙模块，我们不需要关心它的底层，它是怎么接收和发送数据的我们并不关心。我们需要关心的是怎么获得它接收到的数据，为了保证Android对下位机的控制，这里我们需要对STM32的中断进行优先级配置，将串口的接收中断配置为最高优先级（具体见上述代码的Proirity处，都设置成了0。注意，0是最高优先级）。</p>
-
-<p>为了方便调试，我还设置了一个printf函数，可以通过串口监控程序执行到哪里了。对于STM32的开发这个设置我觉得特别有必要，毕竟这个不像在PC上的集成开发环境，可以有日志或者控制台可以随时对程序进行监控。想要设置这个也不难，我们需要包含C的微机开发库，在设置（keil下一个像锤子一样的图标里，在使用c-lib前面打一个勾即可），另外还要重新定向printf的输出，让它通过串口来输出数据。重写如下函数即可：</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>int fputc(int ch, FILE *f){
-	while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET); 
-	USART_SendData(USART1, (uint8_t) ch);
-	while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
-	return (ch);
-}
-</code></pre>
-</div>
-
-<h3 id="section-5">其他</h3>
-<p>在这个项目里面，我们还用了一些舵机和电机，不过这些都没有什么好说的。相信控制这些还是比较简单的。主要就是通过通用定时器输出一定频率的PWM即可实现。需要输出的PWM也是有公式计算的，这里就不一一多说了。</p>
-
-<p>下一篇将开始讲述Android端的开发，这是我第一次用Android的蓝牙，所以我也是绕了不少弯路。到时候会记录下来，大家一起学习。</p>
+<h1 id="section-4">结语</h1>
+<p>好吧，上文仅供参考。16fall总算是没有失学，本来打算失学的话就要申17win的本科的了。现在，静等着枫叶的消息，希望快来一个吧，没有的话就只能从了腐国的了。</p>
 
 
                 <hr>
@@ -276,14 +234,15 @@ NVIC_Init(&amp;NVIC_InitStructure);
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/09/28/smarthome1"
-                    data-title="小本课程设计：一个基于STM32和Android的智能家居demo（一）"
-                    data-url="http://laihaotao.github.io/2015/09/28/smarthome1/"
+                    data-thread-key="/2016/02/24/uk-apply"
+                    data-title="我的英国授课硕士申请经历"
+                    data-url="http://laihaotao.github.io/2016/02/24/uk-apply/"
                     data-images="http://laihaotao.github.io/img/home-bg.jpg"
                     data-content="本文是作者原创文章，欢迎转载，请注明出处 from:@Eric_Lai
 
-写在前面
-刚开学，马上来三周的课程设计，主题是一个以单片机为主的机电系统。我一直... | Eric的博客 | Eric Blog " >
+更新(2016-06-22)：最后决定接受了加拿大的offer，不去英国了。
+
+... | Eric的博客 | Eric Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -303,12 +262,12 @@ NVIC_Init(&amp;NVIC_InitStructure);
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/09/20/sort/" data-toggle="tooltip" data-placement="top" title="排序算法 之 插入排序&归并排序">&larr; Previous Post</a>
+                        <a href="/2016/01/28/just-spring/" data-toggle="tooltip" data-placement="top" title="再探spring+mbybaits">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/09/29/heap-sort/" data-toggle="tooltip" data-placement="top" title="排序算法之堆排序">Next Post &rarr;</a>
+                        <a href="/2016/03/08/usart-wifi/" data-toggle="tooltip" data-placement="top" title="毕设记录之WiFi完成过程文档">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -318,9 +277,9 @@ NVIC_Init(&amp;NVIC_InitStructure);
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/09/28/smarthome1"
-                        data-title="小本课程设计：一个基于STM32和Android的智能家居demo（一）"
-                        data-url="http://laihaotao.github.io/2015/09/28/smarthome1/" >
+                        data-thread-key="/2016/02/24/uk-apply"
+                        data-title="我的英国授课硕士申请经历"
+                        data-url="http://laihaotao.github.io/2016/02/24/uk-apply/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

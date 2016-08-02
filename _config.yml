@@ -35,6 +35,10 @@ gems: [jekyll-paginate]
 markdown: kramdown
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
+  extensions:
+    - autolink
+    - footnotes
+    - smart
 
 
 # Duoshuo settings
