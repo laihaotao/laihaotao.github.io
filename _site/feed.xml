@@ -5,8 +5,8 @@
     <description></description>
     <link>http://laihaotao.github.io/</link>
     <atom:link href="http://laihaotao.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 02 Aug 2016 23:29:40 +0800</pubDate>
-    <lastBuildDate>Tue, 02 Aug 2016 23:29:40 +0800</lastBuildDate>
+    <pubDate>Sat, 10 Sep 2016 10:41:06 -0400</pubDate>
+    <lastBuildDate>Sat, 10 Sep 2016 10:41:06 -0400</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
     
       <item>
@@ -151,7 +151,7 @@
 &lt;p&gt;Eric
 2016年7月21日于广州&lt;/p&gt;
 </description>
-        <pubDate>Thu, 21 Jul 2016 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 21 Jul 2016 00:00:00 -0400</pubDate>
         <link>http://laihaotao.github.io/2016/07/21/ca-apply/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/07/21/ca-apply/</guid>
         
@@ -453,7 +453,7 @@
 
 &lt;p&gt;注意，需要自己准备图片！&lt;/p&gt;
 </description>
-        <pubDate>Sat, 02 Apr 2016 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 02 Apr 2016 00:00:00 -0400</pubDate>
         <link>http://laihaotao.github.io/2016/04/02/socket-send_pic/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/04/02/socket-send_pic/</guid>
         
@@ -1468,7 +1468,7 @@ public class CameraFragment extends Fragment {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
-        <pubDate>Tue, 22 Mar 2016 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 22 Mar 2016 00:00:00 -0400</pubDate>
         <link>http://laihaotao.github.io/2016/03/22/android-camera2/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/03/22/android-camera2/</guid>
         
@@ -1758,7 +1758,7 @@ public class CameraFragment extends Fragment {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
-        <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 19 Mar 2016 00:00:00 -0400</pubDate>
         <link>http://laihaotao.github.io/2016/03/19/libjpeg-bmt2jpg/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/03/19/libjpeg-bmt2jpg/</guid>
         
@@ -2039,7 +2039,7 @@ public class CameraFragment extends Fragment {
 &lt;p&gt;&lt;img src=&quot;/images/python-socket-2.png&quot; alt=&quot;修改后运行结果&quot; /&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 10 Mar 2016 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 10 Mar 2016 00:00:00 -0500</pubDate>
         <link>http://laihaotao.github.io/2016/03/10/python-socket/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/03/10/python-socket/</guid>
         
@@ -2254,7 +2254,7 @@ char* getRealRecv(char *pStr){
 
 &lt;p&gt;以上，是WiFi模块的完成过程。&lt;/p&gt;
 </description>
-        <pubDate>Tue, 08 Mar 2016 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 08 Mar 2016 00:00:00 -0500</pubDate>
         <link>http://laihaotao.github.io/2016/03/08/usart-wifi/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/03/08/usart-wifi/</guid>
         
@@ -2321,7 +2321,7 @@ char* getRealRecv(char *pStr){
 &lt;h1 id=&quot;section-4&quot;&gt;结语&lt;/h1&gt;
 &lt;p&gt;好吧，上文仅供参考。16fall总算是没有失学，本来打算失学的话就要申17win的本科的了。现在，静等着枫叶的消息，希望快来一个吧，没有的话就只能从了腐国的了。&lt;/p&gt;
 </description>
-        <pubDate>Wed, 24 Feb 2016 00:00:00 +0800</pubDate>
+        <pubDate>Wed, 24 Feb 2016 00:00:00 -0500</pubDate>
         <link>http://laihaotao.github.io/2016/02/24/uk-apply/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/02/24/uk-apply/</guid>
         
@@ -2779,7 +2779,7 @@ char* getRealRecv(char *pStr){
 &lt;p&gt;重要的事情说三遍，test的包可以不调整，没有影响。并且点击工程根目录，按下F12打开模块设置，将resources目录设置为resources root类型，点击apply。重新编译一次，应该就能够在.targe下看到Dao.xml文件了。详情请看&lt;a href=&quot;http://blog.csdn.net/XiWenRen/article/details/49101605&quot;&gt;这里&lt;/a&gt;，非常感谢解决方案。&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 28 Jan 2016 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 28 Jan 2016 00:00:00 -0500</pubDate>
         <link>http://laihaotao.github.io/2016/01/28/just-spring/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2016/01/28/just-spring/</guid>
         
@@ -3144,7 +3144,7 @@ char* getRealRecv(char *pStr){
 &lt;/blockquote&gt;
 
 </description>
-        <pubDate>Fri, 13 Nov 2015 00:00:00 +0800</pubDate>
+        <pubDate>Fri, 13 Nov 2015 00:00:00 -0500</pubDate>
         <link>http://laihaotao.github.io/2015/11/13/spring-myabtis/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2015/11/13/spring-myabtis/</guid>
         
@@ -3361,7 +3361,7 @@ char* getRealRecv(char *pStr){
 &amp;gt;
 &amp;gt;对这个问题的解法共有: 92&lt;/p&gt;
 </description>
-        <pubDate>Sat, 24 Oct 2015 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 24 Oct 2015 00:00:00 -0400</pubDate>
         <link>http://laihaotao.github.io/2015/10/24/permutation-eightqueen/</link>
         <guid isPermaLink="true">http://laihaotao.github.io/2015/10/24/permutation-eightqueen/</guid>
         
