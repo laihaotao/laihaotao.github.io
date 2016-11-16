@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 区间动态规划例题
-subtitle: an example about dp
+subtitle: An example about dp
 keyword: dynamic programming
 tag:
     - algorithm
