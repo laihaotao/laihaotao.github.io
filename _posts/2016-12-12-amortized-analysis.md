@@ -137,7 +137,7 @@ $$
 \hat{c}_i=c_i+\Phi(D_i)-\Phi(D_{i-1})=k'-k'=0
 $$
 
-显然，对于上述的三种操作，我们都有$\Phi(D_n)-\Phi(D_0) \ge 0$，所以$sum^{n}_{i=1}{\hat c_i} \leq \sum^{n}_{i=1}{c_i}$，即总摊还代价是实际代价的上界。由aggregate analysis知，每个操作的摊还代价为O(1)，当然也可以使用accounting method当中设定的摊还代价，所以由n个操作组成的序列，其最坏情况的时间为O(n)。
+显然，对于上述的三种操作，我们都有$\Phi(D_n)-\Phi(D_0) \ge 0$，所以$\sum^{n}_{i=1}{\hat c_i} \leq \sum^{n}_{i=1}{c_i}$，即总摊还代价是实际代价的上界。由aggregate analysis知，每个操作的摊还代价为O(1)，当然也可以使用accounting method当中设定的摊还代价，所以由n个操作组成的序列，其最坏情况的时间为O(n)。
 
 ### Dynamic tables
 
