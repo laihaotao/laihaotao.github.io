@@ -43,7 +43,7 @@ $$
 \sum^{n}_{i=1}{\hat c_i}=\sum^{n}_{i=1}(c_i+\Phi(D_i)-\Phi(D_{i-1}))=\sum^n_{i=1}c_i+\Phi(D_n)-\Phi(D_0)
 $$
 
-观察上式，明显地如果$\Phi(D_n)-\Phi(D_0) \ge 0$，则这个式子给出了一个上界: $$\sum^{n}_{i=1}{\hat c_i} \leq \sum^{n}_{i=1}c_i$$。现在的问题是，是否存在一个$\Phi$函数，使得$\Phi(D_n)-\Phi(D_0) \ge 0$。实际当中，我们并不知道一个操作序列里有多少个操作，如果可以满足这个条件，则可以像accounting method那样，总能保证提前支付。
+观察上式，明显地如果$\Phi(D_n)-\Phi(D_0) \ge 0$，则这个式子给出了一个上界: $$\sum^{n}_{i=1}{\hat c_i} \ge \sum^{n}_{i=1}c_i$$。现在的问题是，是否存在一个$\Phi$函数，使得$\Phi(D_n)-\Phi(D_0) \ge 0$。实际当中，我们并不知道一个操作序列里有多少个操作，如果可以满足这个条件，则可以像accounting method那样，总能保证提前支付。
 
 通常来说，为了保证这个条件，我们通常令$\Phi(D_0)$为零，然后证明对于所有的i，有$\Phi(D_i)\ge0$。
 
@@ -137,7 +137,7 @@ $$
 \hat{c}_i=c_i+\Phi(D_i)-\Phi(D_{i-1})=k'-k'=0
 $$
 
-显然，对于上述的三种操作，我们都有$\Phi(D_n)-\Phi(D_0) \ge 0$，所以$$\sum^{n}_{i=1}{\hat c_i} \leq \sum^{n}_{i=1}{c_i}$$，即总摊还代价是实际代价的上界。由aggregate analysis知，每个操作的摊还代价为O(1)，当然也可以使用accounting method当中设定的摊还代价，所以由n个操作组成的序列，其最坏情况的时间为O(n)。
+显然，对于上述的三种操作，我们都有$\Phi(D_n)-\Phi(D_0) \ge 0$，所以$$ \sum^{n}_{i=1}{\hat c_i}\ge\sum^{n}_{i=1}{c_i} $$，即总摊还代价是实际代价的上界。由aggregate analysis知，每个操作的摊还代价为O(1)，当然也可以使用accounting method当中设定的摊还代价，所以由n个操作组成的序列，其最坏情况的时间为O(n)。
 
 ### Dynamic tables
 
