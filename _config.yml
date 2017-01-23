@@ -2,7 +2,7 @@
 title: Eric Blog
 SEOTitle: Eric的博客 | Eric Blog
 header-img: img/home-bg.jpg
-email: qq584863350@gmail.com
+email: haotao.lai@gmail.com
 description: ""
 keyword: ""
 url: "http://laihaotao.github.io"              # your host, for absolute URL
@@ -13,8 +13,8 @@ RSS: false
 weibo_username:     eric0325
 zhihu_username:     laihaotao
 github_username:    LAIHAOTAO
-#twitter_username:  huxpro
-#facebook_username:  huxpro
+# twitter_username:  huxpro
+facebook_username:  laihaotao
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
