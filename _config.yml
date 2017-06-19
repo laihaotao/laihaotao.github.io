@@ -40,10 +40,8 @@ kramdown:
     - footnotes
     - smart
 
-# Duoshuo settings
-duoshuo_username: laihaotao
-# Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+# Disqus settings
+disqus_username: laihaotao
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
