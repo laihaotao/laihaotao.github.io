@@ -20,4 +20,4 @@ You can send an email to the list (all members in the group), through the follow
 
 Some resource to the public with be listed below:
 
-- (preparing)
+- [Git Tutorial](talk_slides/git.pdf)
