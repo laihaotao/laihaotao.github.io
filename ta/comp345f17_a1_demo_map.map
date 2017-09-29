@@ -13,7 +13,7 @@ Continent3=2
 [Territories]
 country_aa,95,142,Continent1,country_bb
 country_bb,10,130,Continent1,country_aa,country_cc
-country_cc,94,182,Continent2,country_bb,country_ee
+country_cc,94,182,Continent2,country_bb,country_dd,country_ee
 country_dd,29,122,Continent2,country_cc,country_ff,country_gg
 country_ee,45,162,Continent3,country_cc
 country_ff,95,147,Continent3,country_dd,country_gg
