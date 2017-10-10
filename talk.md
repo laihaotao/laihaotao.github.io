@@ -21,3 +21,5 @@ You can send an email to the list (all members in the group), through the follow
 Some resources open to the public with be listed below:
 
 - [Git Tutorial](talk_slides/git.pdf)
+- [Small Collection of Tree, Graph and DP](talk_slides/tree_graph_dp.pdf)
+- [Introduction to Java NIO](talk_slides/java_nio.pdf)
