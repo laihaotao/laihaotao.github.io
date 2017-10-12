@@ -21,7 +21,7 @@ header-img: "img/post-bg-js-module.jpg"
 
 ## Week 5
 
-We covered code set 4 in the lab, no other materials
+- We covered code set 4 in the lab, no other materials
 
 ## Week 6
 
