@@ -25,5 +25,13 @@ header-img: "img/post-bg-js-module.jpg"
 
 ## Week 6
 
-- temporary grading schema for assignment 2 [PDF](ta/tmp_comp_345_a2_grading_schema.pdf)
+- grading schema for assignment 2 [PDF](ta/comp_345_a2_grading_scheme.pdf)
 - array, dynamic array, observer pattern [PDF](ta/f17_comp345_week6.pdf)
+
+## Week 7
+
+- modularity [PDF](ta/f17_comp345_week 7_modularity.pdf)
+
+## Week 8
+
+- Object created on stack and heap, a clear explanation versioin [PDF](ta/f17_comp345_week8_1.pdf)
