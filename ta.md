@@ -26,12 +26,13 @@ header-img: "img/post-bg-js-module.jpg"
 ## Week 6
 
 - grading schema for assignment 2 [PDF](ta/comp_345_a2_grading_scheme.pdf)
-- array, dynamic array, observer pattern [PDF](ta/f17_comp345_week6.pdf)
+- array, dynamic array, observer pattern [Slide PDF](ta/f17_comp345_week6.pdf)
 
 ## Week 7
 
-- modularity [PDF](ta/f17_comp345_week 7_modularity.pdf)
+- modularity [Slide PDF](ta/f17_comp345_week 7_modularity.pdf)
 
 ## Week 8
 
-- Object created on stack and heap, a clear explanation versioin [PDF](ta/f17_comp345_week8_1.pdf)
+- Object created on stack and heap, a clear explanation versioin [Slide PDF](ta/f17_comp345_week8_1.pdf)
+- Virtual method, pure virtual method, virtual inheritance [Slide PDF](ta/f17_comp345_week8_2.pdf) [Code Example](ta/f17_comp345_week8_code.zip)
