@@ -43,4 +43,4 @@ header-img: "img/post-bg-js-module.jpg"
 
 ## Week 10
 
-- temporary grading schema for assignment 3 [PDF](ta/comp_345_a3_grading_schema.pdf)
+- final version grading schema for assignment 3 [PDF](ta/comp_345_a3_grading_schema.pdf)
