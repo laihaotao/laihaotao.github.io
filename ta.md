@@ -47,3 +47,13 @@ header-img: "img/post-bg-js-module.jpg"
 ## Week 10
 
 - final version grading schema for assignment 3 [PDF](ta/comp_345_a3_grading_schema.pdf)
+
+## Week 11
+
+We talk about operator overrloading using the course's lecture slide and go through two example
+
+## Week 12
+
+We talk about template using using the course's lecture slide
+
+Try the programming test example in the lab's computer [makefile for the example question](ta/f17_comp345_makefile4example_question.zip)
