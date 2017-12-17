@@ -1,0 +1,199 @@
+%
+% Haotao Lai (Eric) CV
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}
+\moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                                 % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+%\usepackage{CJKutf8}                             % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+
+\usepackage[scale=0.8]{geometry}         % adjust the page margins
+%\setlength{\hintscolumnwidth}{3cm}                     % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+\usepackage{import}
+
+% personal data
+\name{Haotao Lai}{(Eric)}
+\address{Maisonneuve 2100 Apt 903, Montreal, Canada, H3H 1K6}{}{}
+\phone[mobile]{514-8399-926}
+\email{haotao.lai@gmail.com}
+\homepage{http://laihaotao.me}
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+
+
+%----------------------------------------------------------------------------------
+%            Education Background
+%----------------------------------------------------------------------------------
+\section{Education Background}
+\vspace{5pt}
+\begin{itemize}
+\item{\cventry{2016--now}{Master in Computer Science}{Concordia University}{Montreal}{GPA 3.67}{}}
+\item{\cventry{2012--2016}{Bachelor in Engineering}{Guangzhou University}{Guangzhou}{GPA 80\%}{}}
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+%            Professional Skill
+%----------------------------------------------------------------------------------
+\section{Professional Skill}
+
+\begin{itemize}
+\item \textbf{Programming Languages: } Java, C++, JavaScript, Python
+\vspace{4pt}
+
+\item \textbf{English proficiency: } IELTS 6.5 (no band below 6.0)
+\vspace{4pt}
+
+\item \textbf{Hardware development:} STM32, AVR, Arduino, 80C51
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+%            Award
+%----------------------------------------------------------------------------------
+\section{Award}
+
+\begin{itemize}
+
+\item Concordia University Merit Scholarship (5000 CAD) \hfill 2018
+\vspace{4pt}
+
+\item Guangzhou University outstanding graduation project award \hfill 2016
+\vspace{4pt}
+
+\item Guangzhou University the $2^nd$ place scholarship (2000 CNY) \hfill 2016
+\vspace{4pt}
+
+\item Guangzhou University the $3^rd$ place scholarship (1000 CNY) \hfill 2015
+\vspace{4pt}
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+%            Academic Experience
+%----------------------------------------------------------------------------------
+\section{Graduate Academic Experience}
+
+\subsection{Implement a reliable data transfer protocol on top of UDP}
+Team Project ($1^{st}$ author) \hfill 2017 fall \\
+GitHub: https://github.com/laihaotao/COMP6461
+\vspace{4pt}
+\begin{itemize}
+\item Implement a http client using TCP
+\item Implement a http file server using TCP
+\item Implement a multithread event based request handling mechanism
+\item Implement a reliable layer replaces the TCP used above
+\end{itemize}
+
+\subsection{Pokemon-Go-Back card game}
+Team Project \hfill 2017 summer \\
+GitHub: https://github.com/laihaotao/COMP354
+\vspace{4pt}
+\begin{itemize}
+\item Project leader, organizer and the ($2^{nd}$ author) code contributor
+\item Design the project structure, code manager, bug report and communication procedure
+\item Implement the select deck mechanism
+\item Implement the some useful tools for other contributors
+\item Design the testing process and build the testing framework
+\end{itemize}
+
+\subsection{Implement a compiler}
+Team Project ($1^{st}$ author) \hfill 2016 winter \\
+GitHub: https://github.com/laihaotao/COMP6421
+\vspace{4pt}
+\begin{itemize}
+\item Implement a lexical analyzer
+\item Implement a syntactic analyser
+\item Implement a semantic analyser
+\item Implement a code generator
+\item combine all of them into a completed compiler
+\end{itemize}
+
+
+\section{Undergraduate Academic Experience}
+\vspace{4pt}
+
+\subsection{A kind of weeding robot based on computer vision}
+Individual Project \hfill 2016.03 -- 2016.06
+\vspace{4pt}
+\begin{itemize}
+\item Outstanding graduation project award (rank: 2 / 200)
+\item Individually developed the whole system contains: Android, VB.net, Halcon, Network communication
+\item Video link (YouTube) to show the project: https://www.youtube.com/watch?v=4Qx2GHp2ZlI
+\end{itemize}
+
+\subsection{Internet express system}
+Team Project ($1^{st}$ author) \hfill 2015.01 -- 2016.06
+\vspace{4pt}
+\begin{itemize}
+\item Received 10,000 CNY funding and a patent authorization (CN204576611U)
+\item Team leader of the whole project
+\item Created intelligence-based interactive system (both Android client and Java EE server)
+\item Implemented communication protocol between android and STM32 which is the control unit
+\end{itemize}
+
+\subsection{Obstacle avoidance remote control robot}
+Individual Project \hfill 2015.09 -- 2016.06
+\vspace{4pt}
+\begin{itemize}
+\item Using RS485 communication protocol to organize the sensor network
+\item Using Visual Basic for master computer's UI and control system
+\item Used three casters for implementing moving system
+\item Design obstacle avoidance algorithm
+\end{itemize}
+
+\subsection{Special projects for blind and disable children}
+Team Project ($2^{nd}$ author), funded by Guangzhou Education Bureau \hfill 2014.09 -- 2015.06
+
+\vspace{1em}
+\underline{Entertainment based system (dancing mat) for blind children}
+\vspace{4pt}
+\begin{itemize}
+\item Developed using STM32, SD card, I2C communication protocol and DMA
+\item Through investigative research done at the Guangzhou Blind Children School to better learn how to design communication for children's needs
+\end{itemize}
+
+\vspace{6pt}
+
+\underline{Disability assistant page reader}
+\vspace{4pt}
+\begin{itemize}
+\item Applied mechanical engineering design as 1st author for the linkage, and fabrication of the synchronous belt pulley and the motor
+\end{itemize} 
+
+\subsection{Forklift truck system}
+Team Project ($1^{st}$ author) \hfill 2013.09 -- 2014.06
+\begin{itemize}
+\item Developed (as $1^{st}$ author) using Arduino, Bluetooth, android, and 3D printer
+\item Received a $2^{nd}$ place award in school project competition
+\item An patent authorization (CN104102990A)
+\end{itemize}
+
+
+\end{document}
+%% end of file `template.tex'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
