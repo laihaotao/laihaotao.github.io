@@ -32,7 +32,7 @@ public class Example {
 
 打开命令行，编译并且运行一下这个例子的源码：
 
-![](images/jvm/class_file/class_file/example1_result.png)
+![](/images/jvm/class_file/example1_result.png)
 
 这么看，并没有什么特别的，仅仅是一个最最最简单的 “hello world” 程序。但是这次我们的关注点不放在这段程序运行的结果上，我们的关注点而是我们使用 `javac` 命令编译源码后产生的 `Example.class` 文件。
 
@@ -49,7 +49,7 @@ vim Example.class
 
 当你输入 `vim Example.class` 的时候，你应该会看到一堆乱码， 然后当你输入 `: % ! xxd` 之后，你应该能够看到像下面图片一样的内容：
 
-![](images/jvm/class_file/class_file/byte_code_example1.png)
+![](/images/jvm/class_file/byte_code_example1.png)
 
 一个小小的 “hello world” 程序的字节码就像上面显示的一样(看起来好复杂啊 :< )，不用方！下面我们将详细的来解释一下这个字节码文件的结构是怎样的。
 
@@ -64,11 +64,11 @@ Java 虚拟机规范规定，Class 文件采用一种伪结构体来存储数据
 - 无符号数 (u1, u2, u4, u8)
 - 表 (_info)
 
-![](images/jvm/class_file/class_file/intro_class_file.png)
+![](/images/jvm/class_file/intro_class_file.png)
 
 下图显示了一个完整的 `Class ` 文件的结构，后文将逐一介绍这几个部分。
 
-![](images/jvm/class_file/class_file/class_file_structure.png)
+![](/images/jvm/class_file/class_file_structure.png)
 
 ### 魔数与版本号
 
@@ -79,15 +79,15 @@ Java 虚拟机规范规定，Class 文件采用一种伪结构体来存储数据
 1. `Minor Version`，第 5 和 第 6 字节；
 2. `Major Version`，第 7 和 第 8 字节；
 
-![](images/jvm/class_file/class_file/magic_version.png)
+![](/images/jvm/class_file/magic_version.png)
 
 上图 `major version` 中的 34 是十六进制，它代表十进制中的 52，下表为 `Java Version` 和 `Major Version` 的对照表，可以看到 52 对应的是 `Java 8`。
 
-![](images/jvm/class_file/class_file/major_version.png)
+![](/images/jvm/class_file/major_version.png)
 
 下面的是我机器上的 `Java` 版本，可以看到是 `Java 1.8.0_51` 和上面的结果符合。
 
-![](images/jvm/class_file/class_file/java_version.png)
+![](/images/jvm/class_file/java_version.png)
 
 ### 常量池
 
@@ -100,11 +100,11 @@ Java 虚拟机规范规定，Class 文件采用一种伪结构体来存储数据
 - 字面量 (Literal)
 - 符号引用 (Symbol Reference)
 
-![](images/jvm/class_file/class_file/constant_pool.png)
+![](/images/jvm/class_file/constant_pool.png)
 
 下面，我们尝试着分析一下我们一开始的例子里面的常量池数据。从下图中我们可以看到，计数器的数值转化成十进制后是 35。这表明一共有 34 项常量 `1 ~ 34`，零保留下来了，表示 “不引用常量池的任何一个项目”。
 
-![](images/jvm/class_file/class_file/cp_analysis.png)
+![](/images/jvm/class_file/cp_analysis.png)
 
 紧接着计数器的是一个 tag `0x0a` -> 10 (十进制)，查上表，可以知道这是一个 `CONSTANT_Methodref_info` 类型的表 (符号引用)。再仔细看表 `CONSTANT_Methodref_info` 由三个子项组成，分别是 tag (u1 类型)，index(u2 类型，指向方法属于的类)，index(u2 类型，指向方法的名称)。按照数据类型，截取相应的数据：
 
@@ -120,7 +120,7 @@ javap -verbose Example
 
 可以看到输入如下 (和我们分析的吻合)：
 
-![](images/jvm/class_file/class_file/javap_result1.png)
+![](/images/jvm/class_file/javap_result1.png)
 
 后文不再逐一分析常量池的内容，有需要可以自行验证多几项。总而言之，**常量池里的内容如果是字面量就可以被别的表引用，如果是符号引用则会继续引用别的表**。多一句嘴，这写符号引用会在某个阶段被替换成内存中的地址，在传统的编译型语言中 (比如 C/C++)，这一步骤被称为 “链接 (linking)”。
 
@@ -128,11 +128,11 @@ javap -verbose Example
 
 紧接着常量池之后的内容是访问标志(上图途中，出现在常量池上方)。注意，这里说的是类级别的访问标志。就像它的名字一样，这是一个 flag，要么有要么没有，可以取以下的值，一个类可以有多个标志。
 
-![](images/jvm/class_file/class_file/access_flag.png)
+![](/images/jvm/class_file/access_flag.png)
 
 同样看一下我们的例子，上面使用 `javap` 的分析已经知道了标志为 `ACC_PUBLIC, ACC_SUPER`，我们来验证一下。首先看源码，这仅仅是一个普通类，不是接口也没有被声明为抽象。由于使用的 JDK 版本为 1.8，所以 `ACC_PUBLIC, ACC_SUPER`应该为真，进行计算 -> `0x0001 | 0x0020 = 0x0021` 可以知道 `access_flag` 的值应为 `0x21`。
 
-![](images/jvm/class_file/class_file/access_flag.png)
+![](/images/jvm/class_file/access_flag.png)
 
 
 ### 类信息集合
@@ -153,17 +153,17 @@ javap -verbose Example
 
 字段表的格式如下：
 
-![](images/jvm/class_file/class_file/field_info.png)
+![](/images/jvm/class_file/field_info.png)
 
 在这里，访问表示的处理和类的访问标志的处理方法基本相同，只是描述字段的访问标志的项目与描述类的有所不同，后文会给出具体的描述表。`name_index, descriptor_index` 的作用是指向常量池的具体条目。属性表会在后文叙述，它主要存储一些额外信息，比如如果一个`String`类型的字段被 `static`修饰，可能字段表里会有一个条目指向常量池的常量来表示这个字段的值。
 
-![](images/jvm/class_file/class_file/field_info_accessflag.png)
+![](/images/jvm/class_file/field_info_accessflag.png)
 
 如果你仔细的在 `javap` 命令给出的分析结果中查看，会发现一些奇奇怪怪的符号，如下所示。这些 `I`, `V`究竟表示的是什么意思呢？这就是我们上问提及的 `descriptor`的一部分，原来对于类型，`Class` 文件中用一个字符来表示标识。`I` 表示整形， `V` 表示 `void`。
 
-![](images/jvm/class_file/class_file/field_info_descriptor.png)
+![](/images/jvm/class_file/field_info_descriptor.png)
 
-![](images/jvm/class_file/class_file/data_type_descriptor.png)
+![](/images/jvm/class_file/data_type_descriptor.png)
 
 上面没有提到的还有数组字段，数组字段在类型的基础上会添加一个前缀 `[`，这个前缀的个数取决于数组的维度，比如二维数组那就会是 `[[`。
 
@@ -171,23 +171,23 @@ javap -verbose Example
 
 方法表集合，用来描述类中定义的方法。和字段差不多，只是访问表示略有不同，并且方法表会在其属性表中多些其他的子项，比如，方法返回值类型，参数列表，方法内部的局部变量等。具体见下图：
 
-![](images/jvm/class_file/class_file/method_info.png)
+![](/images/jvm/class_file/method_info.png)
 
 这里如果写过 compiler 的同学就会觉得很奇怪了，方法里的代码到哪里去了？ 所有方法里的代码会被编译成指令放在属性表的 `code` 属性里面。相关的内容，说到字节码执行引擎的时候会详细的叙述。
 
 我们的例子中，使用 `javap` 命令后，能够得到一个好看的方法表集合。
 
-![](images/jvm/class_file/class_file/javap_result2.png)
+![](/images/jvm/class_file/javap_result2.png)
 
 ### 属性表集合
 
 属性表，这个词在前面已经出现过挺多次的了。它可以出现在 `Class` 文件，字段表，方法表中，用来描述某些场景的专属信息。具体的表结构如下图所示。属性表与 `Class`文件中的其他数据项不太相同，它没有过于严格的顺序、长度和内容要求。任何人实现的编译器都可以向其中写入自己定义的信息， Java 虚拟机会忽略自己不认识的属性。当然，虚拟机预先定义了一些属性 (准确地说是 23 项)。由于这部分比较复杂，无法逐一详细解释，具体可以参考 [JVM Specification](https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf) (这里给出的链接是 Java SE 8 Edition)
 
-![](images/jvm/class_file/class_file/attribute_info.png)
+![](/images/jvm/class_file/attribute_info.png)
 
 本节主要探讨该表中的 `code`属性，该属性位于上图的 `info` 中，是其中的一个子项(entry)。这个表存放的是某个方法的对应字节指令吗。其结构如下：
 
-![](images/jvm/class_file/class_file/code_attr.png)
+![](/images/jvm/class_file/code_attr.png)
 
 回忆一下我们是怎么把一个 `.java` 文件变成一个 `.class` 文件的。没错，那就是 `javac` 命令！我们知道，一个程序基本上可以分成两大部分，数据和操作数据的语句。当我们下这个命令的时候，所有的执行语句都被变成了字节码指令，被存放在了相应方法表的属性表中。除了 `code` 属性里的内容，其他的就都是程序的数据了。
 
@@ -209,7 +209,7 @@ public int inc() {
 
 使用 `javap` 命令解析后，我们可以得到如下的指令：
 
-![](images/jvm/class_file/class_file/byte_code_instruction.png)
+![](/images/jvm/class_file/byte_code_instruction.png)
 
 稍微解释一下上面的指令：
 
