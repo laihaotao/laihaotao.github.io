@@ -137,6 +137,7 @@ int main() {
 回到命令行切换到 `build` 目录下：
 
 ```
+cmake .. && make
 bin/WorkWithSubDir
 ```
 
