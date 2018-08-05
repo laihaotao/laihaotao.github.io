@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mac下如何使用Jekyll＋github page搭建静态博客以及当中遇到的问题
+title: Jekyll＋GitHub Page 搭建静态博客
 data: 2015-08-10
 subtitle: introduction about how to built a blog by Jekyll＋github page
 keyword: jekyll, github page, pygments, redcarpet, Mac
@@ -54,7 +54,7 @@ $ jekyll new username.github.io
 
 以上是基本的必须东西，每个人都有一些不同也是正常，还有一些是为了做的能好而添加的这里不详细的列举出来了。如果有兴趣可以参看我的blog的目录，请点击[这里](https://github.com/LAIHAOTAO/laihaotao.github.io)。
 ## config.yml说明
-做完上述的这些，一个基本的blog框架就已经搭建出来了。如果你要在其中添加一些个性化的设置，可以再congif.yml里面进行添加。添加完之后，如果后面的代码当中有需要使用，可以用{{site.相关名字(key)}}来取得它的值(value)。在这里，你还可以对Jekyll的一些功能进行配置，详细的功能配置，请看[这里](http://jekyllcn.com/docs/configuration/)。
+做完上述的这些，一个基本的blog框架就已经搭建出来了。如果你要在其中添加一些个性化的设置，可以再congif.yml里面进行添加。添加完之后，如果后面的代码当中有需要使用，可以用`\{\{site.相关名字(key)\}\}`来取得它的值(value)。在这里，你还可以对Jekyll的一些功能进行配置，详细的功能配置，请看[这里](http://jekyllcn.com/docs/configuration/)。
 ## 使用cygments配置高亮代码
 在前面的基础上，我搭建好之后就迫不及待地把之前写的一篇文章post上来做测试了。但是发现了一个问题，其中的代码部分不会高亮。而且格式还不太对，不能识别围栏式代码块。这可就郁闷了，作为一个准码农（blog主还没毕业哈）的blog，不能高亮代码可不是什么好事。赶快Google了一下，发现比较常用的解决方案时使用pygments来高亮代码。那我就赶快行动起来了，要使用这个首先要安装一下，Mac下使用easy_install安装就可以了（前提是你有这个功能，至于怎么获得这个，还请自行Google一下了哈）。Mac下，打开终端输入以下命令：
 

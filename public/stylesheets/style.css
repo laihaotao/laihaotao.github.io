@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Console", Monaco, monospace;
+}
+
+a {
+  color: #00B7FF;
+}
+
+img {
+  width: 70%;
+  height: 70%;
+}

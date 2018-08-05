@@ -1,0 +1,42 @@
+---
+layout: info
+title: archive
+pagination: 
+  enabled: true
+---
+
+<main role="main" class="inner cover">
+
+    <div class="container">
+        {% for post in paginator.posts %}
+        <div class="row">
+            <div class=".col-5">
+                <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            </div>
+            <div class="col-sm"></div>
+            <div class=".col-2">
+                    <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <br/>
+        
+        <div class="row">
+        {% if paginator.total_pages > 1 %}
+            {% if paginator.previous_page %}
+            <div class=".col-2">
+                <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+            </div>
+            {% endif %}
+            <div class="col-sm"></div>
+            {% if paginator.next_page %}
+            <div class=".col-2">
+                <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+            </div>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+
+</main>

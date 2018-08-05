@@ -1,74 +1,98 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
 # Site settings
-title: Eric Blog
-SEOTitle: Eric的博客 | Eric Blog
-header-img: img/home-bg.jpg
-email: haotao.lai@gmail.com
-description: ""
-keyword: ""
-url: "http://laihaotao.github.io"              # your host, for absolute URL
-#baseurl: "http://laihaotao.github.io"         # for example, '/blog' if your blog hosted on 'host/blog'
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
 
-# SNS settings
-RSS: false
-weibo_username:     eric0325
-zhihu_username:     laihaotao
-github_username:    LAIHAOTAO
-# twitter_username:  huxpro
-facebook_username:  laihaotao
+title: Haotao's website
+url: "http://laihaotao.me"
 
-# Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-highlighter: rouge
-permalink: pretty
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:211 of `post.html`
-
-# Gems
-# from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
-
-# Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
-markdown: kramdown
-kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
-  extensions:
-    - autolink
-    - footnotes
-    - smart
+twitter_username: jekyllrb
+github_username:  laihaotao
 
 # Disqus settings
-disqus_username: laihaotao
+# disqus_username: laihaotao
 
-# Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "be better than yesterday !"
-sidebar-avatar: /img/my-id-photo.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+# Build settings
+markdown: kramdown
+kramdown:
+  
+  # input source respects GitHub Favourite Markdown format
+  input: GFM
+  
+  # how to use rouge?
+  #   gem install rouge                       => install rouge
+  #   rougify help style                      => list all available theme
+  #   rougify style base16.dart > ./hl.css    => generate stylesheet file
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+      
+  
 
-# Featured Tags
-featured-tags: true                     # whether or not using Feature-Tags
-featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+theme: minima
+plugins:
+  - jekyll-feed 
+  - jekyll-paginate
+  # - jekyll-paginate-v2
 
-# Friends
-friends: [
-    {
-        title: "Victor Zhong",
-        href: "http://victorzhong.github.io"
-    },
-    {
-        title: "Effy Li",
-        href: "http://effyli.github.io"
-    }
-]
+paginate: 10
+paginate_path: "archive/page:num"
 
-# Analytics settings
-# Baidu Analytics
-#ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
-# Google Analytics
-#ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-#ga_domain: huangxuan.me
+# Pagination Settings
+# pagination:
+#   enabled: true
+#   per_page: 10
+#   permalink: '/page/:num/'
+#   title: ' - page :num'
+#   limit: 0
+#   sort_field: 'date'
+#   sort_reverse: true
+#   indexpage: 'archive'
+#   collection: 'posts'
 
 
+# Gobal setting
+user:
+  name_zh: Haotao Lai
+  name_en: Eric
+  status: looking for internship
+  description: Master Student in Computer Science @ Concordia
+
+  contact_en: You are welcome to contact me with any problem, I will reply you ASAP.
+  contact_zh: 欢迎通过下面的方式和我取得联系, 我会尽快回复您.
+
+  university_mail: h_lai@encs.concordia.ca
+  personal_mail: haotao.lai@gmail.com
+
+# Page registration
+page_names:
+  - home
+  - archive
+  - about
+  - contact
+  - ta
+  # - tags
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

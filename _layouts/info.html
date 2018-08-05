@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+
+{% include head.html %}
+
+<body class="text-center">
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        {% include nav.html %} 
+        {{ content }} 
+        {% include foot.html %}
+    </div>
+    
+    {% include bootstrap_script.html %}
+</body>
+
+</html>

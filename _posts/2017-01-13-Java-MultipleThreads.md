@@ -7,10 +7,6 @@ tag:
   - Java
 ---
 
-
-
-# Java多线程(Multiple Threads)
-
 在并行编程当中，有两个基础的概念：进程(process)和线程(thread)。在Java当中，并行编程一般和线程有关，但是进程也是很重要的概念。
 
 ## 线程和进程
