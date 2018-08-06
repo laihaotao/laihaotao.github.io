@@ -39,18 +39,17 @@ kramdown:
     block:
       line_numbers: true
       
-  
-
 theme: minima
 plugins:
   - jekyll-feed 
   - jekyll-paginate
   # - jekyll-paginate-v2
 
+# pagination setting v1 (GitHub Page only support v1)
 paginate: 10
 paginate_path: "archive/page:num"
 
-# Pagination Settings
+# Pagination Settings for v2
 # pagination:
 #   enabled: true
 #   per_page: 10
