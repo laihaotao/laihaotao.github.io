@@ -90,11 +90,11 @@ class Driver {
 - 本地方法栈 (native method stack): 线程独有，和虚拟机栈类似，但是这里是为虚拟机使用到的 Native 方法服务
 - 程序计数寄存器 (program counter register): 线程独有，指向当前线程所执行的字节码的行号
 
-![Java runtime data area](../images/diff_polymorphism/java_runtime_data_area.jpg)
+![Java runtime data area](/images/diff_polymorphism/java_runtime_data_area.jpg)
 
 其次，类是怎么被加载进入虚拟机的。根据 “Java 虚拟机规范”，类的加载可以分为一下几个步骤：
 
-![how jvm load a class](../images/diff_polymorphism/jvm_class_load.png)
+![how jvm load a class](/images/diff_polymorphism/jvm_class_load.png)
 
 在本文讨论的范围内，我们需要知道的是 ”解析阶段 (resolution)”，这个阶段主要干的事情就是把符号引用 (symbolic reference)
 解析称为直接引用 (direct reference)，即某个标识符在内存中的地址。
@@ -151,7 +151,7 @@ class Driver {
 象的类型 `Derived2`，而在编译期间，编译器没有办法知道这个引用变量后面会指向一个子类的对象，所以在编译期间没法确
 定调用的方法。这也正是本文探讨的关键点，什么机制可以让虚拟机在运行时，正确的找到需要调用的方法。
 
-![Java example](../images/diff_polymorphism/java_eg1.png)
+![Java example](/images/diff_polymorphism/java_eg1.png)
 
 Java 中通过超类指针访问子类方法的操作，由字节码指令`invokevirtual`定义，JVM 采取的解决方案是这个样子的：
 
@@ -190,7 +190,7 @@ int main() {
 故名思议，只有被定义为虚函数的函数，才会在这个表里。对象被实例化的不同过程中，这个表一直被维护，使其能够正确
 的指向正确的函数。当上述的 `main` 代码被执行时，`pA` 指针指向的对象的虚函数表变化如下图所示。
 
-![pA pointed object virtual table status](../images/diff_polymorphism/c++_eg1.png)
+![pA pointed object virtual table status](/images/diff_polymorphism/c++_eg1.png)
 
 如此，当使用 `pA` 指针指向子类对象时，因为虚函数表的存在，多态得意顺利的体现。
 
@@ -205,23 +205,23 @@ Java 的多实现和单继承的前面两步基本一致，但是不能通过偏
 C++，很遗憾，也是因为没有 Java 这个强大的运行时环境，所以实现会比较复杂。这里先暂时不考虑多继承中的“钻石问题”。考虑如下
 代码：
 
-![c++ multi-inheritance example](../images/diff_polymorphism/c++_eg2.png)
+![c++ multi-inheritance example](/images/diff_polymorphism/c++_eg2.png)
 
 这里，类 `D` 同时是 类 `B` 和 类 `C` 的子类，并且分别覆盖了两个超类其中的一个函数，添加了一个虚函数。毫无疑问，根据单继承
 时的知识，我们可以知道类 `B` 和 类 `C` 的对象的内存模型应该如下图所示：
 
-![object of type B and C memory model](../images/diff_polymorphism/c++_eg3.png)
+![object of type B and C memory model](/images/diff_polymorphism/c++_eg3.png)
 
 有了这里两个超类的对象模型，我们自然想知道类 `D` 的对象的模型应该是怎么样的。单继承的时候，有一个虚函数表，那么多继承也很好
 办，**有多少个超类就有多少个虚函数表**就好了。所以，这里意味着类 `D` 的对象应该有两个虚函数表指针。我们应该知道，在 C++ 里
 一个对象的指针应该指向这个对象在内存中的首地址 (比如，数组的名字就是指向数组第一个元素的指针)。出于这点考虑，类 `D` 定义的变量
 和函数，应该和第一个声明的超类虚函数和可继承变量放在一起，这样才可以实现函数覆盖。
 
-![object of type D memory model](../images/diff_polymorphism/c++_eg4.png)
+![object of type D memory model](/images/diff_polymorphism/c++_eg4.png)
 
 上述代码中的的三个指针分别指向的位置，如下图所示：
 
-![three pointers position](../images/diff_polymorphism/c++_eg5.png)
+![three pointers position](/images/diff_polymorphism/c++_eg5.png)
 
 这里的指针位置，马上就带出了一个很严重的问题。如果在某种情况下，我想通过指针释放动态分配的内存，执行了下面的代码：
 
@@ -242,7 +242,7 @@ C *pC = tmp? tmp + sizeof(B) : 0;
 一种是为虚函数表的每一个条目增加一个偏移量信息，标注从对象首地址到函数地址的偏移量。但是这种做法，对效率有比较大的影响，基本上不管那个
 虚表是否需要做指针调整，我们都要维护这个偏移量信息，因为在编译期间并不知道到底那些需要进行指针调整。
 
-另一种操作，被称为“thunk”技术。这种技术的作用是：虚函数表中的条目仍然继续放一个虚函数实体地址，但是如果调用这个虚函数需要进行调整的
+另一种操作，被称为“thun·k”技术。这种技术的作用是：虚函数表中的条目仍然继续放一个虚函数实体地址，但是如果调用这个虚函数需要进行调整的
 话，该条目中的地址就指向一个thunk而不是一个虚函数实体的地址。这个方法的实现是为每个虚表条目都增加一小段汇编代码，如果需要调整，汇编
 代码会把指针调整到相应的位置，如果不需要，则不动。这个方法，没有实际上增加虚函数表的内存消耗，而是相当于添加多了一个抽象层。听起来比
 第一种方法好，但是显然，实现的难度更大一些。
@@ -251,7 +251,7 @@ C *pC = tmp? tmp + sizeof(B) : 0;
 
 最后，来看一下著名的多继承里面的“钻石问题”及其解决方案“虚拟继承”。假设，有如下图所示的类结构以及代码 (这是一会导致“钻石问题”错误的例子)：
 
-![diamond problem](../images/diff_polymorphism/c++_eg6.png)
+![diamond problem](/images/diff_polymorphism/c++_eg6.png)
 
 重点关注一下 `main` 方法，试图通过 “爷爷类” 的指针 `pA` 指向其 “孙子” 类的对象实例，然后调用 “爷爷类” 的方法。这里的问题在于，当 `D`
 类对象在初始化时，需要先初始化其父类对象 (即 `B` 类和 `C` 类)，同理，初始化这两个类的时候，需要线初始化 `A` 类对象。但是由于这里并没有
@@ -261,11 +261,11 @@ C *pC = tmp? tmp + sizeof(B) : 0;
 
 这时，对象 `D` 的内存布局如下图所示，红色标注的就是冲突的两个方法 (A1为A类型的一个对象，A2为A类型的另一个对象) ：
 
-![diamond problem](../images/diff_polymorphism/c++_eg7.png)
+![diamond problem](/images/diff_polymorphism/c++_eg7.png)
 
 解决方法，当然就是声明虚继承了。虚拟继承之后，初始化 `B` 和 `C` 的时候不会创建两个 `A` 的对象，而是只会创建一个，然后这两个子类共享
 一个超类。如下图所示，不存在 A1 和 A2 只有一个 A：
 
-![virtual inheritance](../images/diff_polymorphism/c++_eg8.png)
+![virtual inheritance](/images/diff_polymorphism/c++_eg8.png)
 
-![virtual inheritance memory layout](../images/diff_polymorphism/c++_eg9.png)
+![virtual inheritance memory layout](/images/diff_polymorphism/c++_eg9.png)·
