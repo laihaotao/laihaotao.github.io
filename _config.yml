@@ -69,8 +69,8 @@ user:
   status: looking for fulltime job
   description: Master Student in Computer Science @ Concordia
 
-  contact_en: You are welcome to contact me with any problem, I will reply you ASAP.
-  contact_zh: 欢迎通过下面的方式和我取得联系, 我会尽快回复您.
+  contact_en: You can reach me with the following emails, I will reply you ASAP.
+  # contact_zh: 欢迎通过下面的方式和我取得联系, 我会尽快回复您.
 
   university_mail: h_lai@encs.concordia.ca
   personal_mail: haotao.lai@gmail.com
