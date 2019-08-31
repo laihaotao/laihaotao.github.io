@@ -26,10 +26,10 @@ github_username:  laihaotao
 # Build settings
 markdown: kramdown
 kramdown:
-  
+
   # input source respects GitHub Favourite Markdown format
   input: GFM
-  
+
   # how to use rouge?
   #   gem install rouge                       => install rouge
   #   rougify help style                      => list all available theme
@@ -38,10 +38,10 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: true
-      
+
 theme: minima
 plugins:
-  - jekyll-feed 
+  - jekyll-feed
   - jekyll-paginate
   # - jekyll-paginate-v2
 
@@ -66,7 +66,7 @@ paginate_path: "archive/page:num"
 user:
   name_zh: Haotao Lai
   name_en: Eric
-  status: looking for internship
+  status: looking for fulltime job
   description: Master Student in Computer Science @ Concordia
 
   contact_en: You are welcome to contact me with any problem, I will reply you ASAP.
