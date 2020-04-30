@@ -11,7 +11,7 @@ title                    : "Haotao Lai (Eric)"
 title_separator          : "-"
 name                     : &name "Haotao Lai"
 description              : &description "computer vision engineer at Videri North (Whim)"
-url                      : http://localhost:4000 # http://laihaotao.me
+url                      : http://laihaotao.me  # http://localhost:4000
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
