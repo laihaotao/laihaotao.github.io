@@ -15,12 +15,24 @@ redirect_from:
 
 ## Work Experience
 
+- **Compiler Software Engineer**,
+  [IBM Canada](https://www.ibm.com/ca-en),
+  Markham, ON, Canada 2021.08 ~ Now
+  - Compiler backend development
+
+- **Research Engineer**,
+  [Huawei Technologies Canada](https://www.huawei.com/ca/),
+  Markham, ON, Canaad 2021.05 ~ 2021.08
+  - Autonomous vehicle simulation platform and its CI/CD pipeline development
+  - Autonomous vehicle behavior model research and development
+
 - **Computer Vision Engineer**,
   [Videri North Inc](https://www.linkedin.com/company/videri/?originalSubdomain=ca),
-  Montreal, 2020.02 ~ Now
+  Montreal, QC, Canada 2020.02 ~ 2021.05
   - Deep leanring-based computer vision algorithms research and development
     - Face detection and recognition
-  - Algorithms optimization for mobile device
+  - Algorithms optimization for Android-based mobile device
+    - Inference framework development
 
 - **Teaching Assistant**,
   [Concordia University](http://www.concordia.ca),
