@@ -15,9 +15,14 @@ redirect_from:
 
 ## Work Experience
 
+- **Senior Software Engineer**,
+  [Qualcomm Canada](https://www.qualcomm.com/),
+  Markham, Canada 2023.01 ~ Now
+  - Automotive chipset software design
+
 - **Compiler Software Engineer**,
   [IBM Canada](https://www.ibm.com/ca-en),
-  Markham, Canada 2021.08 ~ Now
+  Markham, Canada 2021.08 ~ 2023.01
   - Compiler backend development
 
 - **Research Engineer**,

@@ -14,6 +14,7 @@ redirect_from:
 
 ## My Timeline
 
+- 2023-01: Joined Qualcomm as a senior software engineer;
 - 2021-08: Joined IBM Canada as a compiler software engineer;
 - 2021-05: Joined Huawei Canada as a research engineer (contract position);
 - 2020-02: Started to work at Videri North Inc. as a computer vision engineer;
