@@ -10,8 +10,8 @@ locale                   : "en-US"
 title                    : "Haotao Lai (Eric)"
 title_separator          : "-"
 name                     : &name "Haotao Lai"
-description              : &description "computer vision engineer at Videri North (Whim)"
-url                      : http://laihaotao.me  # http://localhost:4000
+description              : &description "Eric's Home"
+url                      : https://laihaotao.github.io/  # http://localhost:4000
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
@@ -83,7 +83,7 @@ author:
   name             : "Haotao Lai (Eric)"
   avatar           : "profile.png"
   bio              : "SDE && Compiler && Computer Vision && AI (DL)"
-  location         : "Montreal, QC, Canada"
+  location         : "Aurora, ON, Canada"
   employer         :
   pubmed           :  # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    :
