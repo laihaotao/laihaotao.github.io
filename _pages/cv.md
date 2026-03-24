@@ -15,9 +15,13 @@ redirect_from:
 
 ## Work Experience
 
+- **Staff Software Engineer**,
+  [Qualcomm Canada](https://www.qualcomm.com/),
+  Markham, Canada 2025.12 ~ Now
+
 - **Senior Software Engineer**,
   [Qualcomm Canada](https://www.qualcomm.com/),
-  Markham, Canada 2023.01 ~ Now
+  Markham, Canada 2023.01 ~ 2025.12
   - Automotive chipset software design
 
 - **Compiler Software Engineer**,
